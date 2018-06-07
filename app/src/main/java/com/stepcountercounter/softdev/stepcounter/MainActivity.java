@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        count = (TextView)findViewById(R.id.countTextView);
+        count = findViewById(R.id.countTextView);
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         else
         {
-            Toast.makeText(this, "Count sensor not available", Toast.LENGTH_LONG).show();;
+            Toast.makeText(this, "Count sensor not available", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -73,5 +73,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    public void ToAchievements(View v){
+        Intent n = new Intent(this,MainMenuActivity.class);
+        startActivity(n);
+    }
+    public void ToAvatar(View v){
+        Intent n = new Intent(this,AvatarActivity.class);
+        startActivity(n);
     }
 }
