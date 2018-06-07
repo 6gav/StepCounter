@@ -7,108 +7,51 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tvMainMenuTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Home"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06" />
-
-    <TextView
-        android:id="@+id/tvStepsTaken"
+        android:id="@+id/countTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Steps You've Taken: "
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:clickable="true"
+        android:onClick="DebugClicker"
+        android:text="Step Amount"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.217" />
+        app:layout_constraintTop_toBottomOf="@+id/newScreenButton"
+        app:layout_constraintVertical_bias="0.117" />
 
     <Button
-        android:id="@+id/btnOverview"
+        android:id="@+id/newScreenButton"
         android:layout_width="wrap_content"
         android:layout_height="53dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="sendMessage"
-        android:text="Overview"
+        android:text="Load next scene"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.036"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAchievements"
-        app:layout_constraintVertical_bias="0.142" />
-
-    <Button
-        android:id="@+id/btnAchievements"
-        android:layout_width="wrap_content"
-        android:layout_height="53dp"
-
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-
-        android:onClick="ToAchievements"
-        android:text="Achievements"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.314" />
+        app:layout_constraintVertical_bias="0.13999999" />
 
     <Button
-        android:id="@+id/btnAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="53dp"
-
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-
-        android:layout_marginTop="8dp"
-        android:onClick="ToAvatar"
-
-        android:text="Avatar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.028"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOverview"
-        app:layout_constraintVertical_bias="0.228" />
-
-    <Button
-        android:id="@+id/btnShop"
+        android:id="@+id/debugAddStepsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:onClick="ToShop"
-        android:text="Shop"
+        android:enabled="false"
+        android:text="Button"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAvatar"
-        app:layout_constraintVertical_bias="0.349" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
