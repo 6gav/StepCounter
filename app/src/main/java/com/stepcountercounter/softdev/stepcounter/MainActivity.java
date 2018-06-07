@@ -109,4 +109,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+    public void ToAchievements(View v){
+        Intent n = new Intent(this,AchievementsActivity.class);
+        startActivity(n);
+    }
+    public void ToAvatar(View v){
+        Intent n = new Intent(this,AvatarActivity.class);
+        startActivity(n);
+    }
+    public void ToShop(View v){
+        Intent n = new Intent(this,ShopActivity.class);
+        startActivity(n);
+    }
+
+
 }
