@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.stepcountercounter.softdev.stepcounter">
 
-    <uses-feature android:name="android.hardware.sensor.stepcounter"/>
-    <uses-feature android:name="android.hardware.sensor.stepdetector"/>
+    <uses-feature android:name="android.hardware.sensor.stepcounter" />
+    <uses-feature android:name="android.hardware.sensor.stepdetector" />
 
     <application
         android:allowBackup="true"
@@ -24,10 +24,10 @@
             android:name=".MainMenuActivity"
             android:label="@string/title_activity_main_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".AvatarActivity"
-            />
-
+        <activity android:name=".AvatarActivity" />
+        <activity android:name=".Acievements" />
+        <activity android:name=".AchievementsActivity" />
+        <activity android:name=".ShopActivity"></activity>
     </application>
 
 </manifest>

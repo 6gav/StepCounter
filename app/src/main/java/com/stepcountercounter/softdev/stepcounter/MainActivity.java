@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        count = findViewById(R.id.countTextView);
+        count = findViewById(R.id.tvStepsTaken);
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
 
-    public void sendMessage(View v){
+    public void sendMessage(View v){//To Activity Log
         Intent newActivity = new Intent(this, MainMenuActivity.class);
         startActivity(newActivity);
 
@@ -76,11 +76,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void ToAchievements(View v){
-        Intent n = new Intent(this,MainMenuActivity.class);
+        Intent n = new Intent(this,AchievementsActivity.class);
         startActivity(n);
     }
     public void ToAvatar(View v){
         Intent n = new Intent(this,AvatarActivity.class);
+        startActivity(n);
+    }
+    public void ToShop(View v){
+        Intent n = new Intent(this,ShopActivity.class);
         startActivity(n);
     }
 }
