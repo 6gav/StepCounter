@@ -1,6 +1,12 @@
 package com.stepcountercounter.softdev.stepcounter;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -12,9 +18,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainMenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener{
+
+
+
+    private SensorManager sensorManager;
+    int StepCount, DebugTapCount;
+    boolean tracking, DebugEnabled;
+    TextView StepCounter;
+    Button temp;
+    int LastStepCount;
+
+
+
+    //Timer
+    Handler h = new Handler();
+    int delay = 250; //1 second=1000 milisecond, 15*1000=15seconds
+    Runnable runnable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +51,7 @@ public class MainMenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        temp = (Button)findViewById(R.id.DebugAddSteps);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +69,89 @@ public class MainMenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        StepCounter = findViewById(R.id.stepCounterTextView);
+        temp.setVisibility(View.INVISIBLE);
+        temp.setEnabled(false);
+        DebugTapCount = 5;
+        DebugEnabled = false;
+
+        tracking = false;
+        StepCount = 0;
+        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if(countSensor != null){
+            sensorManager.registerListener(this, countSensor, sensorManager.SENSOR_DELAY_UI);
+
+        }
+        else
+        {
+            Toast.makeText(this, "No Sensor Available.", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
+
+    private void UpdateText(){
+        StepCounter.setText("Steps: " + String.valueOf(StepCount));
+    }
+
+    public void startTracking(View v){
+        tracking = true;
+    }
+
+    public void stopTracking(View v){
+        tracking = false;
+    }
+
+    public void AddSteps(View v){
+        if(DebugEnabled){
+            StepCount++;
+        }
+    }
+    public void DebugEnable(){
+        temp.setVisibility(View.VISIBLE);
+        temp.setEnabled(true);
+        temp.setClickable(true);
+
+    }
+    public void DebugTry(View v){
+        if(!DebugEnabled) {
+            if (DebugTapCount > 0) {
+                DebugTapCount--;
+
+            } else if (DebugTapCount == 0) {
+                DebugEnabled = true;
+                DebugEnable();
+            }
+        }
+    }
+
+
+    @Override
+    protected void onResume(){
+
+        h.postDelayed(new Runnable() {
+            public void run() {
+                StepCounter.setText("Steps: " + String.valueOf(StepCount));
+                runnable=this;
+
+                h.postDelayed(runnable, delay);
+            }
+        }, delay);
+
+        super.onResume();
+
+    }
+
+    @Override
+    protected  void onPause(){
+        h.removeCallbacks(runnable);
+        super.onPause();
+
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -98,5 +209,23 @@ public class MainMenuActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if((int)event.values[0] != LastStepCount && tracking)
+        StepCount++;
+
+
+        LastStepCount = (int)event.values[0];
+
+
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+
     }
 }
