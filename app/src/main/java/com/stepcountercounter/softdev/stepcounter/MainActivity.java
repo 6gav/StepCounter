@@ -2,6 +2,7 @@ package com.stepcountercounter.softdev.stepcounter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,8 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
@@ -28,11 +35,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         TapCount = 4;
         DebugMode = false;
         setContentView(R.layout.activity_main);
-        debugStepButton = (Button)findViewById(R.id.debugAddStepsButton);
+        debugStepButton = findViewById(R.id.debugAddStepsButton);
 
-        count = (TextView)findViewById(R.id.countTextView);
+        count = findViewById(R.id.countTextView);
 
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+
+
 
     }
 
@@ -71,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         activityRunning = true;
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        CheckGoal();
         if(countSensor != null){
             sensorManager.registerListener(this, countSensor, sensorManager.SENSOR_DELAY_UI);
 
@@ -124,4 +134,76 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
+    public FitGoal AddGoal(){
+        EditText desc = findViewById(R.id.etGoalDescription);
+        Boolean comp = ((CheckBox)findViewById(R.id.cbComplete)).isChecked();
+        String s = desc.getText().toString();
+
+        return new FitGoal(s,comp);
+    }
+
+    //////////////////////////////////////////////// Save Data ////////////////////////////////////////////////
+
+public void SaveTest(View v) {
+    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("StepData", 0);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+    editor.putInt("Steps",3);
+    editor.putString("Saved","Yaes!");
+
+    editor.apply();
 }
+
+public int IntPreferences(String key) {
+    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("StepData", 0);
+    return sharedPreferences.getInt(key,0);
+}
+public String StrPreferences(String key) {
+    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("StepData", 0);
+    return sharedPreferences.getString(key,"");
+}
+
+public void LoadTest(View v) {
+    TextView t = findViewById(R.id.tvTestSave);
+    t.setText(StrPreferences("Saved"));
+}
+
+
+    //////////////////////////////////////////////// Save Data ////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////// Fit Goals ////////////////////////////////////////////////
+    public void CheckGoal(){
+        EditText desc = findViewById(R.id.etGoalDescription);
+        Button b = findViewById(R.id.btnAddGoal);
+            b.setEnabled(desc.getText().toString() != "");
+        }
+    }
+
+
+
+
+    class FitGoal{
+    String goal_description;
+    boolean complete;
+
+    public FitGoal(String g, boolean c){
+        goal_description = g;
+        complete = c;
+    }
+
+     public void LoadGoal(String s){
+        //0,I want to walk 1000 steps this week
+        complete = (s.charAt(0) == 1);
+        goal_description = "";
+        for(int i = 2; i < s.length();++i) {
+            goal_description += s.charAt(i);
+        }
+    }
+
+    public String GoalToString(){
+        return complete+","+goal_description;
+    }
+}
+    //////////////////////////////////////////////// Fit Goals ////////////////////////////////////////////////
+

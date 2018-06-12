@@ -12,5 +12,4 @@ public class SensorsClient extends GoogleApi<FitnessOptions> {
     protected SensorsClient(@NonNull Context context, Api<FitnessOptions> api, Looper looper) {
         super(context, api, looper);
     }
-
 }
