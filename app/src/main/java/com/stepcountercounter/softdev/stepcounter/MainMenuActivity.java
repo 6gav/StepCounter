@@ -6,9 +6,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,9 +21,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,7 +48,12 @@ public class MainMenuActivity extends AppCompatActivity
     TextView StepCounter;
     Button temp;
     int LastStepCount;
+    EditText debugNumberTextView;
 
+
+
+
+    public String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/TestUserData";
 
 
     //Timer
@@ -48,6 +65,10 @@ public class MainMenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,6 +96,7 @@ public class MainMenuActivity extends AppCompatActivity
         temp.setEnabled(false);
         DebugTapCount = 5;
         DebugEnabled = false;
+        debugNumberTextView = findViewById(R.id.stepNumberTextView);
 
         tracking = false;
         StepCount = 0;
@@ -89,12 +111,14 @@ public class MainMenuActivity extends AppCompatActivity
             Toast.makeText(this, "No Sensor Available.", Toast.LENGTH_SHORT).show();
         }
 
+        String tempStepsForCount = LoadSteps();
+        StepCounter.setText("Steps: " + tempStepsForCount);
+        StepCount = Integer.valueOf(tempStepsForCount);
+        //StepCount = loadSteps(file);
+
 
     }
 
-    private void UpdateText(){
-        StepCounter.setText("Steps: " + String.valueOf(StepCount));
-    }
 
     public void startTracking(View v){
         tracking = true;
@@ -106,13 +130,15 @@ public class MainMenuActivity extends AppCompatActivity
 
     public void AddSteps(View v){
         if(DebugEnabled){
-            StepCount++;
+            int textSteps = Integer.valueOf(debugNumberTextView.getText().toString());
+            StepTrack(textSteps);
         }
     }
     public void DebugEnable(){
         temp.setVisibility(View.VISIBLE);
         temp.setEnabled(true);
         temp.setClickable(true);
+        debugNumberTextView.setVisibility(View.VISIBLE);
 
     }
     public void DebugTry(View v){
@@ -125,6 +151,10 @@ public class MainMenuActivity extends AppCompatActivity
                 DebugEnable();
             }
         }
+    }
+    public void StepTrack(int x){
+        StepCount+=x;
+        saveSteps(StepCount);
     }
 
 
@@ -214,11 +244,10 @@ public class MainMenuActivity extends AppCompatActivity
     @Override
     public void onSensorChanged(SensorEvent event) {
         if((int)event.values[0] != LastStepCount && tracking)
-        StepCount++;
+        StepTrack(1);
 
 
         LastStepCount = (int)event.values[0];
-
 
 
     }
@@ -228,4 +257,45 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     }
+
+    public String LoadSteps(){
+        String tempSteps = "";
+        try{
+            InputStream inputStream = getApplicationContext().openFileInput("testData.txt");
+
+            if(inputStream != null){
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                receiveString = bufferedReader.readLine();
+                tempSteps = receiveString;
+            }
+        }
+        catch(IOException e){
+
+
+        }
+
+        return tempSteps;
+    }
+
+    //Check if storage is available - public
+    public boolean isExternalStorageWritable(){
+        String state = Environment.getExternalStorageState();
+        if(Environment.MEDIA_MOUNTED.equals(state)){
+            return true;
+        }
+        return false;
+    }
+
+    public void saveSteps(int Steps) {
+        try {
+            OutputStreamWriter outputSteps = new OutputStreamWriter(openFileOutput("testData.txt", Context.MODE_PRIVATE));
+            outputSteps.write(String.valueOf(Steps));
+            outputSteps.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File Write Failed: " + e.toString());
+        }
+    }
+
 }
