@@ -25,12 +25,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private SensorManager sensorManager;
     private TextView count, count2, count3;
-    private int StepCounts, TapCount;
+    private int StepCounts, TapCount, MonValue,StepsUntilMon = 10;
     boolean activityRunning, DebugMode;
     private Button debugStepButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", 0);
+        MonValue = preferences.getInt("MonValue",0);
         super.onCreate(savedInstanceState);
         TapCount = 4;
         DebugMode = false;
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         {
             Toast.makeText(this, "Count sensor not available", Toast.LENGTH_LONG).show();;
         }
+
     }
 
     public void onPause(){
@@ -96,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         activityRunning = false;
     }
 
+    public void AddPoint(View v){
+
+    }
 
 
     public void sendMessage(View v){
@@ -145,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //////////////////////////////////////////////// Save Data ////////////////////////////////////////////////
 
 public void SaveTest(View v) {
-    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("StepData", 0);
+    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
     SharedPreferences.Editor editor = sharedPreferences.edit();
 
     editor.putInt("Steps",3);
@@ -155,11 +161,11 @@ public void SaveTest(View v) {
 }
 
 public int IntPreferences(String key) {
-    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("StepData", 0);
+    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
     return sharedPreferences.getInt(key,0);
 }
 public String StrPreferences(String key) {
-    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("StepData", 0);
+    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
     return sharedPreferences.getString(key,"");
 }
 
