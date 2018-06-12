@@ -50,8 +50,8 @@ public class MainMenuActivity extends AppCompatActivity
     Button temp;
     int LastStepCount;
     EditText debugNumberTextView;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences, datetracker;
+    SharedPreferences.Editor editor, dateEditor;
 
 
     public String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/TestUserData";
@@ -150,6 +150,23 @@ public class MainMenuActivity extends AppCompatActivity
     }
     public void StepTrack(int x){
         StepCount+=x;
+        int tempMoney = 0;
+        if(StepCount % 1000 == 0){
+            tempMoney = 100;
+        }
+        else if(StepCount % 100 == 0){
+            tempMoney = 10;
+        }
+        else if(StepCount % 10 == 0){
+            tempMoney = 1;
+        }
+        if(tempMoney > 0) {
+            SharedPreferences money = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
+            tempMoney += money.getInt("MonValue", 0);
+            SharedPreferences.Editor tempEditor = money.edit();
+            tempEditor.putInt("MonValue", tempMoney);
+            tempEditor.apply();
+        }
         editor.putInt("StepCount", StepCount);
 
         editor.apply();
