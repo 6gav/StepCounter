@@ -235,6 +235,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="MoneyUpdate"
         android:text="X 0"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"

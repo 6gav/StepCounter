@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int StepCounts, TapCount, MonValue,StepsUntilMon = 10;
     boolean activityRunning, DebugMode;
     private Button debugStepButton;
+    private SharedPreferences MoneyPref;
+    private SharedPreferences.Editor MoneyEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         count = findViewById(R.id.countTextView);
 
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-
-
+        MoneyPref = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
+        MoneyEditor = MoneyPref.edit();
 
     }
 
@@ -51,6 +53,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         debugStepButton.setVisibility(View.VISIBLE);
         debugStepButton.setClickable(true);
         debugStepButton.setEnabled(true);
+    }
+
+
+    public void MoneyUpdate(View v){
+        TextView MoneyText = findViewById(R.id.tvMonValueInfo);
+        MoneyText.setText("X " + MoneyPref.getInt("MonValue", 0));
     }
 
     public void DebugClicker(View v){
