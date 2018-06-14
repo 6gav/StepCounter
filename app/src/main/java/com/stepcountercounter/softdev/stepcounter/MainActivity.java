@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     //////////////////////////////////////////////// Save Data ////////////////////////////////////////////////
-
+/*
 public void SaveTest(View v) {
     SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -186,7 +186,7 @@ public void SaveTest(View v) {
     editor.putString("Saved","Yaes!");
 
     editor.apply();
-}
+}*/
 
 public int IntPreferences(String key) {
     SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
@@ -196,28 +196,45 @@ public String StrPreferences(String key) {
     SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
     return sharedPreferences.getString(key,"");
 }
-
+/*
 public void LoadTest(View v) {
     TextView t = findViewById(R.id.tvTestSave);
     t.setText(StrPreferences("Saved"));
-}
+}*/
 
 
     //////////////////////////////////////////////// Save Data ////////////////////////////////////////////////
 
 
     //////////////////////////////////////////////// Fit Goals ////////////////////////////////////////////////
-    public void CheckGoal(){
+    public void CheckGoal(View v){
+        CheckGoal();
+    }
+    public void CheckGoal() {
         EditText desc = findViewById(R.id.etGoalDescription);
         CheckBox comp = findViewById(R.id.cbComplete);
         Button b = findViewById(R.id.btnAddGoal);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
+        int count = sharedPreferences.getInt("NumGoals", 0);
+        String goals = sharedPreferences.getString("AllGoals","");
         String s = desc.getText().toString();
-            if(s != ""){
+
+        if (count < 3) {
+            if (s != "") {
                 FitGoal f = new FitGoal(s, comp.isChecked());
+                count++;
+                SharedPreferences.Editor e = sharedPreferences.edit();
+                goals += s+'\n';
+                e.putString("AllGoals",goals);
+                e.putInt("NumGoals",count);
+                e.apply();
+                ((TextView)findViewById(R.id.tvGoals)).setText(goals);
             }
+        }else{
+        Toast.makeText(this,"Maximum of 3 goals, please complete some existing goals",Toast.LENGTH_SHORT).show();
         }
     }
-
+    }
 
 
 
@@ -232,7 +249,8 @@ public void LoadTest(View v) {
 
      public void LoadGoal(String s){
         //0,I want to walk 1000 steps this week
-        complete = (s.charAt(0) == 1);
+        complete = (s.charAt(0) == 1);//bool for complete
+         //initialize the description, then add each char individually after comma
         goal_description = "";
         for(int i = 2; i < s.length();++i) {
             goal_description += s.charAt(i);

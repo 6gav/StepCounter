@@ -159,6 +159,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:onClick="CheckGoal"
         android:text="Add to goals"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -169,47 +170,31 @@
         app:layout_constraintVertical_bias="0.058" />
 
     <TextView
-        android:id="@+id/tvTestSave"
+        android:id="@+id/tvGoals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.438"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:onClick="SaveTest"
-        android:text="Save"
+        android:text="TextView"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintHorizontal_bias="0.763"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintTop_toBottomOf="@+id/tvGoalsTitle"
+        app:layout_constraintVertical_bias="0.049" />
 
-    <Button
-        android:id="@+id/btnLoad"
+    <TextView
+        android:id="@+id/tvGoalsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="LoadTest"
-
-        android:text="Load"
+        android:text="CurrentGoals"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.742"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.211" />
 
     <ImageView
         android:id="@+id/ivMonIcon"
@@ -243,6 +228,9 @@
         app:layout_constraintHorizontal_bias="0.011"
         app:layout_constraintStart_toEndOf="@+id/ivMonIcon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.00999999" />/>
+        app:layout_constraintVertical_bias="0.00999999"
+        />
+
+    />
 
 </android.support.constraint.ConstraintLayout>

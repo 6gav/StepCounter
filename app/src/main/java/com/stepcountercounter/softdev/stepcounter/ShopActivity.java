@@ -13,6 +13,7 @@ import org.w3c.dom.Text;
 
 public class ShopActivity extends AppCompatActivity {
     private int MonValue, itemoffset, MaxItems = 5;
+    SharedPreferences preferences;
     Item[] items;
 
     enum ClothingType{
@@ -40,19 +41,20 @@ public class ShopActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", 0);
+        preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", 0);
         MonValue = preferences.getInt("MonValue", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         items = new Item[MaxItems];
         LoadShopData();
+
     }
 
     public void LoadShopData() {
         TextView[] tv = new TextView[3];
         for (int i = 0; i < MaxItems; ++i) {
             Item item = new Item();
-            item.setCost(10 * i);
+            item.setCost(5+10 * i);
             item.setName("Item #" + i);
             item.setTag("t");
             item.setDescription("Purchase " + item.getName() + " for " + item.getCost() + "$.");
@@ -71,6 +73,11 @@ public class ShopActivity extends AppCompatActivity {
 
     }
 
+    public void MoneyUpdate(View v){
+        TextView MoneyText = findViewById(R.id.tvMonValueInfo);
+        MoneyText.setText("X " + preferences.getInt("MonValue", 0));
+    }
+
     public void SelectionUp(View v) {
         itemoffset = (itemoffset > 0 ? itemoffset - 1 : itemoffset);
         LoadShopData();
@@ -80,7 +87,9 @@ public class ShopActivity extends AppCompatActivity {
         itemoffset = (itemoffset < MaxItems-3 ? itemoffset + 1 : itemoffset);
         LoadShopData();
     }
+    public void Purchase(View v){
 
+    }
 
     class Item {
         private int cost;
@@ -128,5 +137,6 @@ public class ShopActivity extends AppCompatActivity {
         }
 
     }
+
 }
 

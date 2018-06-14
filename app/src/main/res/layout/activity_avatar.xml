@@ -8,32 +8,34 @@
 
     <ImageView
         android:id="@+id/ivBody"
-        android:contentDescription="Body"
         android:layout_width="-256dp"
         android:layout_height="395dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="Body"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/player" />
+
     <ImageView
-    android:id="@+id/ivTop"
-    android:contentDescription="Top"
-    android:layout_width="-256dp"
-    android:layout_height="395dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@drawable/outfit_t1" />
+        android:id="@+id/ivTop"
+        android:layout_width="-256dp"
+        android:layout_height="395dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="Top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/outfit_t1" />
+
     <ImageView
         android:id="@+id/ivBottom"
         android:layout_width="-256dp"
@@ -88,29 +90,29 @@
         android:id="@+id/btnFootwear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Footwear"
+        android:onClick="OnFootwearPress"
 
+        android:text="Footwear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.874"
-        android:onClick="OnFootwearPress"/>
+        app:layout_constraintVertical_bias="0.874" />
 
     <Button
         android:id="@+id/btnBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bottom"
+        android:onClick="OnBottomPress"
 
+        android:text="Bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771"
-        android:onClick="OnBottomPress"/>
+        app:layout_constraintVertical_bias="0.771" />
 
     <Button
         android:id="@+id/btnTop"
@@ -120,14 +122,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="OnTopPress"
         android:text="Top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608"
-        android:onClick="OnTopPress"/>
+        app:layout_constraintVertical_bias="0.608" />
 
 
 </android.support.constraint.ConstraintLayout>
