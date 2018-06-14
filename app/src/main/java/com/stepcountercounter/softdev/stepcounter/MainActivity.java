@@ -219,7 +219,7 @@ public void LoadTest(View v) {
         String goals = sharedPreferences.getString("AllGoals","");
         String s = desc.getText().toString();
 
-        if (count < 3) {
+        if (count <= 3) {
             if (s != "") {
                 FitGoal f = new FitGoal(s, comp.isChecked());
                 count++;
