@@ -209,8 +209,12 @@ public void LoadTest(View v) {
     //////////////////////////////////////////////// Fit Goals ////////////////////////////////////////////////
     public void CheckGoal(){
         EditText desc = findViewById(R.id.etGoalDescription);
+        CheckBox comp = findViewById(R.id.cbComplete);
         Button b = findViewById(R.id.btnAddGoal);
-            b.setEnabled(desc.getText().toString() != "");
+        String s = desc.getText().toString();
+            if(s != ""){
+                FitGoal f = new FitGoal(s, comp.isChecked());
+            }
         }
     }
 
