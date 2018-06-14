@@ -50,8 +50,9 @@ public class MainMenuActivity extends AppCompatActivity
     Button temp;
     int LastStepCount;
     EditText debugNumberTextView;
-    SharedPreferences sharedPreferences, datetracker;
+    SharedPreferences sharedPreferences, debugger;
     SharedPreferences.Editor editor, dateEditor;
+
 
 
     public String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/TestUserData";
@@ -69,6 +70,8 @@ public class MainMenuActivity extends AppCompatActivity
         sharedPreferences = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         StepCount = sharedPreferences.getInt("StepCount", 0);
+        debugger = getSharedPreferences("com.stepcountercounter.deg", Context.MODE_PRIVATE);
+        debugger.edit().putBoolean("debugEnabled", true);
         StepTrack(0);
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -126,8 +129,11 @@ public class MainMenuActivity extends AppCompatActivity
 
     public void AddSteps(View v){
         if(DebugEnabled){
-            int textSteps = Integer.valueOf(debugNumberTextView.getText().toString());
-            StepTrack(textSteps);
+            String temp = debugNumberTextView.getText().toString();
+            if(temp != "") {
+                int textSteps = Integer.valueOf(temp);
+                StepTrack(textSteps);
+            }
         }
     }
     public void DebugEnable(){
@@ -143,6 +149,7 @@ public class MainMenuActivity extends AppCompatActivity
                 DebugTapCount--;
 
             } else if (DebugTapCount == 0) {
+                debugger.edit().putBoolean("debugEnabled", true);
                 DebugEnabled = true;
                 DebugEnable();
             }
@@ -184,6 +191,7 @@ public class MainMenuActivity extends AppCompatActivity
                 h.postDelayed(runnable, delay);
             }
         }, delay);
+        DebugEnabled = debugger.getBoolean("debugEnabled", false);
 
         super.onResume();
 

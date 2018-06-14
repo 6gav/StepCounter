@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int StepCounts, TapCount, MonValue,StepsUntilMon = 10;
     boolean activityRunning, DebugMode;
     private Button debugStepButton;
+    private SharedPreferences MoneyPref;
+    private SharedPreferences.Editor MoneyEditor;
+    private TextView MoneyCounterTextView;
+
+
+
+    Handler h = new Handler();
+    int delay = 250; //1 second=1000 milisecond, 15*1000=15seconds
+    Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +52,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         count = findViewById(R.id.countTextView);
 
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-
-
+        MoneyPref = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
+        MoneyEditor = MoneyPref.edit();
+        MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
 
     }
 
@@ -51,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         debugStepButton.setVisibility(View.VISIBLE);
         debugStepButton.setClickable(true);
         debugStepButton.setEnabled(true);
+    }
+
+
+    public void MoneyUpdate(View v){
+        TextView MoneyText = findViewById(R.id.tvMonValueInfo);
+        MoneyText.setText("X " + MoneyPref.getInt("MonValue", 0));
     }
 
     public void DebugClicker(View v){
@@ -92,11 +109,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(this, "Count sensor not available", Toast.LENGTH_LONG).show();;
         }
 
+        h.postDelayed(new Runnable() {
+            public void run() {
+                String temp = "X" + MoneyPref.getInt("MonValue", 0);
+                MoneyCounterTextView.setText(temp);
+                runnable=this;
+
+                h.postDelayed(runnable, delay);
+            }
+        }, delay);
+
     }
 
     public void onPause(){
         super.onPause();
         activityRunning = false;
+        h.removeCallbacks(runnable);
     }
 
     public void AddPoint(View v){
