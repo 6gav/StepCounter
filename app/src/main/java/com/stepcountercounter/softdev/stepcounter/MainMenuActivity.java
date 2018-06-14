@@ -12,7 +12,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,27 +26,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.text.DecimalFormat;
 
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener{
 
 
-
+    float Stride, distance, MiKm;
     private SensorManager sensorManager;
     int StepCount, DebugTapCount;
     boolean tracking, DebugEnabled;
-    TextView StepCounter;
+    TextView StepCounter, distanceTextView;
     Button temp;
     int LastStepCount;
     EditText debugNumberTextView;
@@ -68,14 +57,21 @@ public class MainMenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        
         sharedPreferences = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         StepCount = sharedPreferences.getInt("StepCount", 0);
-        debugger = getSharedPreferences("com.stepcountercounter.deg", Context.MODE_PRIVATE);
-        debugger.edit().putBoolean("debugEnabled", true);
+        debugger = getSharedPreferences("com.stepcountercounter.debug", Context.MODE_PRIVATE);
 
+        Stride = sharedPreferences.getFloat("StrideLength", -1.0f);
+        if(Stride != -1.0f)
+        {
+            Stride /= 12.0f;
+        }
 
-        StepTrack(0);
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,12 +94,14 @@ public class MainMenuActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        distanceTextView = findViewById(R.id.distanceTrackerTextView);
         StepCounter = findViewById(R.id.stepCounterTextView);
         temp.setVisibility(View.INVISIBLE);
         temp.setEnabled(false);
         DebugTapCount = 5;
         DebugEnabled = false;
         debugNumberTextView = findViewById(R.id.stepNumberTextView);
+        StepTrack(0);
 
         tracking = false;
 
@@ -181,7 +179,17 @@ public class MainMenuActivity extends AppCompatActivity
             tempEditor.apply();
         }
         editor.putInt("StepCount", StepCount);
-
+        if(Stride == -1.0f){
+            Toast.makeText(this, "User Preferences not set up, steps will not be converted to distance", Toast.LENGTH_SHORT).show();
+            Stride = -2.0f;
+        }
+        else if(Stride > 0.0f)
+        {
+                distance += Stride;
+                MiKm = Stride*StepCount/5280.0f;
+                String temp = "Distance: " + MiKm;
+                distanceTextView.setText(temp);
+        }
         editor.apply();
     }
 
@@ -198,6 +206,11 @@ public class MainMenuActivity extends AppCompatActivity
             }
         }, delay);
 
+        Stride = sharedPreferences.getFloat("StrideLength", -1.0f);
+        if(Stride != -1.0f)
+        {
+            Stride /= 12.0f;
+        }
         super.onResume();
 
     }

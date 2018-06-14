@@ -64,7 +64,7 @@ public class UserPreferences extends AppCompatActivity {
                 Inches = Float.valueOf(tempInches);
                 Inches += (Float.valueOf(tempFeet) * 12);
                 float Stride = Inches * 0.413f;
-                getSharedPreferences("com.stepcountercounter.UserPrefs", Context.MODE_PRIVATE).edit().putFloat("StrideLength", Stride).apply();
+                getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE).edit().putFloat("StrideLength", Stride).apply();
             }
         }
         else
@@ -73,7 +73,7 @@ public class UserPreferences extends AppCompatActivity {
             if (!tempCm.equals("")) {
                 Inches = (Float.valueOf(tempCm)/2.54f);
                 float Stride = Inches * 0.413f;
-                getSharedPreferences("com.stepcountercounter.UserPrefs", Context.MODE_PRIVATE).edit().putFloat("StrideLength", Stride).apply();
+                getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE).edit().putFloat("StrideLength", Stride).apply();
 
             }
         }
