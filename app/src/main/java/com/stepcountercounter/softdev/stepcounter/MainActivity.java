@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Button debugStepButton;
     private SharedPreferences MoneyPref;
     private SharedPreferences.Editor MoneyEditor;
+    private TextView MoneyCounterTextView;
+
+
+
+    Handler h = new Handler();
+    int delay = 250; //1 second=1000 milisecond, 15*1000=15seconds
+    Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         MoneyPref = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
         MoneyEditor = MoneyPref.edit();
+        MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
 
     }
 
@@ -100,11 +109,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(this, "Count sensor not available", Toast.LENGTH_LONG).show();;
         }
 
+        h.postDelayed(new Runnable() {
+            public void run() {
+                String temp = "X" + MoneyPref.getInt("MonValue", 0);
+                MoneyCounterTextView.setText(temp);
+                runnable=this;
+
+                h.postDelayed(runnable, delay);
+            }
+        }, delay);
+
     }
 
     public void onPause(){
         super.onPause();
         activityRunning = false;
+        h.removeCallbacks(runnable);
     }
 
     public void AddPoint(View v){
