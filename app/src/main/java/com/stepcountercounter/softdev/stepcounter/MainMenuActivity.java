@@ -1,6 +1,7 @@
 package com.stepcountercounter.softdev.stepcounter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -72,6 +73,8 @@ public class MainMenuActivity extends AppCompatActivity
         StepCount = sharedPreferences.getInt("StepCount", 0);
         debugger = getSharedPreferences("com.stepcountercounter.deg", Context.MODE_PRIVATE);
         debugger.edit().putBoolean("debugEnabled", true);
+
+
         StepTrack(0);
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,7 +118,10 @@ public class MainMenuActivity extends AppCompatActivity
             Toast.makeText(this, "No Sensor Available.", Toast.LENGTH_SHORT).show();
         }
 
-
+        DebugEnabled = debugger.getBoolean("debugEnabled", false);
+        if(DebugEnabled){
+            DebugEnable();
+        }
     }
 
 
@@ -130,7 +136,7 @@ public class MainMenuActivity extends AppCompatActivity
     public void AddSteps(View v){
         if(DebugEnabled){
             String temp = debugNumberTextView.getText().toString();
-            if(temp != "") {
+            if(!temp.equals("")) {
                 int textSteps = Integer.valueOf(temp);
                 StepTrack(textSteps);
             }
@@ -149,7 +155,7 @@ public class MainMenuActivity extends AppCompatActivity
                 DebugTapCount--;
 
             } else if (DebugTapCount == 0) {
-                debugger.edit().putBoolean("debugEnabled", true);
+                debugger.edit().putBoolean("debugEnabled", true).apply();
                 DebugEnabled = true;
                 DebugEnable();
             }
@@ -191,7 +197,6 @@ public class MainMenuActivity extends AppCompatActivity
                 h.postDelayed(runnable, delay);
             }
         }, delay);
-        DebugEnabled = debugger.getBoolean("debugEnabled", false);
 
         super.onResume();
 
@@ -203,6 +208,12 @@ public class MainMenuActivity extends AppCompatActivity
         super.onPause();
 
 
+    }
+
+
+    public void ShowUserPrefs(View v){
+        Intent intent = new Intent(MainMenuActivity.this, UserPreferences.class);
+        MainMenuActivity.this.startActivity(intent);
     }
 
 
@@ -252,6 +263,7 @@ public class MainMenuActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
+
 
         } else if (id == R.id.nav_share) {
 
