@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,7 +127,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="numberSigned"
         android:visibility="invisible"
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="bottom|center"
@@ -137,5 +137,65 @@
         app:layout_constraintStart_toEndOf="@+id/DebugAddSteps"
         app:layout_constraintTop_toTopOf="@+id/DebugAddSteps"
         app:layout_constraintVertical_bias="0.956" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="ShowUserPrefs"
+        android:text="User Prefs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="99dp"
+        android:layout_height="83dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/stopTrackingStepsButton"
+        app:layout_constraintStart_toEndOf="@+id/startTrackingStepsButton"
+        app:layout_constraintTop_toBottomOf="@+id/distanceTrackerTextView"
+        app:layout_constraintVertical_bias="0.25">
+
+        <RadioButton
+            android:id="@+id/milesRadioButton"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Miles" />
+
+        <RadioButton
+            android:id="@+id/kilometersRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kilometers" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/distanceTrackerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Distance: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/stopTrackingStepsButton"
+        app:layout_constraintStart_toEndOf="@+id/startTrackingStepsButton"
+        app:layout_constraintTop_toBottomOf="@+id/stepCounterTextView"
+        app:layout_constraintVertical_bias="0.07999998" />
 
 </android.support.constraint.ConstraintLayout>

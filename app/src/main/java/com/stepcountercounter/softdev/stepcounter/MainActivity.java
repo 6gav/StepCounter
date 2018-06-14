@@ -41,8 +41,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", 0);
-        MonValue = preferences.getInt("MonValue",0);
+
         super.onCreate(savedInstanceState);
         TapCount = 4;
         DebugMode = false;
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         MoneyPref = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
+        MonValue = MoneyPref.getInt("MonValue",0);
         MoneyEditor = MoneyPref.edit();
         MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
 
@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         else
         {
-
         }
     }
 
@@ -102,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         CheckGoal();
         if(countSensor != null){
             sensorManager.registerListener(this, countSensor, sensorManager.SENSOR_DELAY_UI);
-
         }
         else
         {
@@ -114,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 String temp = "X" + MoneyPref.getInt("MonValue", 0);
                 MoneyCounterTextView.setText(temp);
                 runnable=this;
-
                 h.postDelayed(runnable, delay);
             }
         }, delay);
