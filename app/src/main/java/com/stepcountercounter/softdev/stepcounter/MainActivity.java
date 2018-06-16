@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
         super.onCreate(savedInstanceState);
         TapCount = 4;
         DebugMode = false;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MonValue = MoneyPref.getInt("MonValue",0);
         MoneyEditor = MoneyPref.edit();
         MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
-
+        ((TextView)findViewById(R.id.tvGoals)).setText(sharedPreferences.getString("AllGoals",""));
     }
 
     private void DebugEnable(){
@@ -215,7 +216,7 @@ public void LoadTest(View v) {
         int count = sharedPreferences.getInt("NumGoals", 0);
         String goals = sharedPreferences.getString("AllGoals","");
         String s = desc.getText().toString();
-
+        String[] AllGoals = goals.split("\n");
         if (count <= 3) {
             if (s != "") {
                 FitGoal f = new FitGoal(s, comp.isChecked());
@@ -229,6 +230,7 @@ public void LoadTest(View v) {
             }
         }else{
         Toast.makeText(this,"Maximum of 3 goals, please complete some existing goals",Toast.LENGTH_SHORT).show();
+
         }
     }
     }
