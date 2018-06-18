@@ -6,15 +6,24 @@ import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class ShopActivity extends AppCompatActivity {
+public  class ShopActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private int MonValue, itemoffset, MaxItems = 5;
     SharedPreferences preferences;
     Item[] items;
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        TextView tv = (TextView)view;
+        Toast.makeText(this,"You clicked on " + tv.getText() + position, Toast.LENGTH_SHORT).show();
+    }
 
     enum ClothingType{
         CT_Top,
@@ -39,6 +48,7 @@ public class ShopActivity extends AppCompatActivity {
             R.drawable.outfit_f1
     };
 
+    ListView lst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", 0);
@@ -46,12 +56,13 @@ public class ShopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         items = new Item[MaxItems];
+        lst = findViewById(R.id.lvShopItems);
         LoadShopData();
-
     }
 
+    //
     public void LoadShopData() {
-        TextView[] tv = new TextView[3];
+
         for (int i = 0; i < MaxItems; ++i) {
             Item item = new Item();
             item.setCost(5+10 * i);
@@ -60,18 +71,14 @@ public class ShopActivity extends AppCompatActivity {
             item.setDescription("Purchase " + item.getName() + " for " + item.getCost() + "$.");
             items[i] = item;
         }
-        int i = 0;
-        tv[i] = findViewById(R.id.tvItem1);
-        ++i;
-        tv[i] = findViewById(R.id.tvItem2);
-        ++i;
-        tv[i] = findViewById(R.id.tvItem3);
-        for (i = 0; i < 3; ++i) {
-            tv[i].setText(items[i+itemoffset].getDescription());
-        }
 
+        ArrayAdapter<Item> AAdapter = new ArrayAdapter<Item>(this,android.R.layout.simple_list_item_1);
+        AAdapter.addAll(items);
+        lst.setAdapter(AAdapter);
+        lst.setOnItemClickListener(this);
 
     }
+
 
     public void MoneyUpdate(View v){
         TextView MoneyText = findViewById(R.id.tvMonValueInfo);

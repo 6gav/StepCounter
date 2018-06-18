@@ -229,7 +229,7 @@ public void LoadTest(View v) {
     }
 
     public void CheckGoal() {
-        EditText desc = findViewById(R.id.etGoalDescription);
+        /*EditText desc = findViewById(R.id.etGoalDescription);
         CheckBox comp = findViewById(R.id.cbComplete);
         Button b = findViewById(R.id.btnAddGoal);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
@@ -254,7 +254,7 @@ public void LoadTest(View v) {
         }else{
         Toast.makeText(this,"Maximum of 3 goals, please complete some existing goals",Toast.LENGTH_SHORT).show();
 
-        }
+        }*/
     }
     }
 
