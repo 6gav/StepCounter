@@ -42,7 +42,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     //Variables
-    float Stride, distance, MiKm;
+    float Stride, MiKm, weight, calCalcVar;
     int StepCount, DebugTapCount, LastStepCount;
     boolean tracking, DebugEnabled;
 
@@ -53,7 +53,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     //Components
-    TextView StepCounter, distanceTextView;
+    TextView StepCounter, distanceTextView, calorieTextView;
     Button temp;
     EditText debugNumberTextView;
     RadioGroup measurementRadioGroup;
@@ -61,7 +61,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     //Timer
     Handler h = new Handler();
-    int delay = 250; //1 second=1000 milisecond, 15*1000=15seconds
+    int delay = 250; //1 second=1000 millisecond, 15*1000=15seconds
     Runnable runnable;
 
 
@@ -70,18 +70,10 @@ public class MainMenuActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
             /////////////////////////Android Stuff////////////////////////////////////
-//region Builder
+                                        //region Builder
             setContentView(R.layout.activity_main_menu);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
+            setSupportActionBar(toolbar);;
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -110,6 +102,8 @@ public class MainMenuActivity extends AppCompatActivity
 
         measurementRadioGroup = findViewById(R.id.measurementRadioGroup);
 
+        calorieTextView = findViewById(R.id.calorieTextView);
+
 
         //Preferences
         sharedPreferences = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
@@ -134,6 +128,10 @@ public class MainMenuActivity extends AppCompatActivity
         DebugTapCount = 5;
 
         DebugEnabled = false;
+
+        weight = sharedPreferences.getFloat("Weight", 0.0f);
+
+        calCalcVar = 10.7f/20.0f;
 
 
         //Date Check
@@ -167,7 +165,6 @@ public class MainMenuActivity extends AppCompatActivity
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if(countSensor != null){
             sensorManager.registerListener(this, countSensor, sensorManager.SENSOR_DELAY_UI);
-
         }
         else
         {
@@ -245,22 +242,22 @@ public class MainMenuActivity extends AppCompatActivity
 
     }
 
-    public void RadioSwitch(View v){
-        DistanceCalc();
-    }
+    public void RadioSwitch(View v){ DistanceCalc(); }
 
     public void DistanceCalc() {
         RadioButton tempRadio = findViewById(measurementRadioGroup.getCheckedRadioButtonId());
         String distanceString = tempRadio.getText().toString();
 
+        float TempDist = -1.0f;
         if(Stride == -1.0f){
-            Toast.makeText(this, "User Preferences not set up, steps will not be converted to distance", Toast.LENGTH_LONG).show();
+            distanceTextView.setText("Distance: User height not yet set!");
             Stride = -2.0f;
         }
         else if(Stride > 0.0f)
         {
-            distance += Stride;
+
             MiKm = Stride*StepCount/5280.0f;
+            TempDist = MiKm;
             if(distanceString.equals("Km"))
                 MiKm *= 1.609344f;
             MiKm *= 1000;
@@ -269,10 +266,31 @@ public class MainMenuActivity extends AppCompatActivity
             String tempString = "Distance: " + MiKm + " " + distanceString;
             distanceTextView.setText(tempString);
         }
+        CalorieCalc(TempDist);
     }
 
+    public void CalorieCalc(float Distance){
+        if(weight != 0.0f){
+            float calVar = weight - 100.0f;
+            calVar = calVar * calCalcVar + 53.0f;
+            float tempTotal = Distance * calVar;
 
+            tempTotal *= 10.0f;
+            tempTotal = (int)tempTotal;
+            tempTotal /=10.0f;
+            String tempCal = "Calories: " + tempTotal;
+            calorieTextView.setText(tempCal);
+        }
+        else if(weight == 0.0f)
+        {
+            calorieTextView.setText("Calories: User weight not yet set!");
+            weight = -1.0f;
+        }
+        else if(weight == -1.0f){
 
+        }
+
+    }
 
     @Override
     protected void onResume(){
@@ -293,6 +311,11 @@ public class MainMenuActivity extends AppCompatActivity
         {
             Stride /= 12.0f;
         }
+
+
+        weight = sharedPreferences.getFloat("Weight", 0.0f);
+
+
         super.onResume();
 
     }

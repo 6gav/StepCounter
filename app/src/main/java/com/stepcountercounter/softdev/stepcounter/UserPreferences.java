@@ -1,22 +1,25 @@
 package com.stepcountercounter.softdev.stepcounter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserPreferences extends AppCompatActivity {
 
     //Declarations
     RadioButton metricRadio, imperialRadio;
-    TextView feetTextView, inchTextView;
-    EditText heightInput1, heightInput2;
+    TextView feetTextView, inchTextView, weightTextView;
+    EditText heightInput1, heightInput2, weightInput;
     Boolean isImperial;
     float Inches, cm;
-
+    SharedPreferences userprefs;
+    SharedPreferences.Editor userEditor;
 
     //Create
     @Override
@@ -27,13 +30,18 @@ public class UserPreferences extends AppCompatActivity {
         //Assigning components
         heightInput1 = findViewById(R.id.heightFirstPlainText);
         heightInput2 = findViewById(R.id.heightSecondPlainText);
+        weightInput = findViewById(R.id.weightInput);
+
         feetTextView = findViewById(R.id.heightFirstTextView);
         inchTextView = findViewById(R.id.inchesTextView);
+        weightTextView = findViewById(R.id.weightTextView);
+
         metricRadio = findViewById(R.id.metricRadioButton);
         imperialRadio = findViewById(R.id.imperialRadioButton);
 
 
-
+        userprefs = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
+        userEditor = userprefs.edit();
         //Variable Initialization
         isImperial = true;
 
@@ -64,8 +72,10 @@ public class UserPreferences extends AppCompatActivity {
                 Inches = Float.valueOf(tempInches);
                 Inches += (Float.valueOf(tempFeet) * 12);
                 float Stride = Inches * 0.413f;
-                getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE).edit().putFloat("StrideLength", Stride).apply();
+                userEditor.putFloat("StrideLength", Stride).apply();
             }
+            else
+                Toast.makeText(this, "Please enter both height values", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -73,16 +83,37 @@ public class UserPreferences extends AppCompatActivity {
             if (!tempCm.equals("")) {
                 Inches = (Float.valueOf(tempCm)/2.54f);
                 float Stride = Inches * 0.413f;
-                getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE).edit().putFloat("StrideLength", Stride).apply();
+                userEditor.putFloat("StrideLength", Stride).apply();
 
             }
+            else
+                Toast.makeText(this, "Please enter a height value", Toast.LENGTH_SHORT).show();
         }
     }
 
+    public void ApplyWeight(View v){
+        String weightText = weightInput.getText().toString();
+        if(!weightText.equals("")) {
+            if (isImperial) {
+                String tempLBS = weightInput.getText().toString();
+                float tempWeight = Float.valueOf(tempLBS);
+                userEditor.putFloat("Weight", tempWeight).apply();
+            } else {
+                String tempKG = weightInput.getText().toString();
+                float tempWeight = Float.valueOf(tempKG);
+                tempWeight *= 2.204622f;
+                userEditor.putFloat("Weight", tempWeight).apply();
+            }
+        }
+        else{
+            Toast.makeText(this, "Please enter a weight value", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public void RadioListener(View v){
         if(imperialRadio.isChecked()){
             feetTextView.setText("ft");
+            weightTextView.setText("lb");
             inchTextView.setVisibility(View.VISIBLE);
             heightInput2.setVisibility(View.VISIBLE);
             isImperial = true;
@@ -90,6 +121,7 @@ public class UserPreferences extends AppCompatActivity {
         else
         {
             feetTextView.setText("cm");
+            weightTextView.setText("kg");
             inchTextView.setVisibility(View.INVISIBLE);
             heightInput2.setVisibility(View.INVISIBLE);
             isImperial = false;
