@@ -17,10 +17,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
 
@@ -33,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SharedPreferences.Editor MoneyEditor;
     private TextView MoneyCounterTextView;
 
-
+    TextView[] goalTextView = new TextView[3];
+    FitGoal[] goals = new FitGoal[3];
 
     Handler h = new Handler();
     int delay = 250; //1 second=1000 milisecond, 15*1000=15seconds
@@ -41,11 +38,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         TapCount = 4;
         DebugMode = false;
-        setContentView(R.layout.activity_main);
         debugStepButton = findViewById(R.id.debugAddStepsButton);
 
         count = findViewById(R.id.countTextView);
@@ -55,9 +52,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MonValue = MoneyPref.getInt("MonValue",0);
         MoneyEditor = MoneyPref.edit();
         MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
-
+        //((TextView)findViewById(R.id.tvGoal1)).setText(sharedPreferences.getString("AllGoals",""));
+        InitGoals();
     }
+    void InitGoals(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
 
+        goalTextView[0] = findViewById(R.id.tvGoal1);
+        goalTextView[1] = findViewById(R.id.tvGoal2);
+        goalTextView[2] = findViewById(R.id.tvGoal3);
+        String[] s = sharedPreferences.getString("AllGoals","").split("\n    ");
+        for(int i = 0; i < s.length-1; i++){
+            if(!s[i].contentEquals("    ") && !s[i].contentEquals("") && s[i] != null)
+            goals [i] = AddGoal(goalTextView[i]);
+        }
+    }
     private void DebugEnable(){
         debugStepButton.setVisibility(View.VISIBLE);
         debugStepButton.setClickable(true);
@@ -165,13 +174,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    public FitGoal AddGoal(){
-        EditText desc = findViewById(R.id.etGoalDescription);
-        Boolean comp = ((CheckBox)findViewById(R.id.cbComplete)).isChecked();
-        String s = desc.getText().toString();
 
-        return new FitGoal(s,comp);
-    }
 
     //////////////////////////////////////////////// Save Data ////////////////////////////////////////////////
 /*
@@ -204,18 +207,39 @@ public void LoadTest(View v) {
 
 
     //////////////////////////////////////////////// Fit Goals ////////////////////////////////////////////////
+    public FitGoal AddGoal(){
+        EditText desc = findViewById(R.id.etGoalDescription);
+        Boolean comp = ((CheckBox)findViewById(R.id.cbComplete)).isChecked();
+        String s = desc.getText().toString();
+
+        return new FitGoal(s,comp);
+    }
+
+    public FitGoal AddGoal(TextView t){
+        EditText desc = findViewById(R.id.etGoalDescription);
+        Boolean comp = ((CheckBox)findViewById(R.id.cbComplete)).isChecked();
+        String s = desc.getText().toString();
+        FitGoal f = new FitGoal(s,comp);
+        f.SetMyView(t);
+        return f;
+    }
+
     public void CheckGoal(View v){
         CheckGoal();
     }
+
     public void CheckGoal() {
-        EditText desc = findViewById(R.id.etGoalDescription);
+        /*EditText desc = findViewById(R.id.etGoalDescription);
         CheckBox comp = findViewById(R.id.cbComplete);
         Button b = findViewById(R.id.btnAddGoal);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
-        int count = sharedPreferences.getInt("NumGoals", 0);
+        int count = 0;//sharedPreferences.getInt("NumGoals", 0);
+        for(int i = 0; i < 3; ++i){
+            if(goals[i] != null)count++;
+        }
         String goals = sharedPreferences.getString("AllGoals","");
         String s = desc.getText().toString();
-
+        String[] AllGoals = goals.split("\n");
         if (count <= 3) {
             if (s != "") {
                 FitGoal f = new FitGoal(s, comp.isChecked());
@@ -225,11 +249,12 @@ public void LoadTest(View v) {
                 e.putString("AllGoals",goals);
                 e.putInt("NumGoals",count);
                 e.apply();
-                ((TextView)findViewById(R.id.tvGoals)).setText(goals);
+                f.getMyView().setText(goals);
             }
         }else{
         Toast.makeText(this,"Maximum of 3 goals, please complete some existing goals",Toast.LENGTH_SHORT).show();
-        }
+
+        }*/
     }
     }
 
@@ -238,13 +263,21 @@ public void LoadTest(View v) {
     class FitGoal{
     String goal_description;
     boolean complete;
+    TextView MyView;
 
-    public FitGoal(String g, boolean c){
-        goal_description = g;
-        complete = c;
-    }
+        public FitGoal(String g, boolean c){
+            goal_description = g;
+            complete = c;
+        }
+        public void SetMyView(TextView textView){
+            MyView = textView;
+        }
 
-     public void LoadGoal(String s){
+        public TextView getMyView() {
+            return MyView;
+        }
+
+        public void LoadGoal(String s){
         //0,I want to walk 1000 steps this week
         complete = (s.charAt(0) == 1);//bool for complete
          //initialize the description, then add each char individually after comma
@@ -252,6 +285,7 @@ public void LoadTest(View v) {
         for(int i = 2; i < s.length();++i) {
             goal_description += s.charAt(i);
         }
+        MyView.setText(goal_description);
     }
 
     public String GoalToString(){
