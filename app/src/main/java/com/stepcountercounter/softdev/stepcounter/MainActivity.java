@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MoneyPref = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
         MonValue = MoneyPref.getInt("MonValue",0);
         MoneyEditor = MoneyPref.edit();
-        MoneyEditor.apply();
         MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
         //((TextView)findViewById(R.id.tvGoal1)).setText(sharedPreferences.getString("AllGoals",""));
         InitGoals();
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         h.postDelayed(new Runnable() {
             public void run() {
-                String temp = "X" + MoneyPref.getInt("MonValue", 0);
+                String temp = "X " + MoneyPref.getInt("MonValue", 0);
                 MoneyCounterTextView.setText(temp);
                 runnable=this;
                 h.postDelayed(runnable, delay);
