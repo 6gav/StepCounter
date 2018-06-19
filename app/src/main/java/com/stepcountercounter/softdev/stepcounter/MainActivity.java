@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         TapCount = 4;
         DebugMode = false;
-        setContentView(R.layout.activity_main);
         debugStepButton = findViewById(R.id.debugAddStepsButton);
 
         count = findViewById(R.id.countTextView);

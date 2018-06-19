@@ -29,7 +29,9 @@
         <activity android:name=".AvatarActivity" />
         <activity android:name=".AchievementsActivity" />
         <activity android:name=".ShopActivity" />
-        <activity android:name=".UserPreferences"></activity>
+        <activity android:name=".UserPreferences">
+
+        </activity>
     </application>
 
 </manifest>
