@@ -8,10 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,7 +25,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -72,16 +68,16 @@ public class MainMenuActivity extends AppCompatActivity
             /////////////////////////Android Stuff////////////////////////////////////
                                         //region Builder
             setContentView(R.layout.activity_main_menu);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);;
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.addDrawerListener(toggle);
             toggle.syncState();
 
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            NavigationView navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
             //endregion  -
             //////////////////////////////////////////////////////////////////////////
@@ -108,6 +104,7 @@ public class MainMenuActivity extends AppCompatActivity
         //Preferences
         sharedPreferences = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        editor.apply();
 
         timeChecker = getSharedPreferences("com.stepcountercounter.DateTime", Context.MODE_PRIVATE);
         dateEditor = timeChecker.edit();
@@ -137,11 +134,7 @@ public class MainMenuActivity extends AppCompatActivity
         //Date Check
         String tmpDate = timeChecker.getString("LastDateAccessed", "null");
         String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
-        if(tmpDate.equals(date)){
-
-        }
-        else
-        {
+        if(!tmpDate.equals(date)){
             StepCount = 0;
             dateEditor.putString("LastDateAccessed", date);
             dateEditor.apply();
@@ -164,7 +157,7 @@ public class MainMenuActivity extends AppCompatActivity
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if(countSensor != null){
-            sensorManager.registerListener(this, countSensor, sensorManager.SENSOR_DELAY_UI);
+            sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
         }
         else
         {
@@ -250,7 +243,7 @@ public class MainMenuActivity extends AppCompatActivity
 
         float TempDist = -1.0f;
         if(Stride == -1.0f){
-            distanceTextView.setText("Distance: User height not yet set!");
+            distanceTextView.setText(R.string.HeightNotSet);
             Stride = -2.0f;
         }
         else if(Stride > 0.0f)
@@ -283,11 +276,8 @@ public class MainMenuActivity extends AppCompatActivity
         }
         else if(weight == 0.0f)
         {
-            calorieTextView.setText("Calories: User weight not yet set!");
+            calorieTextView.setText(R.string.WeightNotSet);
             weight = -1.0f;
-        }
-        else if(weight == -1.0f){
-
         }
 
     }
@@ -299,7 +289,8 @@ public class MainMenuActivity extends AppCompatActivity
 
         h.postDelayed(new Runnable() {
             public void run() {
-                StepCounter.setText("Steps: " + String.valueOf(StepCount));
+                String tempStepText = "Steps: " + String.valueOf(StepCount);
+                StepCounter.setText(tempStepText);
                 runnable=this;
 
                 h.postDelayed(runnable, delay);
@@ -335,7 +326,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -393,7 +384,7 @@ public class MainMenuActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -416,15 +407,6 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
 
-
-    //Check if storage is available - public
-    public boolean isExternalStorageWritable(){
-        String state = Environment.getExternalStorageState();
-        if(Environment.MEDIA_MOUNTED.equals(state)){
-            return true;
-        }
-        return false;
-    }
 
 
 

@@ -17,7 +17,7 @@ public class UserPreferences extends AppCompatActivity {
     TextView feetTextView, inchTextView, weightTextView;
     EditText heightInput1, heightInput2, weightInput;
     Boolean isImperial;
-    float Inches, cm;
+    float Inches;
     SharedPreferences userprefs;
     SharedPreferences.Editor userEditor;
 
@@ -42,6 +42,7 @@ public class UserPreferences extends AppCompatActivity {
 
         userprefs = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
         userEditor = userprefs.edit();
+        userEditor.apply();
         //Variable Initialization
         isImperial = true;
 
@@ -112,16 +113,16 @@ public class UserPreferences extends AppCompatActivity {
 
     public void RadioListener(View v){
         if(imperialRadio.isChecked()){
-            feetTextView.setText("ft");
-            weightTextView.setText("lb");
+            feetTextView.setText(R.string.FeetTextAbbreviation);
+            weightTextView.setText(R.string.InchTextAbbreviation);
             inchTextView.setVisibility(View.VISIBLE);
             heightInput2.setVisibility(View.VISIBLE);
             isImperial = true;
         }
         else
         {
-            feetTextView.setText("cm");
-            weightTextView.setText("kg");
+            feetTextView.setText(R.string.CmTextAbbreviation);
+            weightTextView.setText(R.string.KgTextAbbreviation);
             inchTextView.setVisibility(View.INVISIBLE);
             heightInput2.setVisibility(View.INVISIBLE);
             isImperial = false;
