@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     void InitGoals(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
 
-        goalTextView[0] = findViewById(R.id.tvGoal1);
-        goalTextView[1] = findViewById(R.id.tvGoal2);
-        goalTextView[2] = findViewById(R.id.tvGoal3);
+        //goalTextView[0] = findViewById(R.id.tvGoal1);
+        //goalTextView[1] = findViewById(R.id.tvGoal2);
+        //goalTextView[2] = findViewById(R.id.tvGoal3);
         String[] s = sharedPreferences.getString("AllGoals","").split("\n    ");
         for(int i = 0; i < s.length-1; i++){
-            if(!s[i].contentEquals("    ") && !s[i].contentEquals("") && s[i] != null)
-            goals [i] = AddGoal(goalTextView[i]);
+            if(!s[i].contentEquals("    ") && !s[i].contentEquals("") && s[i] != null){}
+        //    goals [i] = AddGoal(goalTextView[i]);
         }
     }
     private void DebugEnable(){
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         h.postDelayed(new Runnable() {
             public void run() {
-                String temp = "X" + MoneyPref.getInt("MonValue", 0);
+                String temp = "X " + MoneyPref.getInt("MonValue", 0);
                 MoneyCounterTextView.setText(temp);
                 runnable=this;
                 h.postDelayed(runnable, delay);

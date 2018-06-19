@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.w3c.dom.Text;
 
@@ -27,6 +29,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     ListView lst;
     Button btnPurchase, btnEquip;
     TextView MoneyText;
+    Timer timer;
     /////////////////////// private variable initialization ///////////////////////////////////////
 
     enum ClothingType{
@@ -36,6 +39,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         CT_Hat
     }
 
+    //region arrays
     int[] cost = {
             10,
             20,
@@ -108,6 +112,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             R.drawable.outfit_f1,
             R.drawable.outfit_f1
     };
+//endregion
 
     /////////////////////////////// functions /////////////////////////////////////////////////////
     @Override
@@ -116,6 +121,9 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         //Toast.makeText(this,"You clicked on " + tv.getText() + position, Toast.LENGTH_SHORT).show();
         _selectedItemObject = items[position];
         btnPurchase.setEnabled(_selectedItemObject != null);
+        if( btnPurchase.isEnabled()){
+            btnPurchase.setEnabled(!_selectedItemObject.isPurchased());
+        }
         btnEquip.setEnabled(_selectedItemObject.isPurchased());
         currentImage.setImageDrawable(_selectedItemObject.getImage());
     }
@@ -125,7 +133,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
-
+        timer = new Timer();
         preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
         MonValue = preferences.getInt("MonValue", 0);
         purchases = preferences.getInt("Purchased Items", 0);
@@ -140,16 +148,25 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         CreateItems();
         LoadShopData(preferences.getString("ShopTag","All"));
         MoneyUpdate();
+        TimerTask t = new TimerTask() {
+            @Override
+            public void run() {
 
+                MonValue++;
+                MoneyUpdate(MonValue);
+            }
+        };
+        timer.scheduleAtFixedRate(t,500,500);
         //currentImage.setImageDrawable(items[selectedItem].getImage());
     }
+
 
     private void CreateItems() {
         int i,j = 0;
         String allNames = getResources().getString(R.string.shop_item_names);
         String[] names = allNames.split(",");
 
-        for(i = 0; i < top.length/4;i++){
+        for(i = 0; i < (top.length/4)+2;i++){
             Item item = new Item();
             item.setCost(cost[j]);
             item.setName("Shirt "+i);
@@ -161,7 +178,6 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             items[j] = item;
             ++j;
         }
-
         for(i = 0; i < bottom.length;i++){
             Item item = new Item();
             item.setCost(cost[j]);
@@ -224,6 +240,10 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     public void MoneyUpdate(){
         MoneyText.setText("X " + preferences.getInt("MonValue", 0));
     }
+    public void MoneyUpdate(int i){
+        SharedPreferences.Editor p = preferences.edit();
+        p.putInt("MonValue",i);
+    }
 
     public void SelectionUp(View v) {
         itemoffset = (itemoffset > 0 ? itemoffset - 1 : itemoffset);
@@ -253,14 +273,17 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
                 purchases+= (1>>_selectedItemObject.getPosition());
                 MonValue -= _selectedItemObject.getCost();
-                _selectedItemObject.setPurchased(true);
+
                 purchased = true;
+                _selectedItemObject.setPurchased(purchased);
+
                 SharedPreferences.Editor editor = preferences.edit();
-                //editor.putInt("MonValue",get(MoneyText.getText()));
+
                 editor.putInt("MonValue", MonValue);
                 editor.putBoolean(_selectedItemObject.getImage_Id()+"purchased?",purchased);
-                btnEquip.setEnabled(true);
                 editor.apply();
+
+                btnEquip.setEnabled(true);
             }
 
         }
@@ -305,8 +328,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             }
         }
 
-        public void setPurchased(boolean purchased) {
-            purchased = purchased;
+        public void setPurchased(boolean p) {
+            purchased = p;
         }
 
         public void setPosition(int position) {
