@@ -105,7 +105,7 @@
         app:layout_constraintTop_toTopOf="@+id/stopTrackingStepsButton" />
 
     <Button
-        android:id="@+id/DebugAddSteps"
+        android:id="@+id/MainMenuDebugStepper"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -134,8 +134,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toEndOf="@+id/DebugAddSteps"
-        app:layout_constraintTop_toTopOf="@+id/DebugAddSteps"
+        app:layout_constraintStart_toEndOf="@+id/MainMenuDebugStepper"
+        app:layout_constraintTop_toTopOf="@+id/MainMenuDebugStepper"
         app:layout_constraintVertical_bias="0.956" />
 
     <Button
@@ -156,8 +156,8 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="99dp"
+        android:id="@+id/measurementRadioGroup"
+        android:layout_width="55dp"
         android:layout_height="83dp"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="8dp"
@@ -170,17 +170,20 @@
 
         <RadioButton
             android:id="@+id/milesRadioButton"
-            android:layout_width="99dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Miles" />
+            android:checked="true"
+            android:onClick="RadioSwitch"
+            android:text="Mi" />
 
         <RadioButton
             android:id="@+id/kilometersRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kilometers" />
+            android:onClick="RadioSwitch"
+            android:text="Km" />
     </RadioGroup>
 
     <TextView

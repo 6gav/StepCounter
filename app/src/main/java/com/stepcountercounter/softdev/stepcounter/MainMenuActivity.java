@@ -23,29 +23,40 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener{
 
 
+    //Sensor
+    SensorManager sensorManager;
+
+
+    //Variables
     float Stride, distance, MiKm;
-    private SensorManager sensorManager;
-    int StepCount, DebugTapCount;
+    int StepCount, DebugTapCount, LastStepCount;
     boolean tracking, DebugEnabled;
-    TextView StepCounter, distanceTextView;
-    Button temp;
-    int LastStepCount;
-    EditText debugNumberTextView;
+
+
+    //Preferences
     SharedPreferences sharedPreferences, debugger;
     SharedPreferences.Editor editor, dateEditor;
 
 
-
-    public String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/TestUserData";
+    //Components
+    TextView StepCounter, distanceTextView;
+    Button temp;
+    EditText debugNumberTextView;
+    RadioGroup measurementRadioGroup;
 
 
     //Timer
@@ -58,49 +69,80 @@ public class MainMenuActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+            /////////////////////////Android Stuff////////////////////////////////////
+//region Builder
+            setContentView(R.layout.activity_main_menu);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
 
-        DecimalFormat df = new DecimalFormat("#.###");
-        
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            //endregion  -
+            //////////////////////////////////////////////////////////////////////////
+
+
+
+        //Date and Time
+        String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
+
+
+
+        //Item Declarations
+        temp = findViewById(R.id.MainMenuDebugStepper);
+
+        distanceTextView = findViewById(R.id.distanceTrackerTextView);
+
+        StepCounter = findViewById(R.id.stepCounterTextView);
+
+        debugNumberTextView = findViewById(R.id.stepNumberTextView);
+
+        measurementRadioGroup = findViewById(R.id.measurementRadioGroup);
+
+
+        //Preferences
         sharedPreferences = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        StepCount = sharedPreferences.getInt("StepCount", 0);
+
+
         debugger = getSharedPreferences("com.stepcountercounter.debug", Context.MODE_PRIVATE);
 
+
+        //Assignment
+        StepCount = sharedPreferences.getInt("StepCount", 0);
+
         Stride = sharedPreferences.getFloat("StrideLength", -1.0f);
+
+        temp.setVisibility(View.INVISIBLE);
+
+        temp.setEnabled(false);
+
+        DebugTapCount = 5;
+
+        DebugEnabled = false;
+
+
+
         if(Stride != -1.0f)
         {
             Stride /= 12.0f;
         }
 
-        setContentView(R.layout.activity_main_menu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        temp = (Button)findViewById(R.id.DebugAddSteps);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        distanceTextView = findViewById(R.id.distanceTrackerTextView);
-        StepCounter = findViewById(R.id.stepCounterTextView);
-        temp.setVisibility(View.INVISIBLE);
-        temp.setEnabled(false);
-        DebugTapCount = 5;
-        DebugEnabled = false;
-        debugNumberTextView = findViewById(R.id.stepNumberTextView);
         StepTrack(0);
 
         tracking = false;
@@ -123,14 +165,14 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
 
-    public void startTracking(View v){
-        tracking = true;
-    }
 
-    public void stopTracking(View v){
-        tracking = false;
-    }
+    //Tracking
+    public void startTracking(View v){ tracking = true; }
+    public void stopTracking(View v){ tracking = false; }
 
+
+
+    //Debug
     public void AddSteps(View v){
         if(DebugEnabled){
             String temp = debugNumberTextView.getText().toString();
@@ -159,6 +201,9 @@ public class MainMenuActivity extends AppCompatActivity
             }
         }
     }
+
+
+    //StepTracker
     public void StepTrack(int x){
         StepCount+=x;
         int tempMoney = 0;
@@ -179,23 +224,44 @@ public class MainMenuActivity extends AppCompatActivity
             tempEditor.apply();
         }
         editor.putInt("StepCount", StepCount);
+        editor.apply();
+        DistanceCalc();
+
+    }
+
+    public void RadioSwitch(View v){
+        DistanceCalc();
+    }
+
+    public void DistanceCalc() {
+        RadioButton tempRadio = findViewById(measurementRadioGroup.getCheckedRadioButtonId());
+        String distanceString = tempRadio.getText().toString();
+
         if(Stride == -1.0f){
-            Toast.makeText(this, "User Preferences not set up, steps will not be converted to distance", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "User Preferences not set up, steps will not be converted to distance", Toast.LENGTH_LONG).show();
             Stride = -2.0f;
         }
         else if(Stride > 0.0f)
         {
-                distance += Stride;
-                MiKm = Stride*StepCount/5280.0f;
-                String temp = "Distance: " + MiKm;
-                distanceTextView.setText(temp);
+            distance += Stride;
+            MiKm = Stride*StepCount/5280.0f;
+            if(distanceString.equals("Km"))
+                MiKm *= 1.609344f;
+            MiKm *= 1000;
+            int tempInt = (int)MiKm;
+            MiKm = (float)tempInt / 1000.0f;
+            String tempString = "Distance: " + MiKm + " " + distanceString;
+            distanceTextView.setText(tempString);
         }
-        editor.apply();
     }
+
+
 
 
     @Override
     protected void onResume(){
+
+        DistanceCalc();
 
         h.postDelayed(new Runnable() {
             public void run() {
@@ -223,12 +289,10 @@ public class MainMenuActivity extends AppCompatActivity
 
     }
 
-
     public void ShowUserPrefs(View v){
         Intent intent = new Intent(MainMenuActivity.this, UserPreferences.class);
         MainMenuActivity.this.startActivity(intent);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -262,6 +326,12 @@ public class MainMenuActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
+
+    ///////////////////DO NOT USE THIS//////////////////////
+    //////////////WILL BE REMOVED IN REDESIGN///////////////
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -288,7 +358,7 @@ public class MainMenuActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    ////////////////////////////////////////////////////////
     @Override
     public void onSensorChanged(SensorEvent event) {
         if((int)event.values[0] != LastStepCount && tracking)
