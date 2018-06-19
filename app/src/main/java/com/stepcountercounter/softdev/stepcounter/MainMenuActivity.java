@@ -48,7 +48,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     //Preferences
-    SharedPreferences sharedPreferences, debugger;
+    SharedPreferences sharedPreferences, debugger, timeChecker;
     SharedPreferences.Editor editor, dateEditor;
 
 
@@ -96,8 +96,6 @@ public class MainMenuActivity extends AppCompatActivity
 
 
 
-        //Date and Time
-        String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
 
 
 
@@ -117,6 +115,9 @@ public class MainMenuActivity extends AppCompatActivity
         sharedPreferences = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        timeChecker = getSharedPreferences("com.stepcountercounter.DateTime", Context.MODE_PRIVATE);
+        dateEditor = timeChecker.edit();
+
 
         debugger = getSharedPreferences("com.stepcountercounter.debug", Context.MODE_PRIVATE);
 
@@ -133,6 +134,21 @@ public class MainMenuActivity extends AppCompatActivity
         DebugTapCount = 5;
 
         DebugEnabled = false;
+
+
+        //Date Check
+        String tmpDate = timeChecker.getString("LastDateAccessed", "null");
+        String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
+        if(tmpDate.equals(date)){
+
+        }
+        else
+        {
+            StepCount = 0;
+            dateEditor.putString("LastDateAccessed", date);
+            dateEditor.apply();
+        }
+
 
 
 
