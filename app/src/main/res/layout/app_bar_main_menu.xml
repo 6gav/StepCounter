@@ -11,7 +11,15 @@
         android:id="@+id/appBarLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -23,33 +31,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/content_main_menu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
     <Button
         android:id="@+id/startTrackingStepsButton"
         android:layout_width="100dp"
@@ -60,13 +41,12 @@
         android:layout_marginTop="8dp"
         android:onClick="startTracking"
         android:text="Start Tracking"
-        app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="left|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/stopTrackingStepsButton"
@@ -78,13 +58,12 @@
         android:layout_marginTop="8dp"
         android:onClick="stopTracking"
         android:text="Stop Tracking"
-        app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="right|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/stepCounterTextView"
@@ -97,26 +76,30 @@
         android:clickable="true"
         android:onClick="DebugTry"
         android:text="Steps: "
-        app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/startTrackingStepsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/stopTrackingStepsButton" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/stopTrackingStepsButton"
+        app:layout_constraintStart_toEndOf="@+id/startTrackingStepsButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/MainMenuDebugStepper"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="AddSteps"
         android:text="Add Steps"
         android:visibility="invisible"
-        app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="left|bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/stepNumberTextView"
@@ -129,7 +112,6 @@
         android:ems="10"
         android:inputType="numberSigned"
         android:visibility="invisible"
-        app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="bottom|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,7 +152,7 @@
 
         <RadioButton
             android:id="@+id/milesRadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
@@ -200,5 +182,18 @@
         app:layout_constraintStart_toEndOf="@+id/startTrackingStepsButton"
         app:layout_constraintTop_toBottomOf="@+id/stepCounterTextView"
         app:layout_constraintVertical_bias="0.07999998" />
+
+    <TextView
+        android:id="@+id/calorieTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Calories: "
+        app:layout_constraintBottom_toTopOf="@+id/stepCounterTextView"
+        app:layout_constraintEnd_toEndOf="@+id/stepCounterTextView"
+        app:layout_constraintStart_toStartOf="@+id/stepCounterTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93" />
 
 </android.support.constraint.ConstraintLayout>

@@ -8,10 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,7 +25,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -42,7 +38,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     //Variables
-    float Stride, distance, MiKm;
+    float Stride, MiKm, weight, calCalcVar;
     int StepCount, DebugTapCount, LastStepCount;
     boolean tracking, DebugEnabled;
 
@@ -53,7 +49,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     //Components
-    TextView StepCounter, distanceTextView;
+    TextView StepCounter, distanceTextView, calorieTextView;
     Button temp;
     EditText debugNumberTextView;
     RadioGroup measurementRadioGroup;
@@ -61,7 +57,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     //Timer
     Handler h = new Handler();
-    int delay = 250; //1 second=1000 milisecond, 15*1000=15seconds
+    int delay = 250; //1 second=1000 millisecond, 15*1000=15seconds
     Runnable runnable;
 
 
@@ -70,26 +66,18 @@ public class MainMenuActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
             /////////////////////////Android Stuff////////////////////////////////////
-//region Builder
+                                        //region Builder
             setContentView(R.layout.activity_main_menu);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.addDrawerListener(toggle);
             toggle.syncState();
 
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            NavigationView navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
             //endregion  -
             //////////////////////////////////////////////////////////////////////////
@@ -110,10 +98,13 @@ public class MainMenuActivity extends AppCompatActivity
 
         measurementRadioGroup = findViewById(R.id.measurementRadioGroup);
 
+        calorieTextView = findViewById(R.id.calorieTextView);
+
 
         //Preferences
         sharedPreferences = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        editor.apply();
 
         timeChecker = getSharedPreferences("com.stepcountercounter.DateTime", Context.MODE_PRIVATE);
         dateEditor = timeChecker.edit();
@@ -135,15 +126,15 @@ public class MainMenuActivity extends AppCompatActivity
 
         DebugEnabled = false;
 
+        weight = sharedPreferences.getFloat("Weight", 0.0f);
+
+        calCalcVar = 10.7f/20.0f;
+
 
         //Date Check
         String tmpDate = timeChecker.getString("LastDateAccessed", "null");
         String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
-        if(tmpDate.equals(date)){
-
-        }
-        else
-        {
+        if(!tmpDate.equals(date)){
             StepCount = 0;
             dateEditor.putString("LastDateAccessed", date);
             dateEditor.apply();
@@ -166,8 +157,7 @@ public class MainMenuActivity extends AppCompatActivity
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if(countSensor != null){
-            sensorManager.registerListener(this, countSensor, sensorManager.SENSOR_DELAY_UI);
-
+            sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
         }
         else
         {
@@ -223,14 +213,14 @@ public class MainMenuActivity extends AppCompatActivity
     public void StepTrack(int x){
         StepCount+=x;
         int tempMoney = 0;
-        if(StepCount % 1000 == 0){
-            tempMoney = 100;
-        }
-        else if(StepCount % 100 == 0){
-            tempMoney = 10;
-        }
-        else if(StepCount % 10 == 0){
-            tempMoney = 1;
+        if(StepCount != 0) {
+            if (StepCount % 1000 == 0) {
+                tempMoney = 100;
+            } else if (StepCount % 100 == 0) {
+                tempMoney = 10;
+            } else if (StepCount % 10 == 0) {
+                tempMoney = 1;
+            }
         }
         if(tempMoney > 0) {
             SharedPreferences money = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
@@ -245,22 +235,22 @@ public class MainMenuActivity extends AppCompatActivity
 
     }
 
-    public void RadioSwitch(View v){
-        DistanceCalc();
-    }
+    public void RadioSwitch(View v){ DistanceCalc(); }
 
     public void DistanceCalc() {
         RadioButton tempRadio = findViewById(measurementRadioGroup.getCheckedRadioButtonId());
         String distanceString = tempRadio.getText().toString();
 
+        float TempDist = -1.0f;
         if(Stride == -1.0f){
-            Toast.makeText(this, "User Preferences not set up, steps will not be converted to distance", Toast.LENGTH_LONG).show();
+            distanceTextView.setText(R.string.HeightNotSet);
             Stride = -2.0f;
         }
         else if(Stride > 0.0f)
         {
-            distance += Stride;
+
             MiKm = Stride*StepCount/5280.0f;
+            TempDist = MiKm;
             if(distanceString.equals("Km"))
                 MiKm *= 1.609344f;
             MiKm *= 1000;
@@ -269,10 +259,28 @@ public class MainMenuActivity extends AppCompatActivity
             String tempString = "Distance: " + MiKm + " " + distanceString;
             distanceTextView.setText(tempString);
         }
+        CalorieCalc(TempDist);
     }
 
+    public void CalorieCalc(float Distance){
+        if(weight != 0.0f){
+            float calVar = weight - 100.0f;
+            calVar = calVar * calCalcVar + 53.0f;
+            float tempTotal = Distance * calVar;
 
+            tempTotal *= 10.0f;
+            tempTotal = (int)tempTotal;
+            tempTotal /=10.0f;
+            String tempCal = "Calories: " + tempTotal;
+            calorieTextView.setText(tempCal);
+        }
+        else if(weight == 0.0f)
+        {
+            calorieTextView.setText(R.string.WeightNotSet);
+            weight = -1.0f;
+        }
 
+    }
 
     @Override
     protected void onResume(){
@@ -281,7 +289,8 @@ public class MainMenuActivity extends AppCompatActivity
 
         h.postDelayed(new Runnable() {
             public void run() {
-                StepCounter.setText("Steps: " + String.valueOf(StepCount));
+                String tempStepText = "Steps: " + String.valueOf(StepCount);
+                StepCounter.setText(tempStepText);
                 runnable=this;
 
                 h.postDelayed(runnable, delay);
@@ -293,6 +302,11 @@ public class MainMenuActivity extends AppCompatActivity
         {
             Stride /= 12.0f;
         }
+
+
+        weight = sharedPreferences.getFloat("Weight", 0.0f);
+
+
         super.onResume();
 
     }
@@ -312,7 +326,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -370,7 +384,7 @@ public class MainMenuActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -393,15 +407,6 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
 
-
-    //Check if storage is available - public
-    public boolean isExternalStorageWritable(){
-        String state = Environment.getExternalStorageState();
-        if(Environment.MEDIA_MOUNTED.equals(state)){
-            return true;
-        }
-        return false;
-    }
 
 
 

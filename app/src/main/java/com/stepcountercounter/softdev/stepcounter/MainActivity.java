@@ -58,13 +58,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     void InitGoals(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
 
-        //goalTextView[0] = findViewById(R.id.tvGoal1);
-        //goalTextView[1] = findViewById(R.id.tvGoal2);
-        //goalTextView[2] = findViewById(R.id.tvGoal3);
         String[] s = sharedPreferences.getString("AllGoals","").split("\n    ");
         for(int i = 0; i < s.length-1; i++){
-            if(!s[i].contentEquals("    ") && !s[i].contentEquals("") && s[i] != null){}
-        //    goals [i] = AddGoal(goalTextView[i]);
+            if(!s[i].contentEquals("    ") && !s[i].contentEquals("") && s[i] != null)
+            goals [i] = AddGoal(goalTextView[i]);
         }
     }
     private void DebugEnable(){
@@ -76,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void MoneyUpdate(View v){
         TextView MoneyText = findViewById(R.id.tvMonValueInfo);
-        MoneyText.setText("X " + MoneyPref.getInt("MonValue", 0));
+        String tempMoneytext = "X " + MoneyPref.getInt("MonValue", 0);
+        MoneyText.setText(tempMoneytext);
     }
 
     public void DebugClicker(View v){
@@ -97,9 +95,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(this, "You are now in debug mode.", Toast.LENGTH_SHORT).show();
             TapCount--;
         }
-        else
-        {
-        }
+
     }
 
 
@@ -109,11 +105,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         CheckGoal();
         if(countSensor != null){
-            sensorManager.registerListener(this, countSensor, sensorManager.SENSOR_DELAY_UI);
+            sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
         }
         else
         {
-            Toast.makeText(this, "Count sensor not available", Toast.LENGTH_LONG).show();;
+            Toast.makeText(this, "Count sensor not available", Toast.LENGTH_LONG).show();
         }
 
         h.postDelayed(new Runnable() {
@@ -131,10 +127,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
         activityRunning = false;
         h.removeCallbacks(runnable);
-    }
-
-    public void AddPoint(View v){
-
     }
 
 
@@ -188,14 +180,7 @@ public void SaveTest(View v) {
     editor.apply();
 }*/
 
-public int IntPreferences(String key) {
-    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
-    return sharedPreferences.getInt(key,0);
-}
-public String StrPreferences(String key) {
-    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
-    return sharedPreferences.getString(key,"");
-}
+
 /*
 public void LoadTest(View v) {
     TextView t = findViewById(R.id.tvTestSave);
