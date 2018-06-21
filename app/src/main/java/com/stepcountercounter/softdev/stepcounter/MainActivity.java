@@ -17,10 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener{
+public class MainActivity extends AppCompatActivity{
 
 
-    private SensorManager sensorManager;
     private TextView count, count2, count3;
     private int StepCounts, TapCount, MonValue,StepsUntilMon = 10;
     boolean activityRunning, DebugMode;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         count = findViewById(R.id.countTextView);
 
-        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         MoneyPref = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
         MonValue = MoneyPref.getInt("MonValue",0);
         MoneyEditor = MoneyPref.edit();
@@ -102,15 +100,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onResume(){
         super.onResume();
         activityRunning = true;
-        Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         CheckGoal();
-        if(countSensor != null){
-            sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
-        }
-        else
-        {
-            Toast.makeText(this, "Count sensor not available", Toast.LENGTH_LONG).show();
-        }
+
 
         h.postDelayed(new Runnable() {
             public void run() {
@@ -138,19 +129,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-
-        if(activityRunning){
-            String tempText = "Steps: " + String.valueOf(event.values[0]);
-            count.setText(tempText);
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
 
     public void ToAchievements(View v){
         Intent n = new Intent(this,AchievementsActivity.class);

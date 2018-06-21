@@ -130,6 +130,8 @@ public class MainMenuActivity extends AppCompatActivity
 
         calCalcVar = 10.7f/20.0f;
 
+        debugNumberTextView.setEnabled(false);
+
 
         //Date Check
         String tmpDate = timeChecker.getString("LastDateAccessed", "null");
@@ -168,6 +170,8 @@ public class MainMenuActivity extends AppCompatActivity
         if(DebugEnabled){
             DebugEnable();
         }
+
+        debugNumberTextView.setEnabled(true);
     }
 
 
