@@ -17,19 +17,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
 
     private TextView count, count2, count3;
-    private int StepCounts, TapCount, MonValue,StepsUntilMon = 10;
+    private int StepCounts, TapCount, MonValue, StepsUntilMon = 10;
     boolean activityRunning, DebugMode;
     private Button debugStepButton;
     private SharedPreferences MoneyPref;
     private SharedPreferences.Editor MoneyEditor;
     private TextView MoneyCounterTextView;
 
-    TextView[] goalTextView = new TextView[3];
-    FitGoal[] goals = new FitGoal[3];
 
     Handler h = new Handler();
     int delay = 250; //1 second=1000 milisecond, 15*1000=15seconds
@@ -47,37 +45,29 @@ public class MainActivity extends AppCompatActivity{
         count = findViewById(R.id.countTextView);
 
         MoneyPref = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
-        MonValue = MoneyPref.getInt("MonValue",0);
+        MonValue = MoneyPref.getInt("MonValue", 0);
         MoneyEditor = MoneyPref.edit();
         MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
         //((TextView)findViewById(R.id.tvGoal1)).setText(sharedPreferences.getString("AllGoals",""));
-        InitGoals();
     }
-    void InitGoals(){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
 
-        String[] s = sharedPreferences.getString("AllGoals","").split("\n    ");
-        for(int i = 0; i < s.length-1; i++){
-            if(!s[i].contentEquals("    ") && !s[i].contentEquals("") && s[i] != null)
-            goals [i] = AddGoal(goalTextView[i]);
-        }
-    }
-    private void DebugEnable(){
+
+
+    private void DebugEnable() {
         debugStepButton.setVisibility(View.VISIBLE);
         debugStepButton.setClickable(true);
         debugStepButton.setEnabled(true);
     }
 
 
-    public void MoneyUpdate(View v){
+    public void MoneyUpdate(View v) {
         TextView MoneyText = findViewById(R.id.tvMonValueInfo);
         String tempMoneytext = "X " + MoneyPref.getInt("MonValue", 0);
         MoneyText.setText(tempMoneytext);
     }
 
-    public void DebugClicker(View v){
-        if(TapCount > 0) {
-
+    public void DebugClicker(View v) {
+        if (TapCount > 0) {
 
 
             if (TapCount <= 4) {
@@ -85,9 +75,7 @@ public class MainActivity extends AppCompatActivity{
                 Toast.makeText(this, tapText, Toast.LENGTH_SHORT).show();
             }
             TapCount--;
-        }
-        else if(TapCount == 0)
-        {
+        } else if (TapCount == 0) {
             DebugMode = true;
             DebugEnable();
             Toast.makeText(this, "You are now in debug mode.", Toast.LENGTH_SHORT).show();
@@ -97,163 +85,51 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         activityRunning = true;
-        CheckGoal();
+
 
 
         h.postDelayed(new Runnable() {
             public void run() {
                 String temp = "X " + MoneyPref.getInt("MonValue", 0);
                 MoneyCounterTextView.setText(temp);
-                runnable=this;
+                runnable = this;
                 h.postDelayed(runnable, delay);
             }
         }, delay);
 
     }
 
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         activityRunning = false;
         h.removeCallbacks(runnable);
     }
 
 
-    public void sendMessage(View v){
+    public void sendMessage(View v) {
         Intent newActivity = new Intent(this, MainMenuActivity.class);
         startActivity(newActivity);
 
 
-
     }
 
 
-    public void ToAchievements(View v){
-        Intent n = new Intent(this,AchievementsActivity.class);
-        startActivity(n);
-    }
-    public void ToAvatar(View v){
-        Intent n = new Intent(this,AvatarActivity.class);
-        startActivity(n);
-    }
-    public void ToShop(View v){
-        Intent n = new Intent(this,ShopActivity.class);
+    public void ToAchievements(View v) {
+        Intent n = new Intent(this, AchievementsActivity.class);
         startActivity(n);
     }
 
-
-
-
-    //////////////////////////////////////////////// Save Data ////////////////////////////////////////////////
-/*
-public void SaveTest(View v) {
-    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
-    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-    editor.putInt("Steps",3);
-    editor.putString("Saved","Yaes!");
-
-    editor.apply();
-}*/
-
-
-/*
-public void LoadTest(View v) {
-    TextView t = findViewById(R.id.tvTestSave);
-    t.setText(StrPreferences("Saved"));
-}*/
-
-
-    //////////////////////////////////////////////// Save Data ////////////////////////////////////////////////
-
-
-    //////////////////////////////////////////////// Fit Goals ////////////////////////////////////////////////
-    public FitGoal AddGoal(){
-        EditText desc = findViewById(R.id.etGoalDescription);
-        Boolean comp = ((CheckBox)findViewById(R.id.cbComplete)).isChecked();
-        String s = desc.getText().toString();
-
-        return new FitGoal(s,comp);
+    public void ToAvatar(View v) {
+        Intent n = new Intent(this, AvatarActivity.class);
+        startActivity(n);
     }
 
-    public FitGoal AddGoal(TextView t){
-        EditText desc = findViewById(R.id.etGoalDescription);
-        Boolean comp = ((CheckBox)findViewById(R.id.cbComplete)).isChecked();
-        String s = desc.getText().toString();
-        FitGoal f = new FitGoal(s,comp);
-        f.SetMyView(t);
-        return f;
+    public void ToShop(View v) {
+        Intent n = new Intent(this, ShopActivity.class);
+        startActivity(n);
     }
 
-    public void CheckGoal(View v){
-        CheckGoal();
-    }
-
-    public void CheckGoal() {
-        /*EditText desc = findViewById(R.id.etGoalDescription);
-        CheckBox comp = findViewById(R.id.cbComplete);
-        Button b = findViewById(R.id.btnAddGoal);
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.stepdata", 0);
-        int count = 0;//sharedPreferences.getInt("NumGoals", 0);
-        for(int i = 0; i < 3; ++i){
-            if(goals[i] != null)count++;
-        }
-        String goals = sharedPreferences.getString("AllGoals","");
-        String s = desc.getText().toString();
-        String[] AllGoals = goals.split("\n");
-        if (count <= 3) {
-            if (s != "") {
-                FitGoal f = new FitGoal(s, comp.isChecked());
-                count++;
-                SharedPreferences.Editor e = sharedPreferences.edit();
-                goals += s+'\n';
-                e.putString("AllGoals",goals);
-                e.putInt("NumGoals",count);
-                e.apply();
-                f.getMyView().setText(goals);
-            }
-        }else{
-        Toast.makeText(this,"Maximum of 3 goals, please complete some existing goals",Toast.LENGTH_SHORT).show();
-
-        }*/
-    }
-    }
-
-
-
-    class FitGoal{
-    String goal_description;
-    boolean complete;
-    TextView MyView;
-
-        public FitGoal(String g, boolean c){
-            goal_description = g;
-            complete = c;
-        }
-        public void SetMyView(TextView textView){
-            MyView = textView;
-        }
-
-        public TextView getMyView() {
-            return MyView;
-        }
-
-        public void LoadGoal(String s){
-        //0,I want to walk 1000 steps this week
-        complete = (s.charAt(0) == 1);//bool for complete
-         //initialize the description, then add each char individually after comma
-        goal_description = "";
-        for(int i = 2; i < s.length();++i) {
-            goal_description += s.charAt(i);
-        }
-        MyView.setText(goal_description);
-    }
-
-    public String GoalToString(){
-        return complete+","+goal_description;
-    }
 }
-    //////////////////////////////////////////////// Fit Goals ////////////////////////////////////////////////
-
