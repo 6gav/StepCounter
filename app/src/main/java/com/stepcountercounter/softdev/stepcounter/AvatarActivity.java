@@ -1,6 +1,7 @@
 package com.stepcountercounter.softdev.stepcounter;
 
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,9 +50,16 @@ public class AvatarActivity extends AppCompatActivity {
     };
 
     int[] bottom = {
-            R.drawable.outfit_b1,
-            R.drawable.outfit_b1,
-            R.drawable.outfit_b1
+            R.drawable.outfit_b00,
+            R.drawable.outfit_b01,
+            R.drawable.outfit_b02,
+            R.drawable.outfit_b03,
+            R.drawable.outfit_b04,
+            R.drawable.outfit_b05,
+            R.drawable.outfit_b06,
+            R.drawable.outfit_b07,
+            R.drawable.outfit_b08,
+            R.drawable.outfit_b09,
     };
 
     int[] footwear = {
@@ -72,12 +80,13 @@ public class AvatarActivity extends AppCompatActivity {
         ivBottom = findViewById(R.id.ivBottom);
         ivFeet = findViewById(R.id.ivFootwear);
 
+        int x = preferences.getInt("A_TOP", R.drawable.outfit_t00);
+        Drawable temp = getDrawable(x);
+
+
         ivTop.setImageDrawable(getDrawable(preferences.getInt("A_TOP",R.drawable.outfit_t00)));
-        ivBottom.setImageDrawable(getDrawable(preferences.getInt("A_BOT",R.drawable.outfit_b1)));
+        ivBottom.setImageDrawable(getDrawable(preferences.getInt("A_BOT",R.drawable.outfit_b00)));
         ivFeet.setImageDrawable(getDrawable(preferences.getInt("A_FOT",R.drawable.outfit_f1)));
-
-
-
     }
     public void OnTopPress(View v){
         ImageView I = findViewById(R.id.ivTop);
@@ -100,7 +109,6 @@ public class AvatarActivity extends AppCompatActivity {
         if(vis == 0){vis = 4;}
         else{vis = 0;}
         I.setVisibility(vis);
-
     }
 
 

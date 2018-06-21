@@ -4,15 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Timer;
@@ -21,15 +25,19 @@ import java.util.TimerTask;
 import org.w3c.dom.Text;
 
 public  class ShopActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
-    private int MonValue, itemoffset, MaxItems = 30,selectedItem = 0, purchases = 0;
+    boolean Validated = false;
+    private int MonValue, itemoffset, MaxItems = 50,selectedItem = 0, purchases = 0,cue = 0;
     SharedPreferences preferences;
-    Item[] items;
+    Item[] items,shop;
     Item _selectedItemObject = null;
     ImageView currentImage;
     ListView lst;
     Button btnPurchase, btnEquip;
     TextView MoneyText;
     Timer timer;
+    TabLayout tlytMenuTabs;
+    TabItem[] tabItems;
+    String[] TabString;
     /////////////////////// private variable initialization ///////////////////////////////////////
 
     enum ClothingType{
@@ -66,12 +74,24 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             200,//shirts
 
             10,
+            10,
+            15,
+
+            20,
+            20,
+            25,
+
             25,
             50,//pants
-
             30,
+
             60,
-            90,//footwear
+            90,
+
+            10,
+            10,
+            10//footwear
+
             //hats
     };
 
@@ -102,9 +122,17 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     };
 
     int[] bottom = {
-            R.drawable.outfit_b1,
-            R.drawable.outfit_b1,
-            R.drawable.outfit_b1
+            R.drawable.outfit_b00,
+            R.drawable.outfit_b01,
+            R.drawable.outfit_b02,
+            R.drawable.outfit_b03,
+            R.drawable.outfit_b04,
+            R.drawable.outfit_b05,
+            R.drawable.outfit_b06,
+            R.drawable.outfit_b07,
+            R.drawable.outfit_b08,
+            R.drawable.outfit_b09,
+            R.drawable.outfit_b10
     };
 
     int[] footwear = {
@@ -119,7 +147,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //TextView tv = (TextView)view;
         //Toast.makeText(this,"You clicked on " + tv.getText() + position, Toast.LENGTH_SHORT).show();
-        _selectedItemObject = items[position];
+        _selectedItemObject = shop[position];
         btnPurchase.setEnabled(_selectedItemObject != null);
         if( btnPurchase.isEnabled()){
             btnPurchase.setEnabled(!_selectedItemObject.isPurchased());
@@ -138,12 +166,14 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         MonValue = preferences.getInt("MonValue", 0);
         purchases = preferences.getInt("Purchased Items", 0);
         items = new Item[MaxItems];
+        shop = new Item[MaxItems];
 
         lst = findViewById(R.id.lvShopItems);
         currentImage = findViewById(R.id.ivCurrentImage);
         btnEquip = findViewById(R.id.btnEquip);
         btnPurchase = findViewById(R.id.btnPurchase);
         MoneyText = findViewById(R.id.tvMonValueInfo);
+
 
         CreateItems();
         LoadShopData(preferences.getString("ShopTag","All"));
@@ -153,20 +183,54 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             public void run() {
 
                 MonValue++;
-                MoneyUpdate(MonValue);
+                //MoneyUpdate(MonValue);
             }
         };
         timer.scheduleAtFixedRate(t,500,500);
+
         //currentImage.setImageDrawable(items[selectedItem].getImage());
     }
 
+
+
+    public void OnCheckBoxClick(View v){
+        CheckBox[] boxes = new CheckBox[4];
+        boxes[0] = findViewById(R.id.cbxHead);
+        boxes[1] = findViewById(R.id.cbxTop);
+        boxes[2] = findViewById(R.id.cbxBottom);
+        boxes[3] = findViewById(R.id.cbxFootwear);
+
+        String alltags = " ",tag = "";
+        for(int i = 0; i < 4; i++){
+            if(boxes[i].isChecked()) {
+                switch (boxes[i].getText().toString()) {
+                    case "Top":
+                        tag = "A_TOP ";
+                        break;
+                    case "Head":
+                        tag = "A_HED ";
+                        break;
+                    case "Footwear":
+                        tag = "A_FOT ";
+                        break;
+                    case "Bottoms":
+                        tag = "A_BOT ";
+                        break;
+                }
+            }
+            alltags += tag;
+        }
+        LoadShopData(alltags);
+    }
 
     private void CreateItems() {
         int i,j = 0;
         String allNames = getResources().getString(R.string.shop_item_names);
         String[] names = allNames.split(",");
 
-        for(i = 0; i < (top.length/4)+2;i++){
+
+
+        for(i = 0; i < (top.length);i++){
             Item item = new Item();
             item.setCost(cost[j]);
             item.setName("Shirt "+i);
@@ -178,6 +242,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             items[j] = item;
             ++j;
         }
+        j = top.length;
         for(i = 0; i < bottom.length;i++){
             Item item = new Item();
             item.setCost(cost[j]);
@@ -188,8 +253,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setDescription("Purchase " + item.getName() + " for " + item.getCost() + "$.");
             items[j] = item;
             ++j;
-
         }
+        j = top.length+ bottom.length;
         for(i = 0; i < footwear.length;i++){
             Item item = new Item();
             item.setCost(cost[j]);
@@ -201,6 +266,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             items[j] = item;
             ++j;
         }
+
     }
 
     //
@@ -209,8 +275,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     }
     public void LoadShopData(String Tag) {
         ArrayAdapter<String> AAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-
-        for (int i = 0; i < MaxItems; ++i) {
+        int i,j = 0;
+        for (i = 0; i < MaxItems; ++i) {
             /*Item item = new Item();
             item.setCost(5+10 * i);
             item.setName("Item #" + i);
@@ -219,9 +285,13 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             items[i] = item;*/
             //
             if(items[i] != null) {
-                if(items[i].getTag() == Tag || "All" == Tag) {
-                    AAdapter.add(items[i].getDescription());
-                    items[i].setPosition(i);
+                if(Tag.contains(items[i].getTag()) || "All" == Tag) {
+                    if(!items[i].isPurchased()) {
+                        AAdapter.add(items[i].getDescription());
+                        shop[j] = items[i];
+                        items[i].setPosition(j);
+                        j++;
+                    }
                 }
             }
         }
@@ -243,6 +313,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     public void MoneyUpdate(int i){
         SharedPreferences.Editor p = preferences.edit();
         p.putInt("MonValue",i);
+        p.apply();
     }
 
     public void SelectionUp(View v) {
@@ -284,6 +355,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
                 editor.apply();
 
                 btnEquip.setEnabled(true);
+                btnPurchase.setEnabled(false);
             }
 
         }
@@ -296,7 +368,6 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     class Item {
         private int cost,position,image_id;
         private String name, description, tag;
-        private Drawable image;
         private boolean purchased;
 
         public void setCost(int c) {
@@ -315,17 +386,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             tag = s;
         }
 
-        public void setImage(Drawable i) {
-            image = i;
-        }
-
         public void setImage(int i) {
             image_id = i;
-            try {
-                image = getResources().getDrawable(i);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
         }
 
         public void setPurchased(boolean p) {
@@ -356,7 +418,13 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         }
 
         public Drawable getImage() {
-            return image;
+
+            try {
+                return getResources().getDrawable(image_id);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return getResources().getDrawable(R.drawable.googleg_disabled_color_18);
         }
 
         public int getCost() {
