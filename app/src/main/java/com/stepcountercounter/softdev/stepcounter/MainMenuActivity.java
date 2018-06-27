@@ -328,6 +328,12 @@ public class MainMenuActivity extends AppCompatActivity
         MainMenuActivity.this.startActivity(intent);
     }
 
+    public void StartGoals(View v){
+        Intent intent = new Intent(MainMenuActivity.this, GoalsActivity.class);
+        MainMenuActivity.this.startActivity(intent);
+    }
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -359,7 +365,6 @@ public class MainMenuActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
 

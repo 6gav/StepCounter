@@ -80,6 +80,7 @@ public class AvatarActivity extends AppCompatActivity {
         ivBottom = findViewById(R.id.ivBottom);
         ivFeet = findViewById(R.id.ivFootwear);
 
+
         int x = preferences.getInt("A_TOP", R.drawable.outfit_t00);
         Drawable temp = getDrawable(x);
 
