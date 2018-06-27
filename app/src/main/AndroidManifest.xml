@@ -33,6 +33,7 @@
         <activity android:name=".UserPreferences">
 
         </activity>
+        <activity android:name=".Inventory"></activity>
     </application>
 
 </manifest>

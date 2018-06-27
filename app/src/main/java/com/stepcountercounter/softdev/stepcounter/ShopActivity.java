@@ -1,6 +1,7 @@
 package com.stepcountercounter.softdev.stepcounter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
@@ -286,12 +287,10 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             //
             if(items[i] != null) {
                 if(Tag.contains(items[i].getTag()) || "All" == Tag) {
-                    if(!items[i].isPurchased()) {
                         AAdapter.add(items[i].getDescription());
                         shop[j] = items[i];
                         items[i].setPosition(j);
                         j++;
-                    }
                 }
             }
         }
@@ -344,7 +343,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
                 purchases+= (1>>_selectedItemObject.getPosition());
                 MonValue -= _selectedItemObject.getCost();
-
+                MoneyText.setText("X " + MonValue);
                 purchased = true;
                 _selectedItemObject.setPurchased(purchased);
 
