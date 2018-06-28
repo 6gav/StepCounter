@@ -1,10 +1,13 @@
 package com.stepcountercounter.softdev.stepcounter;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 public class Inventory extends AppCompatActivity {
-
+    ShopActivity.Item[] items;
+    ImageView ivTop,ivBottom,ivFeet;
     //region arrays
     int[] cost = {
             10,
@@ -105,4 +108,6 @@ public class Inventory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
     }
+
+
 }

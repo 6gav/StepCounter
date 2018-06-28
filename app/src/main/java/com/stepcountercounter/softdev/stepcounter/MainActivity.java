@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     Handler h = new Handler();
-    int delay = 250; //1 second=1000 milisecond, 15*1000=15seconds
+    int delay = 250; //1 second=1000 milliseconds, 15*1000=15seconds
     Runnable runnable;
 
     @Override
