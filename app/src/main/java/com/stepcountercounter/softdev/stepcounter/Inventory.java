@@ -1,113 +1,100 @@
 package com.stepcountercounter.softdev.stepcounter;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 
-public class Inventory extends AppCompatActivity {
-    ShopActivity.Item[] items;
-    ImageView ivTop,ivBottom,ivFeet;
-    //region arrays
-    int[] cost = {
-            10,
-            20,
-            25,
+public class Inventory extends ShopActivity {
 
-            25,
-            25,
-            30,
-
-            50,
-            100,
-            125,
-
-            135,
-            150,
-            160,
-
-            160,
-            175,
-            180,
-
-            200,
-            200,
-            200,//shirts
-
-            10,
-            10,
-            15,
-
-            20,
-            20,
-            25,
-
-            25,
-            50,//pants
-            30,
-
-            60,
-            90,
-
-            10,
-            10,
-            10//footwear
-
-            //hats
+    Button btnInvApply;
+    Drawable tempImage;
+    int[] images = {
+            -1,
+            -1,
+            -1
     };
-
-    int[] top = {
-            R.drawable.outfit_t00,
-            R.drawable.outfit_t01,
-            R.drawable.outfit_t02,
-
-            R.drawable.outfit_t03,
-            R.drawable.outfit_t04,
-            R.drawable.outfit_t05,
-
-            R.drawable.outfit_t06,
-            R.drawable.outfit_t07,
-            R.drawable.outfit_t08,
-
-            R.drawable.outfit_t09,
-            R.drawable.outfit_t10,
-            R.drawable.outfit_t11,
-
-            R.drawable.outfit_t12,
-            R.drawable.outfit_t13,
-            R.drawable.outfit_t14,
-
-            R.drawable.outfit_t15,
-            R.drawable.outfit_t16,
-            R.drawable.outfit_t17,
-    };
-
-    int[] bottom = {
-            R.drawable.outfit_b00,
-            R.drawable.outfit_b01,
-            R.drawable.outfit_b02,
-            R.drawable.outfit_b03,
-            R.drawable.outfit_b04,
-            R.drawable.outfit_b05,
-            R.drawable.outfit_b06,
-            R.drawable.outfit_b07,
-            R.drawable.outfit_b08,
-            R.drawable.outfit_b09,
-            R.drawable.outfit_b10
-    };
-
-    int[] footwear = {
-            R.drawable.outfit_f1,
-            R.drawable.outfit_f1,
-            R.drawable.outfit_f1
-    };
-//endregion
+    int img = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        IsShop = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
+
+
+        lst = findViewById(R.id.lvInvItems);
+        btnInvApply = findViewById(R.id.btnInvApply);
+
+        ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        CreateItems();
+        LoadShopData("Purchased",A);
+        ((ImageView)findViewById(R.id.ivInvTop)).setImageDrawable(getDrawable(preferences.getInt("A_TOP",R.drawable.outfit_t00)));
+        ((ImageView)findViewById(R.id.ivInvBottom)).setImageDrawable(getDrawable(preferences.getInt("A_BOT",R.drawable.outfit_b00)));
+        ((ImageView)findViewById(R.id.ivInvFeet)).setImageDrawable(getDrawable(preferences.getInt("A_FOT",R.drawable.outfit_f1)));
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //TextView tv = (TextView)view;
+        //Toast.makeText(this,"You clicked on " + tv.getText() + position, Toast.LENGTH_SHORT).show();
+        int lmg = img;
+        ImageView lv = currentImage;
+        _selectedItemObject = shop[position];
+        btnInvApply.setEnabled(_selectedItemObject != null);
+        switch (_selectedItemObject.getTag()){
+            case "A_HED":
+                currentImage = findViewById(R.id.ivInvTop);
+                img = 0;
+                break;
+            case "A_TOP":
+                currentImage = findViewById(R.id.ivInvTop);
+                img = 0;
+                break;
+            case "A_BOT":
+                currentImage = findViewById(R.id.ivInvBottom);
+                img = 1;
+                break;
+            case "A_FOT":
+                currentImage = findViewById(R.id.ivInvFeet);
+                img = 2;
+                break;
+        }
+        if(lmg != img && tempImage != null)
+            lv.setImageDrawable(tempImage);
+
+        tempImage = currentImage.getDrawable();
+
+        currentImage.setImageDrawable(_selectedItemObject.getImage());
+        if(img!= -1)
+        images[img] = _selectedItemObject.getImage_Id();
+
+    }
+
+    public void ApplyChanges(View v){
+        SharedPreferences.Editor editor = preferences.edit();
+
+        String[] tags = {
+                "A_TOP",
+                "A_BOT",
+                "A_FOT"
+        };
+
+        for(int i = 0; i < 3; i++)
+            if(images[i] != -1)
+                editor.putInt(tags[i],images[i]);
+
+        tempImage = currentImage.getDrawable();
+        editor.apply();
+    }
+
+
 
 
 }

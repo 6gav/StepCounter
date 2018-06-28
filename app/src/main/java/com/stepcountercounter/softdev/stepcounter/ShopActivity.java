@@ -39,6 +39,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     TabLayout tlytMenuTabs;
     TabItem[] tabItems;
     String[] TabString;
+    Boolean IsShop = true;
     /////////////////////// private variable initialization ///////////////////////////////////////
 
     enum ClothingType{
@@ -160,46 +161,51 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_shop);
 
         timer = new Timer();
         preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
         MonValue = preferences.getInt("MonValue", 0);
         purchases = preferences.getInt("Purchased Items", 0);
+
         items = new Item[MaxItems];
         shop = new Item[MaxItems];
+        if(IsShop == true) {
 
-        lst = findViewById(R.id.lvShopItems);
-        currentImage = findViewById(R.id.ivCurrentImage);
-        btnEquip = findViewById(R.id.btnEquip);
-        btnPurchase = findViewById(R.id.btnPurchase);
-        MoneyText = findViewById(R.id.tvMonValueInfo);
+            lst = findViewById(R.id.lvShopItems);
+            currentImage = findViewById(R.id.ivCurrentImage);
+            btnEquip = findViewById(R.id.btnEquip);
+            btnPurchase = findViewById(R.id.btnPurchase);
+            MoneyText = findViewById(R.id.tvMonValueInfo);
 
 
-        CreateItems();
-        LoadShopData(preferences.getString("ShopTag","All"));
-        MoneyUpdate();
-        TimerTask t = new TimerTask() {
-            @Override
-            public void run() {
+            CreateItems();
+            LoadShopData(preferences.getString("ShopTag", "All"));
+            MoneyUpdate();
+            TimerTask t = new TimerTask() {
+                @Override
+                public void run() {
 
-                MonValue++;
-                //MoneyUpdate(MonValue);
-            }
-        };
-        timer.scheduleAtFixedRate(t,500,500);
+                    MonValue++;
+                    //MoneyUpdate(MonValue);
+                }
+            };
 
+            timer.scheduleAtFixedRate(t, 500, 500);
+        }
         //currentImage.setImageDrawable(items[selectedItem].getImage());
     }
 
 
 
     public void OnCheckBoxClick(View v){
-        CheckBox[] boxes = new CheckBox[4];
+        CheckBox[] boxes = new CheckBox[5];
         boxes[0] = findViewById(R.id.cbxHead);
         boxes[1] = findViewById(R.id.cbxTop);
         boxes[2] = findViewById(R.id.cbxBottom);
         boxes[3] = findViewById(R.id.cbxFootwear);
+        boxes[4] = findViewById(R.id.cbxPurchased);
 
         String alltags = " ",tag = "";
         for(int i = 0; i < 4; i++){
@@ -217,6 +223,9 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
                     case "Bottoms":
                         tag = "A_BOT ";
                         break;
+                    case "Purchased":
+                        tag = "Purchased";
+                        break;
                 }
             }
             alltags += tag;
@@ -224,7 +233,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         LoadShopData(alltags);
     }
 
-    private void CreateItems() {
+    protected void CreateItems() {
         int i,j = 0;
         String allNames = getResources().getString(R.string.shop_item_names);
         String[] names = allNames.split(",");
@@ -275,7 +284,10 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         LoadShopData("All");
     }
     public void LoadShopData(String Tag) {
-        ArrayAdapter<String> AAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        LoadShopData(Tag, new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1));
+    }
+
+        public void LoadShopData(String Tag,ArrayAdapter<String> AAdapter) {
         int i,j = 0;
         for (i = 0; i < MaxItems; ++i) {
             /*Item item = new Item();
@@ -285,20 +297,28 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setDescription("Purchase " + item.getName() + " for " + item.getCost() + "$.");
             items[i] = item;*/
             //
+            boolean purchased = Tag.contains("Purchased");
             if(items[i] != null) {
-                if(Tag.contains(items[i].getTag()) || "All" == Tag) {
-                        AAdapter.add(items[i].getDescription());
-                        shop[j] = items[i];
-                        items[i].setPosition(j);
-                        j++;
+                if(Tag.contains(items[i].getTag()) || "All" == Tag || purchased) {
+                        if(!purchased) {
+                            AAdapter.add(items[i].getDescription());
+                            shop[j] = items[i];
+                            items[i].setPosition(j);
+                            j++;
+                        }
+                        else if(items[i].isPurchased()){
+                            AAdapter.add(items[i].getDescription());
+                            shop[j] = items[i];
+                            items[i].setPosition(j);
+                            j++;
+                        }
+                    }
                 }
             }
+        if(lst != null) {
+            lst.setAdapter(AAdapter);
+            lst.setOnItemClickListener(this);
         }
-
-
-
-        lst.setAdapter(AAdapter);
-        lst.setOnItemClickListener(this);
 
     }
 
