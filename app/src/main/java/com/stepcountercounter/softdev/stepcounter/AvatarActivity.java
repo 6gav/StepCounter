@@ -1,5 +1,6 @@
 package com.stepcountercounter.softdev.stepcounter;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -85,9 +86,24 @@ public class AvatarActivity extends AppCompatActivity {
         Drawable temp = getDrawable(x);
 
 
+        UpdateOutfit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UpdateOutfit();
+    }
+
+    void UpdateOutfit(){
         ivTop.setImageDrawable(getDrawable(preferences.getInt("A_TOP",R.drawable.outfit_t00)));
         ivBottom.setImageDrawable(getDrawable(preferences.getInt("A_BOT",R.drawable.outfit_b00)));
         ivFeet.setImageDrawable(getDrawable(preferences.getInt("A_FOT",R.drawable.outfit_f1)));
+    }
+
+    public void ToInventory(View v){
+        Intent I = new Intent(this, Inventory.class);
+        startActivity(I);
     }
     public void OnTopPress(View v){
         ImageView I = findViewById(R.id.ivTop);
