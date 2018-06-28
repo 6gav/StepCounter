@@ -14,4 +14,6 @@
     <string name="InchTextAbbreviation">lb</string>
     <string name="CmTextAbbreviation">cm</string>
     <string name="KgTextAbbreviation">kg</string>
+    <string name="NoActiveGoal">You have no goal active currently.</string>
+    <string name="GoalCompleted">You completed your goal! Great Job!</string>
 </resources>

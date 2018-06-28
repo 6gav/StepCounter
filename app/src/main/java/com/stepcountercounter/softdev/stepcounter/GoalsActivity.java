@@ -60,6 +60,7 @@ public class GoalsActivity extends AppCompatActivity {
             String Goal = "Steps," + temp + "," + String.valueOf(StepsAtGoalCreate) + ",";
             GoalTracker.edit().putString("CurrentGoal", Goal).apply();
         }
+        LoadGoal();
 
     }
 
@@ -71,10 +72,19 @@ public class GoalsActivity extends AppCompatActivity {
             int OrigSteps = Integer.valueOf(Goal[2]);
             int Difference = StepsAtGoalCreate - OrigSteps;
 
-            String current = Goal[0] + ": " + Difference + "/" + StepGoal;
-            currentGoal.setText(current);
 
+            if(Difference >= StepGoal){
+                currentGoal.setText(R.string.GoalCompleted);
+                GoalTracker.edit().putString("CurrentGoal", "").apply();
+            }
+            else {
+                String current = Goal[0] + ": " + Difference + "/" + StepGoal;
+                currentGoal.setText(current);
+            }
 
+        }
+        else {
+            currentGoal.setText(R.string.NoActiveGoal);
         }
     }
 
