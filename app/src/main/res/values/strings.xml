@@ -7,7 +7,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="shop_item_names">White Tee,Coogi,Serpent,Sweater,Commando,Black Dress,White Tee Chain,Shelter Boy,Bossman Suit,Best Man,Daisy Dress,Runner Top,Skeleton Hoodie,Striped Tee,Black Sweater,Red Dress,Lover’s Suit,Candy Cane Top</string>
+    <string name="shop_items_top">White Tee,Coogi,Serpent,Sweater,Commando,Black Dress,White Tee Chain,Shelter Boy,Bossman Suit,Best Man,Daisy Dress,Runner Top,Skeleton Hoodie,Striped Tee,Black Sweater,Red Dress,Lover’s Suit,Candy Cane Top</string>
+    <string name="shop_items_bottom">j,i</string>
     <string name="HeightNotSet">Distance: User height not yet set!</string>
     <string name="WeightNotSet">Calories: User weight not yet set!</string>
     <string name="FeetTextAbbreviation">ft</string>

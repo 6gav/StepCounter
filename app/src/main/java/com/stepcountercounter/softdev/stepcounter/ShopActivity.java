@@ -84,15 +84,26 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             25,
 
             25,
-            50,//pants
+            50,
             30,
 
             60,
-            90,
+            90,//pants
 
             10,
             10,
-            10//footwear
+            10,
+
+            15,
+            15,
+            25,
+
+            20,
+            20,
+            20,
+
+            30,
+            35,//footwear
 
             //hats
     };
@@ -120,27 +131,40 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
             R.drawable.outfit_t15,
             R.drawable.outfit_t16,
-            R.drawable.outfit_t17,
+            R.drawable.outfit_t17//18
     };
 
     int[] bottom = {
             R.drawable.outfit_b00,
             R.drawable.outfit_b01,
             R.drawable.outfit_b02,
+
             R.drawable.outfit_b03,
             R.drawable.outfit_b04,
             R.drawable.outfit_b05,
+
             R.drawable.outfit_b06,
             R.drawable.outfit_b07,
             R.drawable.outfit_b08,
+
             R.drawable.outfit_b09,
-            R.drawable.outfit_b10
+            R.drawable.outfit_b10//11
     };
 
     int[] footwear = {
-            R.drawable.outfit_f1,
-            R.drawable.outfit_f1,
-            R.drawable.outfit_f1
+            R.drawable.outfit_f00,
+            R.drawable.outfit_f01,
+            R.drawable.outfit_f02,
+
+            R.drawable.outfit_f03,
+            R.drawable.outfit_f04,
+            R.drawable.outfit_f05,
+
+            R.drawable.outfit_f06,
+            R.drawable.outfit_f07,
+            R.drawable.outfit_f08,
+
+            R.drawable.outfit_f09//10
     };
 //endregion
 
@@ -235,7 +259,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     protected void CreateItems() {
         int i,j = 0;
-        String allNames = getResources().getString(R.string.shop_item_names);
+        String allNames = getResources().getString(R.string.shop_items_top);
         String[] names = allNames.split(",");
 
 
