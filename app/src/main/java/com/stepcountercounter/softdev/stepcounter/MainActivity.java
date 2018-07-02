@@ -132,6 +132,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(n);
     }
 
-
-
+    public void ToGoals(View v) {
+        Intent n = new Intent(this, GoalsActivity.class);
+        startActivity(n);
+    }
+    public void ToInventory(View v) {
+        Intent n = new Intent(this, Inventory.class);
+        startActivity(n);
+    }
+    public void ToPreferences(View v){
+        Intent n = new Intent(this, UserPreferences.class);
+        startActivity(n);
+    }
 }

@@ -18,12 +18,12 @@
         android:text="Step Amount"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintHorizontal_bias="0.559"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
 
         app:layout_constraintTop_toBottomOf="@+id/newScreenButton"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintVertical_bias="0.126" />
 
     <Button
         android:id="@+id/newScreenButton"
@@ -180,6 +180,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="ToInventory"
         android:text="Inventory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -212,6 +213,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="ToGoals"
         android:text="Goals"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
