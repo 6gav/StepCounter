@@ -192,6 +192,7 @@ public class MainMenuActivity extends AppCompatActivity
             }
         }
     }
+
     public void DebugEnable(){
         temp.setVisibility(View.VISIBLE);
         temp.setEnabled(true);
@@ -199,6 +200,7 @@ public class MainMenuActivity extends AppCompatActivity
         debugNumberTextView.setVisibility(View.VISIBLE);
 
     }
+
     public void DebugTry(View v){
         if(!DebugEnabled) {
             if (DebugTapCount > 0) {
@@ -226,6 +228,7 @@ public class MainMenuActivity extends AppCompatActivity
                 tempMoney = 1;
             }
         }
+
         if(tempMoney > 0) {
             SharedPreferences money = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
             tempMoney += money.getInt("MonValue", 0);
