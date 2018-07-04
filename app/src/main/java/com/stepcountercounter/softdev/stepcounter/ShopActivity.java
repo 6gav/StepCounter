@@ -26,22 +26,18 @@ import java.util.TimerTask;
 import org.w3c.dom.Text;
 
 public  class ShopActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
-    boolean Validated = false;
-    private int MonValue, itemoffset, MaxItems = 50,selectedItem = 0, purchases = 0,cue = 0;
-    SharedPreferences preferences;
-    Item[] items,shop;
-    Item _selectedItemObject = null;
+    //Components
     ImageView currentImage;
     ListView lst;
     Button btnPurchase, btnEquip;
     TextView MoneyText;
     Timer timer;
-    TabLayout tlytMenuTabs;
-    TabItem[] tabItems;
-    String[] TabString;
-    Boolean IsShop = true;
-    /////////////////////// private variable initialization ///////////////////////////////////////
 
+    //Preferences
+    SharedPreferences preferences;
+
+    //Arrays/Enums
+    Item[] items,shop;
     enum ClothingType{
         CT_Top,
         CT_Bottom,
@@ -168,11 +164,18 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     };
 //endregion
 
+    //Variables
+    boolean Validated = false;
+    private int MonValue, itemoffset, MaxItems = 50,selectedItem = 0, purchases = 0,cue = 0;
+    Item _selectedItemObject = null;
+    Boolean IsShop = true;
+
+
+
+
     /////////////////////////////// functions /////////////////////////////////////////////////////
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //TextView tv = (TextView)view;
-        //Toast.makeText(this,"You clicked on " + tv.getText() + position, Toast.LENGTH_SHORT).show();
         _selectedItemObject = shop[position];
         btnPurchase.setEnabled(_selectedItemObject != null);
         if( btnPurchase.isEnabled()){
@@ -260,7 +263,12 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void CreateItems() {
         int i,j = 0;
         String allNames = getResources().getString(R.string.shop_items_top);
-        String[] names = allNames.split(",");
+        String[] topNames,botNames,fotNames;
+        topNames = allNames.split(",");
+        allNames = getResources().getString(R.string.shop_items_bottom);
+        botNames = allNames.split(",");
+        allNames = getResources().getString(R.string.shop_items_footwear);
+        fotNames = allNames.split(",");
 
 
 
@@ -268,7 +276,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             Item item = new Item();
             item.setCost(cost[j]);
             item.setName("Shirt "+i);
-            item.setName(names[j]);
+            item.setName(topNames[j]);
             item.setImage(top[i]);
             item.setTag("A_TOP");
             item.setPurchased(preferences.getBoolean(item.getImage_Id()+"purchased?",false));
@@ -281,6 +289,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             Item item = new Item();
             item.setCost(cost[j]);
             item.setName("Bottoms "+i);
+            item.setName(botNames[i]);
             item.setImage(bottom[i]);
             item.setTag("A_BOT");
             item.setPurchased(preferences.getBoolean(item.getImage_Id()+"purchased?",false));
@@ -293,6 +302,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             Item item = new Item();
             item.setCost(cost[j]);
             item.setName("Footwear "+i);
+            item.setName(fotNames[i]);
             item.setImage(footwear[i]);
             item.setTag("A_FOT");
             item.setPurchased(preferences.getBoolean(item.getImage_Id()+"purchased?",false));
