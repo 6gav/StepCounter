@@ -13,15 +13,23 @@ import android.widget.ImageView;
 
 public class Inventory extends ShopActivity {
 
+    //region Declarations
+
+    //Components
     Button btnInvApply;
     Drawable tempImage;
+
+    //arrays
     int[] images = {
             -1,
             -1,
             -1
     };
+
+    //variables
     int img = -1;
 
+//endregion
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         IsShop = false;
