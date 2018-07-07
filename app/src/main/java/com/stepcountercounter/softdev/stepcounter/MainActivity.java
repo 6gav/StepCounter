@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -40,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TapCount = 4;
         DebugMode = false;
-        debugStepButton = findViewById(R.id.debugAddStepsButton);
 
         count = findViewById(R.id.countTextView);
 

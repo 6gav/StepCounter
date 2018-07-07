@@ -46,63 +46,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     //region arrays
-    int[] cost = {
-            10,
-            20,
-            25,
-
-            25,
-            25,
-            30,
-
-            50,
-            100,
-            125,
-
-            135,
-            150,
-            160,
-
-            160,
-            175,
-            180,
-
-            200,
-            200,
-            200,//shirts
-
-            10,
-            10,
-            15,
-
-            20,
-            20,
-            25,
-
-            25,
-            50,
-            30,
-
-            60,
-            90,//pants
-
-            10,
-            10,
-            10,
-
-            15,
-            15,
-            25,
-
-            20,
-            20,
-            20,
-
-            30,
-            35,//footwear
-
-            //hats
-    };
+    int[] cost;
 
     int[] top = {
             R.drawable.outfit_t00,
@@ -198,6 +142,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
         items = new Item[MaxItems];
         shop = new Item[MaxItems];
+        cost = getResources().getIntArray(R.array.costs);
         if(IsShop == true) {
 
             lst = findViewById(R.id.lvShopItems);

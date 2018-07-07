@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
+
+import com.google.android.gms.fitness.data.Goal;
 
 public class GoalsActivity extends AppCompatActivity {
 
@@ -15,9 +18,10 @@ public class GoalsActivity extends AppCompatActivity {
     EditText goalsInput;
     Button applyGoalsButton;
     TextView currentGoal;
+    RadioButton stepGoalRadioButton,calorieGoalRadioButton;
 
     //Variables
-    int StepsAtGoalCreate;
+    int StepsAtGoalCreate,CaloriesAtGoalCreate,GoalAtCreate,GoalType = 0;
 
 
     //Preferences
@@ -33,7 +37,8 @@ public class GoalsActivity extends AppCompatActivity {
         goalsInput = findViewById(R.id.goalsEditText);
         applyGoalsButton = findViewById(R.id.applyGoalsButton);
         currentGoal = findViewById(R.id.currentGoalTextView);
-
+        stepGoalRadioButton = findViewById(R.id.stepGoalRadioButton);
+        calorieGoalRadioButton = findViewById(R.id.calorieGoalRadioButton);
 
         //Preferences
         GoalTracker = getSharedPreferences("com.stepcountercounter.GoalTracker", Context.MODE_PRIVATE);
@@ -43,21 +48,42 @@ public class GoalsActivity extends AppCompatActivity {
 
         //Variables
         StepsAtGoalCreate = StepTracker.getInt("StepCount", 0);
-
+        CaloriesAtGoalCreate = Math.round(StepTracker.getFloat("CalorieCount", 0));
 
 
         LoadGoal();
     }
 
 
+    public void RBClick(View v){
+    if(stepGoalRadioButton.isChecked())
+        GoalType = 0;
+    else if(calorieGoalRadioButton.isChecked())
+        GoalType = 1;
+    }
 
+    public int LoadType(String T){
+        int goalAtCreate = StepsAtGoalCreate;
 
+        switch (T){
+            case "Steps":
+                break;
+            case "Calories":
+                goalAtCreate = CaloriesAtGoalCreate;
+                break;
+
+        }
+        return goalAtCreate;
+    }
 
     public void SaveGoal(View v){
 
         String temp = goalsInput.getText().toString();
+        String type = "Steps";
+        if(GoalType == 1)type = "Calories";
+        GoalAtCreate = LoadType(type);
         if(!temp.equals("")){
-            String Goal = "Steps," + temp + "," + String.valueOf(StepsAtGoalCreate) + ",";
+            String Goal = type +","+ temp + "," + String.valueOf(GoalAtCreate) + ",";
             GoalTracker.edit().putString("CurrentGoal", Goal).apply();
         }
         LoadGoal();
@@ -70,7 +96,9 @@ public class GoalsActivity extends AppCompatActivity {
             String[] Goal = temp.split(",");
             int StepGoal = Integer.valueOf(Goal[1]);
             int OrigSteps = Integer.valueOf(Goal[2]);
-            int Difference = StepsAtGoalCreate - OrigSteps;
+            //GoalType: 0 Steps, 1 Calories
+            GoalAtCreate = LoadType(Goal[0]);
+            int Difference = GoalAtCreate - OrigSteps;
 
 
             if(Difference >= StepGoal){

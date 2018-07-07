@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+
+
+    //item prices
+    <integer-array name="costs">
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+
+        <item>15</item>
+        <item>15</item>
+        <item>15</item>
+
+        <item>25</item>
+        <item>25</item>
+        <item>35</item>
+
+        <item>40</item>
+        <item>40</item>
+        <item>40</item>
+
+        <item>45</item>
+        <item>45</item>
+        <item>50</item>
+
+        <item>55</item>
+        <item>55</item>
+        <item>65</item>//Shirts
+
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+
+        <item>50</item>
+        <item>50</item>
+        <item>50</item>
+
+        <item>50</item>
+        <item>120</item>
+        <item>120</item>
+
+        <item>120</item>
+        <item>130</item>
+        <item>140</item>//Bottoms
+
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+
+        <item>20</item>
+        <item>20</item>
+        <item>20</item>
+
+        <item>30</item>
+        <item>30</item>
+        <item>30</item>
+
+        <item>40</item>
+        <item>40</item>//Footwear
+
+    </integer-array>
+
+
+    <string-array name="item_tags">
+        <item>Sport</item>
+        <item>Casual</item>
+        <item>Formal</item>
+        <item>Misc</item>
+    </string-array>
+</resources>

@@ -38,7 +38,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     //Variables
-    float Stride, MiKm, weight, calCalcVar;
+    float Stride, CalorieCount, MiKm, weight, calCalcVar;
     int StepCount, DebugTapCount, LastStepCount;
     boolean tracking, DebugEnabled;
 
@@ -115,6 +115,8 @@ public class MainMenuActivity extends AppCompatActivity
 
         //Assignment
         StepCount = sharedPreferences.getInt("StepCount", 0);
+
+        CalorieCount = sharedPreferences.getFloat("CalorieCount", 0);
 
         Stride = sharedPreferences.getFloat("StrideLength", -1.0f);
 
@@ -239,6 +241,7 @@ public class MainMenuActivity extends AppCompatActivity
         editor.putInt("StepCount", StepCount);
         editor.apply();
         DistanceCalc();
+        editor.putFloat("CalorieCount", CalorieCount);
 
     }
 
@@ -276,8 +279,9 @@ public class MainMenuActivity extends AppCompatActivity
             float tempTotal = Distance * calVar;
 
             tempTotal *= 10.0f;
-            tempTotal = (int)tempTotal;
-            tempTotal /=10.0f;
+            tempTotal  = (int)tempTotal;
+            tempTotal /= 10.0f;
+            CalorieCount = tempTotal;
             String tempCal = "Calories: " + tempTotal;
             calorieTextView.setText(tempCal);
         }

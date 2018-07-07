@@ -16,13 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".MainMenuActivity"
             android:label="@string/title_activity_main_menu"
@@ -30,10 +24,15 @@
         <activity android:name=".AvatarActivity" />
         <activity android:name=".AchievementsActivity" />
         <activity android:name=".ShopActivity" />
-        <activity android:name=".UserPreferences"></activity>
-        <activity android:name=".Inventory"></activity>
-        <activity android:name=".GoalsActivity"></activity>
+        <activity android:name=".UserPreferences" />
+        <activity android:name=".Inventory" />
+        <activity android:name=".GoalsActivity" />
+        <activity android:name=".ProfileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter></activity>
     </application>
 
 </manifest>

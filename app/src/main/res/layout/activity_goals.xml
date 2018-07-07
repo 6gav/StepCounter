@@ -6,21 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".GoalsActivity">
 
-    <RadioButton
-        android:id="@+id/stepGoalRadioButton"
+    <RadioGroup
+        android:id="@+id/GoalTypeRadioGroup"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Steps"
+        android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.78" />
+        app:layout_constraintVertical_bias="0.834">
+
+        <RadioButton
+            android:id="@+id/calorieGoalRadioButton"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="RBClick"
+            android:text="Calories"
+            app:layout_constraintVertical_bias="0.118" />
+
+        <RadioButton
+            android:id="@+id/stepGoalRadioButton"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:checked="true"
+            android:onClick="RBClick"
+            android:text="Steps"
+            app:layout_constraintVertical_bias="0.712" />
+
+    </RadioGroup>
 
     <TextView
         android:id="@+id/textView4"
@@ -33,11 +61,11 @@
         android:text="Type of Goal"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/stepGoalRadioButton"
+        app:layout_constraintBottom_toTopOf="@+id/GoalTypeRadioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintVertical_bias="0.957" />
 
     <EditText
         android:id="@+id/goalsEditText"
@@ -83,5 +111,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepGoalRadioButton" />
+        app:layout_constraintTop_toBottomOf="@+id/GoalTypeRadioGroup" />
+
 </android.support.constraint.ConstraintLayout>
