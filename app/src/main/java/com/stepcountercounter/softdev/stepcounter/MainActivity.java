@@ -145,4 +145,8 @@ public class MainActivity extends AppCompatActivity {
         Intent n = new Intent(this, UserPreferences.class);
         startActivity(n);
     }
+    public void ToLogin(View v){
+        Intent n = new Intent(this,LoginActivity.class);
+        startActivity(n);
+    }
 }
