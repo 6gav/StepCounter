@@ -256,6 +256,10 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             ++j;
         }
 
+        items[0].setPurchased(true);
+        items[top.length].setPurchased(true);
+        items[bottom.length+top.length].setPurchased(true);
+
     }
 
     //

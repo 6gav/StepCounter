@@ -18,9 +18,10 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834">
+        app:layout_constraintVertical_bias="0.833">
 
         <RadioButton
             android:id="@+id/calorieGoalRadioButton"
@@ -63,9 +64,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/GoalTypeRadioGroup"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
+        app:layout_constraintVertical_bias="0.791" />
 
     <EditText
         android:id="@+id/goalsEditText"
@@ -81,8 +83,10 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.417" />
 
     <Button
         android:id="@+id/applyGoalsButton"
@@ -96,8 +100,10 @@
         android:text="Apply"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/goalsEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/goalsEditText"
+        app:layout_constraintVertical_bias="0.611" />
 
     <TextView
         android:id="@+id/currentGoalTextView"
@@ -110,7 +116,24 @@
         android:text="Current goal will show here"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GoalTypeRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/GoalTypeRadioGroup"
+        app:layout_constraintVertical_bias="0.23" />
+
+    <ListView
+        android:id="@+id/lvCurrentGoals"
+        android:layout_width="188dp"
+        android:layout_height="195dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/currentGoalTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.703"
+        app:layout_constraintStart_toEndOf="@+id/GoalTypeRadioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.905" />
 
 </android.support.constraint.ConstraintLayout>
