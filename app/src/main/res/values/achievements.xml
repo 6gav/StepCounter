@@ -8,66 +8,45 @@
 
     //Achievement Titles
     <string-array name="aHeadings">
-        <item>Achievement 1</item>
-        <item>Achievement 2</item>
-        <item>Achievement 3</item>
-        <item>Bob</item>
-        <item>Bob2</item>
-        <item>Bob3</item>
-        <item>Bob4</item>
-        <item>Bob5</item>
-        <item>Bob6</item>
-        <item>Bob7</item>
-        <item>Bob8</item>
-        <item>Bob9</item>
-        <item>Bob10</item>
-        <item>Bob11</item>
-        <item>Bob12</item>
-        <item>Bob13</item>
+        <item>Beginner Walker</item>
+        <item>Advanced Walker</item>
+        <item>Extreme Walker</item>
+
     </string-array>
 
 
 
     //Achievement descriptions
     <string-array name="aDescs">
-        <item>Test Description 1</item>
-        <item>Test Description 2</item>
-        <item>Test Description 3</item>
-        <item>Orange</item>
-        <item>Orange2</item>
-        <item>Orange3</item>
-        <item>Orange4</item>
-        <item>Orange5</item>
-        <item>Orange6</item>
-        <item>Orange7</item>
-        <item>Orange8</item>
-        <item>Orange9</item>
-        <item>Orange10</item>
-        <item>Orange11</item>
-        <item>Orange12</item>
-        <item>Orange13</item>
+        <item>Walk 50 steps</item>
+        <item>Walk 500 steps</item>
+        <item>Walk 5000 steps</item>
     </string-array>
 
 
 
     //Achievement Awards
     <string-array name="aAwards">
-        <item>25 coins</item>
-        <item>50 coins</item>
-        <item>75 coins</item>
-        <item>:)</item>
-        <item>:)2</item>
-        <item>:)3</item>
-        <item>:)4</item>
-        <item>:)5</item>
-        <item>:)6</item>
-        <item>:)7</item>
-        <item>:)8</item>
-        <item>:)9</item>
-        <item>:)10</item>
-        <item>:)11</item>
-        <item>:)12</item>
-        <item>:)13</item>
+        <item>10 Currency</item>
+        <item>100 Currency</item>
+        <item>1000 Currency</item>
+    </string-array>
+
+
+
+    //Achievement Requirements - Format is Type:Amount:Reward
+    <string-array name="aReq">
+        <item>Steps:50:10</item>
+        <item>Steps:500:100</item>
+        <item>Steps:5000:1000</item>
+    </string-array>
+
+
+    //Achievement ID
+    <string-array name="aID">
+        <item>ach1</item>
+        <item>ach2</item>
+        <item>ach3</item>
     </string-array>
 
     

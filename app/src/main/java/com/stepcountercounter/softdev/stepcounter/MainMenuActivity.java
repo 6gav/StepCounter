@@ -241,7 +241,6 @@ public class MainMenuActivity extends AppCompatActivity
         editor.putInt("StepCount", StepCount);
         editor.apply();
         DistanceCalc();
-        editor.putFloat("CalorieCount", CalorieCount);
 
     }
 
@@ -284,6 +283,8 @@ public class MainMenuActivity extends AppCompatActivity
             CalorieCount = tempTotal;
             String tempCal = "Calories: " + tempTotal;
             calorieTextView.setText(tempCal);
+            editor.putFloat("CalorieCount", CalorieCount).apply();
+
         }
         else if(weight == 0.0f)
         {
