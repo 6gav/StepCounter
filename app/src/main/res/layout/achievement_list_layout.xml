@@ -5,6 +5,7 @@
     android:id="@+id/list_view_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:theme="@style/Animation.Design.BottomSheetDialog"
     tools:layout_editor_absoluteY="81dp">
 
 
@@ -37,18 +38,36 @@
 
     <TextView
         android:id="@+id/achievementAward"
-        android:layout_width="69dp"
+        android:layout_width="119dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="Award"
         android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/achievementDescription"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/achievementHeading"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toEndOf="@+id/achievementDescription"
-        app:layout_constraintTop_toTopOf="@+id/achievementDescription"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/achievementHeading" />
+
+    <TextView
+        android:id="@+id/achievementRequirement"
+        android:layout_width="119dp"
+        android:layout_height="17dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Req"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/achievementDescription"
+        app:layout_constraintEnd_toEndOf="@+id/achievementAward"
+        app:layout_constraintStart_toStartOf="@+id/achievementAward"
+        app:layout_constraintTop_toBottomOf="@+id/achievementHeading" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

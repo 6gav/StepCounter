@@ -24,7 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnAddFriend = findViewById(R.id.btnAddFriend);
         clytProfileBackground = findViewById(R.id.clytProfileBackground);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.psychia);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.player);
         RoundedBitmapDrawable mDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
         mDrawable.setCircular(true);
         ivProfilePhoto.setImageDrawable(mDrawable);
