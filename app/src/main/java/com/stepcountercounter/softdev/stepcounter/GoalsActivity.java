@@ -133,7 +133,7 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
         String type = "Steps";
         if(GoalType == 1)type = "Calories";
         GoalAtCreate = LoadType(type);
-        if(!temp.equals("")){
+        if(!temp.equals("") && !temp.equals("0")){
             String Goal = type +","+ temp + "," + String.valueOf(GoalAtCreate) + ";";
             for(int i = 0; i < Goals.length; i++)
                 Goal += Goals[i];
@@ -190,11 +190,12 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     public void CompleteGoal(String type, int stepsTaken){
+        /*
         ivParticles.setTranslationX(1);
         ivParticles.setBackgroundResource(R.drawable.particletrail);
         AnimationDrawable animationDrawable = (AnimationDrawable)ivParticles.getBackground();
-        animationDrawable.start();
-        int moneyEarned = stepsTaken / 10,
+        animationDrawable.start();*/
+        int moneyEarned = stepsTaken,
             OrigMoney = MoneyTracker.getInt("MonValue",0);
 
         MoneyTracker.edit().putInt("MonValue",moneyEarned+OrigMoney);
