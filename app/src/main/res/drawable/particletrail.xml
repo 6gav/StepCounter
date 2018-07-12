@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/particletrail_00" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_01" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_02" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_03" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_04" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_05" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_06" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_07" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_08" android:duration="10"></item>
+    <item android:drawable="@drawable/particletrail_09" android:duration="10"></item>
+</animation-list>

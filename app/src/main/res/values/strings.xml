@@ -17,6 +17,7 @@
     <string name="CmTextAbbreviation">cm</string>
     <string name="KgTextAbbreviation">kg</string>
     <string name="NoActiveGoal">You have no goal active currently.</string>
+    <string name="MaxActiveGoal">You have hit the maximum 3 goals!</string>
     <string name="GoalCompleted">You completed your goal! Great Job!</string>
     <string name="title_activity_login">Sign in</string>
 

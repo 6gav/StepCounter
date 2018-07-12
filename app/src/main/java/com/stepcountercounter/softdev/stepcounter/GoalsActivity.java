@@ -2,6 +2,7 @@ package com.stepcountercounter.softdev.stepcounter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.fitness.data.Goal;
@@ -22,14 +25,15 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
     Button applyGoalsButton;
     TextView currentGoal;
     RadioButton stepGoalRadioButton,calorieGoalRadioButton;
+    RadioGroup rgpGoalType;
     ListView lvCurrentGoals;
-
+    ImageView ivParticles;
     //Variables
-    int StepsAtGoalCreate,CaloriesAtGoalCreate,GoalAtCreate,GoalType = 0,GoalIndex = -1,clicks;
+    int StepsAtGoalCreate,CaloriesAtGoalCreate,GoalAtCreate,GoalType = 0,GoalIndex = -1,clicks,existingGoals;
     String[] Goals;
 
     //Preferences
-    SharedPreferences GoalTracker, StepTracker;
+    SharedPreferences GoalTracker, StepTracker,MoneyTracker;
 
 
     @Override
@@ -44,12 +48,13 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
         stepGoalRadioButton = findViewById(R.id.stepGoalRadioButton);
         calorieGoalRadioButton = findViewById(R.id.calorieGoalRadioButton);
         lvCurrentGoals = findViewById(R.id.lvCurrentGoals);
-
-
+        ivParticles = findViewById(R.id.ivParticles);
+        rgpGoalType = findViewById(R.id.rgpGoalType);
 
         //Preferences
         GoalTracker = getSharedPreferences("com.stepcountercounter.GoalTracker", Context.MODE_PRIVATE);
         StepTracker = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
+        MoneyTracker = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
 
 
 
@@ -57,8 +62,10 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
         StepsAtGoalCreate = StepTracker.getInt("StepCount", 0);
         CaloriesAtGoalCreate = Math.round(StepTracker.getFloat("CalorieCount", 0));
         Goals = new String[]{"","",""};
+        existingGoals = GoalTracker.getInt("GoalCount",0);
 
         LoadGoal();
+
     }
 
     @Override
@@ -96,8 +103,31 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
         }
         return goalAtCreate;
     }
+//region stuff
+    /*if(Goals.length == 3) {
+        //max number of goals
+        String newGoals = "";
+
+        for(int i = 0; i < Goals.length; i++){
+            if(!Goals[i].contains("!!!"))
+                newGoals+= Goals[i]+";";
+        }
+
+        Goals = newGoals.split(";");
+        if(Goals.length == 3) {
+            currentGoal.setText(R.string.MaxActiveGoal);
+            return;
+        }
+    }*/
+     //endregion
 
     public void SaveGoal(View v){
+
+    if (existingGoals == 3){
+
+        currentGoal.setText(R.string.MaxActiveGoal);
+        return;
+    }
 
         String temp = goalsInput.getText().toString();
         String type = "Steps";
@@ -107,20 +137,23 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
             String Goal = type +","+ temp + "," + String.valueOf(GoalAtCreate) + ";";
             for(int i = 0; i < Goals.length; i++)
                 Goal += Goals[i];
-            GoalTracker.edit().putString("CurrentGoal", Goal).apply();
+            GoalTracker.edit().putString("CurrentGoals", Goal).apply();
+            existingGoals++;
         }
+
         LoadGoal();
 
     }
 
     public void LoadGoal(){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-        String temp = GoalTracker.getString("CurrentGoal", "");
-
+        String temp = GoalTracker.getString("CurrentGoals", "");
+        //String temp = "";
         lvCurrentGoals.setVisibility(View.VISIBLE);
         if(!temp.equals("")){
             String[] Goal;
             Goals = temp.split(";");
+
             for(int i = 0; i < Goals.length; i++) {
                 Goal = Goals[i].split(",");
                 int StepGoal = Integer.valueOf(Goal[1]);
@@ -134,15 +167,18 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
                 if (Difference >= StepGoal) {
                     currentGoal.setText(R.string.GoalCompleted);
                     Goals[i] = "";
+                    temp = "Completed This Goal!!!";
+                    CompleteGoal(Goal[0],StepGoal);
                 } else {
-                    //check to see if goal already exists
+                    //TODO:check to see if goal already exists
                     temp = Goal[0] + ": " + Difference + "/" + StepGoal;
 
 
                     Goals[i] = Goal[0] + "," + StepGoal + "," + OrigSteps + ";";
-                    adapter.add(temp);
-                    //currentGoal.setText("");
+                    currentGoal.setText("");
                 }
+
+                adapter.add(temp);
             }
             lvCurrentGoals.setAdapter(adapter);
         }
@@ -153,4 +189,17 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
 
+    public void CompleteGoal(String type, int stepsTaken){
+        ivParticles.setTranslationX(1);
+        ivParticles.setBackgroundResource(R.drawable.particletrail);
+        AnimationDrawable animationDrawable = (AnimationDrawable)ivParticles.getBackground();
+        animationDrawable.start();
+        int moneyEarned = stepsTaken / 10,
+            OrigMoney = MoneyTracker.getInt("MonValue",0);
+
+        MoneyTracker.edit().putInt("MonValue",moneyEarned+OrigMoney);
+        existingGoals--;
+        if(existingGoals<0)existingGoals=0;
+        GoalTracker.edit().putInt("GoalCount",existingGoals);
+    }
 }

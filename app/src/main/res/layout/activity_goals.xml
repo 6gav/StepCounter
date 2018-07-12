@@ -7,7 +7,7 @@
     tools:context=".GoalsActivity">
 
     <RadioGroup
-        android:id="@+id/GoalTypeRadioGroup"
+        android:id="@+id/rgpGoalType"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:layout_marginBottom="8dp"
@@ -62,7 +62,7 @@
         android:text="Type of Goal"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/GoalTypeRadioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/rgpGoalType"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +118,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GoalTypeRadioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rgpGoalType"
         app:layout_constraintVertical_bias="0.23" />
 
     <ListView
@@ -132,8 +132,22 @@
         app:layout_constraintBottom_toTopOf="@+id/currentGoalTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.703"
-        app:layout_constraintStart_toEndOf="@+id/GoalTypeRadioGroup"
+        app:layout_constraintStart_toEndOf="@+id/rgpGoalType"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.905" />
+
+    <ImageView
+        android:id="@+id/ivParticles"
+        android:layout_width="101dp"
+        android:layout_height="91dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lvCurrentGoals"
+        app:layout_constraintEnd_toEndOf="@+id/lvCurrentGoals"
+        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintStart_toStartOf="@+id/lvCurrentGoals"
+        app:layout_constraintTop_toTopOf="@+id/lvCurrentGoals" />
 
 </android.support.constraint.ConstraintLayout>
