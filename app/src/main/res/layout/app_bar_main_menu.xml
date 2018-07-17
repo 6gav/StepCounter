@@ -5,6 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".MainMenuActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -43,6 +44,7 @@
         android:layout_marginTop="8dp"
         android:onClick="startTracking"
         android:text="Start Tracking"
+        android:background="@drawable/click_button"
         app:layout_anchorGravity="left|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +62,7 @@
         android:layout_marginTop="8dp"
         android:onClick="stopTracking"
         android:text="Stop Tracking"
+        android:background="@drawable/click_button"
         app:layout_anchorGravity="right|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

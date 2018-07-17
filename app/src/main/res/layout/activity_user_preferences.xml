@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".UserPreferences">
@@ -79,6 +80,7 @@
         android:layout_marginTop="8dp"
         android:onClick="ApplyPreferences"
         android:text="Apply"
+        android:background="@drawable/click_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/heightFirstPlainText"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,6 +127,7 @@
         android:layout_marginTop="8dp"
         android:onClick="ApplyWeight"
         android:text="Apply"
+        android:background="@drawable/click_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/applyHeightButton"
         app:layout_constraintStart_toStartOf="@+id/applyHeightButton"

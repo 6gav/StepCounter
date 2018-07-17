@@ -6,77 +6,101 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".MainActivity">
+    android:background="@color/colorBackground"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/countTextView"
         android:layout_width="75dp"
         android:layout_height="58dp"
         android:layout_marginBottom="8dp"
+
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
-
         android:onClick="DebugClicker"
         android:text="Step Amount"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
-        app:layout_constraintStart_toEndOf="@+id/btnShop"
-        app:layout_constraintTop_toBottomOf="@+id/newScreenButton"
-        app:layout_constraintVertical_bias="0.663" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.379" />
 
     <Button
         android:id="@+id/newScreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="53dp"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="sendMessage"
         android:text="Activity Logger"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.165"
+        android:background="@drawable/click_button"
+        app:layout_constraintBottom_toTopOf="@+id/countTextView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="0.238" />
 
     <Button
         android:id="@+id/btnShop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="ToShop"
         android:text="Shop"
-        app:layout_constraintEnd_toEndOf="@+id/btnAchievements"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnAchievements"
-        app:layout_constraintTop_toBottomOf="@+id/btnAchievements" />
+        android:background="@drawable/click_button"
+        app:layout_constraintBottom_toTopOf="@+id/btnInventory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/countTextView"
+        app:layout_constraintVertical_bias="0.54" />
 
     <Button
         android:id="@+id/btnAchievements"
-        android:layout_width="wrap_content"
-        android:layout_height="49dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="ToAchievements"
         android:text="Achievements"
-        app:layout_constraintEnd_toEndOf="@+id/btnGoals"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnGoals"
-        app:layout_constraintTop_toBottomOf="@+id/btnGoals" />
+        android:background="@drawable/click_button"
+        app:layout_constraintBottom_toTopOf="@+id/countTextView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newScreenButton"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnAvatar"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:onClick="ToAvatar"
         android:text="Avatar"
-        app:layout_constraintEnd_toEndOf="@+id/btnInventory"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnInventory"
-        app:layout_constraintTop_toBottomOf="@+id/btnInventory" />
+        android:background="@drawable/click_button"
+        app:layout_constraintBottom_toTopOf="@+id/countTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/btnGoals"
+        app:layout_constraintVertical_bias="0.437" />
 
 
     <ImageView
@@ -87,12 +111,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorButton"
+        app:layout_constraintBottom_toTopOf="@+id/newScreenButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.00999999"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/mon_icon" />
 
     <TextView
@@ -106,12 +131,12 @@
         android:onClick="MoneyUpdate"
         android:text="X 0"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/newScreenButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/ivMonIcon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.00999999" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView2"
@@ -121,67 +146,92 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Version 1.5"
+        android:text="Version 1.6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.775"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983" />
+        app:layout_constraintStart_toStartOf="@+id/btnInventory"
+        app:layout_constraintTop_toBottomOf="@+id/btnInventory" />
 
     <Button
         android:id="@+id/btnInventory"
-        android:layout_width="108dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/click_button"
         android:onClick="ToInventory"
         android:text="Inventory"
-        app:layout_constraintEnd_toEndOf="@+id/btnShop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btnShop"
-        app:layout_constraintTop_toBottomOf="@+id/btnShop" />
+        app:layout_constraintTop_toBottomOf="@+id/countTextView"
+        app:layout_constraintVertical_bias="0.678" />
 
     <Button
         android:id="@+id/btnUPrefs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/click_button"
         android:onClick="ToPreferences"
         android:text="User \nPreferences"
-        app:layout_constraintEnd_toEndOf="@+id/btnAvatar"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/btnAvatar" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/countTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countTextView"
+        app:layout_constraintVertical_bias="0.717" />
 
     <Button
         android:id="@+id/btnGoals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:onClick="ToGoals"
-        android:text="Goals"
-        app:layout_constraintEnd_toEndOf="@+id/newScreenButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/newScreenButton"
-        app:layout_constraintTop_toBottomOf="@+id/newScreenButton" />
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="8dp"
-        android:onClick="ToLogin"
-        android:text="LogIn"
-        app:layout_constraintBottom_toBottomOf="@+id/btnGoals"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:onClick="ToGoals"
+        android:text="Goals"
+        android:background="@drawable/click_button"
+        app:layout_constraintBottom_toTopOf="@+id/countTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toEndOf="@+id/newScreenButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintVertical_bias="0.194" />
 
-    />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="122dp"
+        android:layout_height="186dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countTextView"
+        app:layout_constraintVertical_bias="0.272"
+        app:srcCompat="@drawable/mashup" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/countTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_dialog" />
 
 </android.support.constraint.ConstraintLayout>

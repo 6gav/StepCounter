@@ -172,10 +172,17 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
                 } else {
                     //TODO:check to see if goal already exists
                     temp = Goal[0] + ": " + Difference + "/" + StepGoal;
-
-
-                    Goals[i] = Goal[0] + "," + StepGoal + "," + OrigSteps + ";";
-                    currentGoal.setText("");
+                    boolean goalExists = false;
+                    for(int j = 0; j < Goals.length;j++) {
+                        if(Goals[j]!= null){
+                            if(String.valueOf(StepGoal)==Goals[j].split(",")[1]){//goal exists in array
+                                goalExists = true;
+                            }
+                        }
+                    }if(!goalExists) {
+                        Goals[i] = Goal[0] + "," + StepGoal + "," + OrigSteps + ";";
+                        currentGoal.setText("");
+                    }
                 }
 
                 adapter.add(temp);
