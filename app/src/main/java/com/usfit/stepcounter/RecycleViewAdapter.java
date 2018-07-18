@@ -1,18 +1,15 @@
-package com.stepcountercounter.softdev.stepcounter;
+package com.usfit.stepcounter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -49,10 +46,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         this.achievementReq = achievementReq;
         this.achievementIDS = achievementID;
         this.mContext = mContext;
-        preferences = mContext.getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
-        AchievementsPref = mContext.getSharedPreferences("com.stepcountercounter.AchievementProgress", Context.MODE_PRIVATE);
+        preferences = mContext.getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
+        AchievementsPref = mContext.getSharedPreferences("com.usfit.stepcounter.AchievementProgress", Context.MODE_PRIVATE);
 
-        moneyPrefs = mContext.getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
+        moneyPrefs = mContext.getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
 
         StepCount = preferences.getInt("StepCount", 0);
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context="com.stepcountercounter.softdev.stepcounter.AvatarActivity">
+    tools:context="com.usfit.stepcounter.AvatarActivity">
 
     <ImageView
         android:id="@+id/ivBody"

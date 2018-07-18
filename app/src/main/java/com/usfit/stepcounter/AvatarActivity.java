@@ -1,4 +1,4 @@
-package com.stepcountercounter.softdev.stepcounter;
+package com.usfit.stepcounter;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,9 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class AvatarActivity extends AppCompatActivity {
 
@@ -75,7 +73,7 @@ public class AvatarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avatar);
 
-        preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace",MODE_PRIVATE);
+        preferences = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace",MODE_PRIVATE);
 
         ivTop = findViewById(R.id.ivTop);
         ivBottom = findViewById(R.id.ivBottom);

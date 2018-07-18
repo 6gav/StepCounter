@@ -1,8 +1,7 @@
-package com.stepcountercounter.softdev.stepcounter;
+package com.usfit.stepcounter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +14,6 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import com.google.android.gms.fitness.data.Goal;
 
 public class GoalsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
@@ -52,9 +49,9 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
         rgpGoalType = findViewById(R.id.rgpGoalType);
 
         //Preferences
-        GoalTracker = getSharedPreferences("com.stepcountercounter.GoalTracker", Context.MODE_PRIVATE);
-        StepTracker = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
-        MoneyTracker = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
+        GoalTracker = getSharedPreferences("com.usfit.stepcounter.GoalTracker", Context.MODE_PRIVATE);
+        StepTracker = getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
+        MoneyTracker = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
 
 
 

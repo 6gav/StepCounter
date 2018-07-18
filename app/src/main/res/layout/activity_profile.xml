@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".ProfileActivity"
+    tools:context="com.usfit.stepcounter.ProfileActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <ImageView

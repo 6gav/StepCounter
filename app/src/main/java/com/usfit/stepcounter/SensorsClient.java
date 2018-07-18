@@ -1,4 +1,4 @@
-package com.stepcountercounter.softdev.stepcounter;
+package com.usfit.stepcounter;
 
 import android.content.Context;
 import android.os.Looper;

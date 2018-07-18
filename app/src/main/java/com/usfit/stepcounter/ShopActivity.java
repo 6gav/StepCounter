@@ -1,12 +1,8 @@
-package com.stepcountercounter.softdev.stepcounter;
+package com.usfit.stepcounter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.nfc.Tag;
-import android.support.design.widget.TabItem;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,16 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.w3c.dom.Text;
 
 public  class ShopActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     //Components
@@ -136,7 +129,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_shop);
 
         timer = new Timer();
-        preferences = getApplicationContext().getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
+        preferences = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
         MonValue = preferences.getInt("MonValue", 0);
         purchases = preferences.getInt("Purchased Items", 0);
 

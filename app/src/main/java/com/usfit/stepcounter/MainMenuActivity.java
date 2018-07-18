@@ -1,4 +1,4 @@
-package com.stepcountercounter.softdev.stepcounter;
+package com.usfit.stepcounter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -102,15 +102,15 @@ public class MainMenuActivity extends AppCompatActivity
 
 
         //Preferences
-        sharedPreferences = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.apply();
 
-        timeChecker = getSharedPreferences("com.stepcountercounter.DateTime", Context.MODE_PRIVATE);
+        timeChecker = getSharedPreferences("com.usfit.stepcounter.DateTime", Context.MODE_PRIVATE);
         dateEditor = timeChecker.edit();
 
 
-        debugger = getSharedPreferences("com.stepcountercounter.debug", Context.MODE_PRIVATE);
+        debugger = getSharedPreferences("com.usfit.stepcounter.debug", Context.MODE_PRIVATE);
 
 
         //Assignment
@@ -232,7 +232,7 @@ public class MainMenuActivity extends AppCompatActivity
         }
 
         if(tempMoney > 0) {
-            SharedPreferences money = getSharedPreferences("com.stepcountercounter.marketplace", Context.MODE_PRIVATE);
+            SharedPreferences money = getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
             tempMoney += money.getInt("MonValue", 0);
             SharedPreferences.Editor tempEditor = money.edit();
             tempEditor.putInt("MonValue", tempMoney);

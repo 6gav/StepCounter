@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".GoalsActivity">
+    tools:context="com.usfit.stepcounter.GoalsActivity">
 
     <RadioGroup
         android:id="@+id/rgpGoalType"

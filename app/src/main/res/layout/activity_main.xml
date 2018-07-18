@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@color/colorBackground"
-    tools:context=".MainActivity"
+    tools:context="com.usfit.stepcounter.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <TextView

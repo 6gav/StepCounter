@@ -1,4 +1,4 @@
-package com.stepcountercounter.softdev.stepcounter;
+package com.usfit.stepcounter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -40,7 +40,7 @@ public class UserPreferences extends AppCompatActivity {
         imperialRadio = findViewById(R.id.imperialRadioButton);
 
 
-        userprefs = getSharedPreferences("com.stepcountercounter.stepdata", Context.MODE_PRIVATE);
+        userprefs = getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
         userEditor = userprefs.edit();
         userEditor.apply();
         //Variable Initialization
