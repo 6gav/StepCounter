@@ -40,7 +40,7 @@ public class UserPreferences extends AppCompatActivity {
         imperialRadio = findViewById(R.id.imperialRadioButton);
 
 
-        userprefs = getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
+        userprefs = getSharedPreferences(getString(R.string.SharedStepData), Context.MODE_PRIVATE);
         userEditor = userprefs.edit();
         userEditor.apply();
         //Variable Initialization

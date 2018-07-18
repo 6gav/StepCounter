@@ -49,6 +49,17 @@
         <item>ach3</item>
     </string-array>
 
+
+
+
+    //New Achievement Syntax - Name:Type:Amount:Reward:ID
+    <string-array name="aFull">
+        <item>Beginner Walker:Steps:50:10:ach1</item>
+        <item>Advanced Walker:Steps:500:100:ach2</item>
+        <item>Extreme Walker:Steps:5000:1000:ach3</item>
+        <item>Fucktard:Steps:9000:2000:ach4</item>
+    </string-array>
+
     
     
     

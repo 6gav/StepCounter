@@ -37,6 +37,9 @@ public class MainMenuActivity extends AppCompatActivity
     SensorManager sensorManager;
 
 
+    //Achievements
+    AchievementChecker aCheck;
+
     //Variables
     float Stride, CalorieCount, MiKm, weight, calCalcVar;
     int StepCount, DebugTapCount, LastStepCount;
@@ -102,7 +105,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
         //Preferences
-        sharedPreferences = getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(getString(R.string.SharedStepData), Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.apply();
 
@@ -134,6 +137,8 @@ public class MainMenuActivity extends AppCompatActivity
 
         debugNumberTextView.setEnabled(false);
 
+        aCheck = new AchievementChecker();
+
 
         //Date Check
         String tmpDate = timeChecker.getString("LastDateAccessed", "null");
@@ -143,8 +148,6 @@ public class MainMenuActivity extends AppCompatActivity
             dateEditor.putString("LastDateAccessed", date);
             dateEditor.apply();
         }
-
-
 
 
         if(Stride != -1.0f)
@@ -172,6 +175,9 @@ public class MainMenuActivity extends AppCompatActivity
         if(DebugEnabled){
             DebugEnable();
         }
+
+
+
 
         debugNumberTextView.setEnabled(true);
     }
@@ -303,6 +309,7 @@ public class MainMenuActivity extends AppCompatActivity
             public void run() {
                 String tempStepText = "Steps: " + String.valueOf(StepCount);
                 StepCounter.setText(tempStepText);
+                AchievementChecker.Check(getApplicationContext());
                 runnable=this;
 
                 h.postDelayed(runnable, delay);

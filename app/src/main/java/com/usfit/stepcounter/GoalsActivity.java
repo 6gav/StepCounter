@@ -50,7 +50,7 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
 
         //Preferences
         GoalTracker = getSharedPreferences("com.usfit.stepcounter.GoalTracker", Context.MODE_PRIVATE);
-        StepTracker = getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
+        StepTracker = getSharedPreferences(getString(R.string.SharedStepData), Context.MODE_PRIVATE);
         MoneyTracker = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
 
 

@@ -46,7 +46,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         this.achievementReq = achievementReq;
         this.achievementIDS = achievementID;
         this.mContext = mContext;
-        preferences = mContext.getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
+        preferences = mContext.getSharedPreferences(mContext.getString(R.string.SharedStepData), Context.MODE_PRIVATE);
         AchievementsPref = mContext.getSharedPreferences("com.usfit.stepcounter.AchievementProgress", Context.MODE_PRIVATE);
 
         moneyPrefs = mContext.getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
