@@ -2,6 +2,7 @@ package com.usfit.stepcounter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 
 public class AchievementChecker{
@@ -61,13 +62,15 @@ public class AchievementChecker{
                         marketPrefs.edit().putInt("MonValue", pCurrency).apply();
 
                         achPrefs.edit().putBoolean(aID, true).apply();
+                        String toastString = "You completed the " + achParts[0] + " Achievement! " + aReward + " currency added!";
+                        Toast.makeText(mContext, toastString, Toast.LENGTH_LONG).show();
                     }
                     break;
                 //endregion
 
                 //region Calories
                 case "Calories":
-
+                    
                     break;
                 //endregion
             }

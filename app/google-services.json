@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "962176623529",
-    "firebase_url": "https://gavintest-e5a9e.firebaseio.com",
-    "project_id": "gavintest-e5a9e",
-    "storage_bucket": "gavintest-e5a9e.appspot.com"
+    "project_number": "293269559988",
+    "firebase_url": "https://usfit-stepcounter-8530a.firebaseio.com",
+    "project_id": "usfit-stepcounter-8530a",
+    "storage_bucket": "usfit-stepcounter-8530a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:962176623529:android:559ce11ab075998a",
+        "mobilesdk_app_id": "1:293269559988:android:559ce11ab075998a",
         "android_client_info": {
           "package_name": "com.usfit.stepcounter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "962176623529-9qbq3mn2ebgp752tenq4inc0ulreq8ad.apps.googleusercontent.com",
+          "client_id": "293269559988-r9asilc8m4ioi52mho79brogale3rart.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDoZT9l4i4WP_68kfAwQfDCf2NPiWNLjX8"
+          "current_key": "AIzaSyAYUs9op_XcNLKMnVPdEJE5pOXPylik8n4"
         }
       ],
       "services": {

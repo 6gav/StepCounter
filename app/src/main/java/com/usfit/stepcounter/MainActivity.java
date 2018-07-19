@@ -48,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
         MoneyEditor = MoneyPref.edit();
         MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
         //((TextView)findViewById(R.id.tvGoal1)).setText(sharedPreferences.getString("AllGoals",""));
+
+        h.postDelayed(new Runnable() {
+            public void run() {
+                AchievementChecker.Check(getApplicationContext());
+                runnable = this;
+                h.postDelayed(runnable, delay);
+            }
+        }, delay);
     }
 
 
@@ -88,23 +96,16 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         activityRunning = true;
 
+        String temp = "X " + MoneyPref.getInt("MonValue", 0);
+        MoneyCounterTextView.setText(temp);
 
 
-        h.postDelayed(new Runnable() {
-            public void run() {
-                String temp = "X " + MoneyPref.getInt("MonValue", 0);
-                MoneyCounterTextView.setText(temp);
-                runnable = this;
-                h.postDelayed(runnable, delay);
-            }
-        }, delay);
 
     }
 
     public void onPause() {
         super.onPause();
         activityRunning = false;
-        h.removeCallbacks(runnable);
     }
 
 
