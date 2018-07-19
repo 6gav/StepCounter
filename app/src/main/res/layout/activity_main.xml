@@ -80,12 +80,12 @@
         app:layout_constraintVertical_bias="0.122" />
 
     <Button
-        android:id="@+id/loginStartButton"
+        android:id="@+id/btnInventory"
         android:layout_width="136dp"
         android:layout_height="64dp"
         android:background="@drawable/click_button"
-        android:onClick="LoginStart"
-        android:text="Login"
+        android:onClick="ToInventory"
+        android:text="Inventory"
         app:layout_constraintBottom_toBottomOf="@+id/btnAchievements"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -144,23 +144,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnShop"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/btnInventory"
-        android:layout_width="136dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/click_button"
-        android:onClick="ToInventory"
-        android:text="Inventory"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.965"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnShop"
-        app:layout_constraintVertical_bias="0.388" />
+
 
     <Button
         android:id="@+id/btnUPrefs"
@@ -205,6 +189,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnAchievements"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/newScreenButton"
         app:srcCompat="@android:drawable/btn_dialog" />
 
@@ -217,7 +202,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnInventory"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
         app:srcCompat="@drawable/body_s0" />
@@ -231,7 +216,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnInventory"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
         app:srcCompat="@drawable/expression_0" />
@@ -245,7 +230,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnInventory"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
         app:srcCompat="@drawable/hair_00" />
@@ -259,7 +244,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnInventory"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
         app:srcCompat="@drawable/outfit_t00" />
@@ -273,13 +258,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnInventory"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
         app:srcCompat="@drawable/outfit_b00" />
 
     <ImageView
-        android:id="@+id/ivMainFootwear"
+        android:id="@+id/ivMainFeet"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginBottom="8dp"
@@ -287,7 +272,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnInventory"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
         app:srcCompat="@drawable/outfit_f1" />

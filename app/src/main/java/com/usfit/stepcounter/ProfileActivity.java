@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.firebase.storage.FirebaseStorage;
+
 public class ProfileActivity extends AppCompatActivity {
 
     ImageView ivProfilePhoto;
     Button btnAddFriend;
     ConstraintLayout clytProfileBackground;
+    FirebaseStorage storage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnAddFriend = findViewById(R.id.btnAddFriend);
         clytProfileBackground = findViewById(R.id.clytProfileBackground);
 
+        storage = FirebaseStorage.getInstance();
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.player);
         RoundedBitmapDrawable mDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
         mDrawable.setCircular(true);

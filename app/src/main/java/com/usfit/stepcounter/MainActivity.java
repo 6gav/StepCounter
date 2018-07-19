@@ -3,11 +3,13 @@ package com.usfit.stepcounter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Button debugStepButton;
     private SharedPreferences MoneyPref;
     private SharedPreferences.Editor MoneyEditor;
+    private SharedPreferences AvatarPref;
     private TextView MoneyCounterTextView;
 
 
@@ -38,19 +41,26 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.SharedStepData), MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LoginStart();
         TapCount = 4;
         DebugMode = false;
 
         count = findViewById(R.id.countTextView);
 
         MoneyPref = getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
+        //AvatarPref = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
         MonValue = MoneyPref.getInt("MonValue", 0);
         MoneyEditor = MoneyPref.edit();
         MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
         //((TextView)findViewById(R.id.tvGoal1)).setText(sharedPreferences.getString("AllGoals",""));
+        DrawPlayer();
     }
 
-
+    void DrawPlayer(){
+        ((ImageView)findViewById(R.id.ivMainTop)).setImageDrawable(getDrawable(MoneyPref.getInt("A_TOP",R.drawable.outfit_t00)));
+        ((ImageView)findViewById(R.id.ivMainBottom)).setImageDrawable(getDrawable(MoneyPref.getInt("A_BOT",R.drawable.outfit_b00)));
+        ((ImageView)findViewById(R.id.ivMainFeet)).setImageDrawable(getDrawable(MoneyPref.getInt("A_FOT",R.drawable.outfit_f1)));
+    }
 
     private void DebugEnable() {
         debugStepButton.setVisibility(View.VISIBLE);
@@ -151,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(n);
     }
 
-    public void LoginStart(View v){
+    private void LoginStart(){
         final int RC_SIGN_IN = 123;
 
 // ...
@@ -167,7 +177,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAvailableProviders(providers)
                         .build(),
                 RC_SIGN_IN);
-
+    }
+    public void LoginStart(View v){
+        LoginStart();
     }
 
 
