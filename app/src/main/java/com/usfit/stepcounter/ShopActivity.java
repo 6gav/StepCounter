@@ -2,7 +2,11 @@ package com.usfit.stepcounter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -173,7 +177,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         boxes[4] = findViewById(R.id.cbxPurchased);
 
         String alltags = " ",tag = "";
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < boxes.length; i++){
             if(boxes[i].isChecked()) {
                 switch (boxes[i].getText().toString()) {
                     case "Top":
@@ -351,6 +355,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
                 btnEquip.setEnabled(true);
                 btnPurchase.setEnabled(false);
+
             }
 
         }

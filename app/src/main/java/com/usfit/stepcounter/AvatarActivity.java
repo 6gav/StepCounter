@@ -1,5 +1,6 @@
 package com.usfit.stepcounter;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -109,7 +110,6 @@ public class AvatarActivity extends AppCompatActivity {
         if(vis == 0){vis = 4;}
         else{vis = 0;}
         I.setVisibility(vis);
-
     }
     public void OnBottomPress(View v){
         ImageView I = findViewById(R.id.ivBottom);

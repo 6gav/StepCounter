@@ -113,10 +113,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/click_button"
         android:enabled="false"
         android:onClick="Purchase"
         android:text="Purchase"
-        android:background="@drawable/click_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.827"
@@ -132,10 +132,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/click_button"
         android:enabled="false"
         android:onClick="Equip"
         android:text="Equip"
-        android:background="@drawable/click_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/lvShopItems"
         app:layout_constraintHorizontal_bias="0.0"
@@ -231,5 +231,6 @@
         app:layout_constraintStart_toEndOf="@+id/btnEquip"
         app:layout_constraintTop_toBottomOf="@+id/lvShopItems"
         app:layout_constraintVertical_bias="1.0" />
+
 
 </android.support.constraint.ConstraintLayout>
