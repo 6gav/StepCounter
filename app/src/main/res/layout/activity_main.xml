@@ -221,4 +221,19 @@
         app:layout_constraintTop_toBottomOf="@+id/newScreenButton"
         app:srcCompat="@android:drawable/btn_dialog" />
 
+    <Button
+        android:id="@+id/loginStartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="LoginStart"
+        android:text="Login"
+        app:layout_constraintBottom_toTopOf="@+id/newScreenButton"
+        app:layout_constraintEnd_toEndOf="@+id/newScreenButton"
+        app:layout_constraintStart_toStartOf="@+id/newScreenButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

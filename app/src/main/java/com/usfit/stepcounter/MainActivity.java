@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+
+import java.util.Arrays;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -130,16 +135,40 @@ public class MainActivity extends AppCompatActivity {
         Intent n = new Intent(this, GoalsActivity.class);
         startActivity(n);
     }
+
     public void ToInventory(View v) {
         Intent n = new Intent(this, Inventory.class);
         startActivity(n);
     }
+
     public void ToPreferences(View v){
         Intent n = new Intent(this, UserPreferences.class);
         startActivity(n);
     }
+
     public void ToLogin(View v){
         Intent n = new Intent(this,LoginActivity.class);
         startActivity(n);
     }
+
+    public void LoginStart(View v){
+        final int RC_SIGN_IN = 123;
+
+// ...
+
+// Choose authentication providers
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build());
+
+// Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
+
+    }
+
+
 }

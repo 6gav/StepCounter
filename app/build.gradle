@@ -19,6 +19,9 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.firebaseui:firebase-ui-auth:4.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.0'
     api 'com.google.android.gms:play-services-fitness:11.6.0'
     api 'com.google.android.gms:play-services-auth:11.6.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -32,3 +35,5 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "962176623529",
+    "firebase_url": "https://gavintest-e5a9e.firebaseio.com",
+    "project_id": "gavintest-e5a9e",
+    "storage_bucket": "gavintest-e5a9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962176623529:android:559ce11ab075998a",
+        "android_client_info": {
+          "package_name": "com.usfit.stepcounter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962176623529-9qbq3mn2ebgp752tenq4inc0ulreq8ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoZT9l4i4WP_68kfAwQfDCf2NPiWNLjX8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
