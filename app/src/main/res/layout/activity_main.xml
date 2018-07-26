@@ -136,7 +136,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Version 1.6"
+        android:text="Version 1.7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -146,8 +146,8 @@
 
     <Button
         android:id="@+id/btnInventory"
-        android:layout_width="69dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -155,10 +155,12 @@
         android:background="@drawable/click_button"
         android:onClick="ToInventory"
         android:text="Inventory"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnUPrefs"
@@ -215,6 +217,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btnAchievements"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -231,9 +234,27 @@
         android:layout_marginTop="8dp"
         android:onClick="LoginStart"
         android:text="Login"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/newScreenButton"
         app:layout_constraintEnd_toEndOf="@+id/newScreenButton"
         app:layout_constraintStart_toStartOf="@+id/newScreenButton"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/friendsActivityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="ToFriends"
+        android:text="Button"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

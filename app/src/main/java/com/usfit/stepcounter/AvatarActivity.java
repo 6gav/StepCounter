@@ -21,6 +21,7 @@ public class AvatarActivity extends AppCompatActivity {
     ImageView ivTop,ivBottom,ivFeet;
     SharedPreferences preferences;
 
+
     //region arrays
     int[] top = {
             R.drawable.outfit_t00,
@@ -44,8 +45,6 @@ public class AvatarActivity extends AppCompatActivity {
             R.drawable.outfit_t14,
 
             R.drawable.outfit_t15,
-            R.drawable.outfit_t16,
-            R.drawable.outfit_t17,
     };
 
     int[] bottom = {
