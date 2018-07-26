@@ -79,36 +79,36 @@
 
     <ImageView
         android:id="@+id/ivEmptyModel"
-        android:layout_width="151dp"
+        android:layout_width="156dp"
         android:layout_height="265dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567"
+        app:layout_constraintVertical_bias="0.638"
         app:srcCompat="@drawable/emptymodel" />
 
     <ImageView
         android:id="@+id/ivCurrentImage"
-        android:layout_width="151dp"
+        android:layout_width="156dp"
         android:layout_height="265dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567"
+        app:layout_constraintVertical_bias="0.638"
         app:srcCompat="@drawable/outfit_f1" />
 
     <Button
         android:id="@+id/btnPurchase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -119,15 +119,15 @@
         android:text="Purchase"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintHorizontal_bias="0.926"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lvShopItems"
-        app:layout_constraintVertical_bias="0.809" />
+        app:layout_constraintVertical_bias="0.692" />
 
     <Button
         android:id="@+id/btnEquip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="136dp"
+        android:layout_height="64dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -138,14 +138,14 @@
         android:text="Equip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/lvShopItems"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivCurrentImage"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.838" />
 
     <CheckBox
-        android:id="@+id/cbxTop"
-        android:layout_width="60dp"
+        android:id="@+id/cbxHead"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -153,10 +153,10 @@
         android:layout_marginTop="8dp"
         android:checked="true"
         android:onClick="OnCheckBoxClick"
-        android:text="Top"
+        android:text="Head"
         app:layout_constraintBottom_toTopOf="@+id/lvShopItems"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.689" />
@@ -198,8 +198,8 @@
         app:layout_constraintVertical_bias="0.689" />
 
     <CheckBox
-        android:id="@+id/cbxHead"
-        android:layout_width="wrap_content"
+        android:id="@+id/cbxTop"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -207,10 +207,10 @@
         android:layout_marginTop="8dp"
         android:checked="true"
         android:onClick="OnCheckBoxClick"
-        android:text="Head"
+        android:text="Top"
         app:layout_constraintBottom_toTopOf="@+id/lvShopItems"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintHorizontal_bias="0.321"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.689" />
@@ -219,18 +219,33 @@
         android:id="@+id/cbxPurchased"
         android:layout_width="111dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="OnCheckBoxClick"
         android:text="Purchased"
-        app:layout_constraintBottom_toTopOf="@+id/btnPurchase"
+        app:layout_constraintBottom_toTopOf="@+id/ivCurrentImage"
+        app:layout_constraintEnd_toStartOf="@+id/lvShopItems"
+        app:layout_constraintHorizontal_bias="0.358"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbxHead"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <ImageView
+        android:id="@+id/ivPurchaseAnimation"
+        android:layout_width="260dp"
+        android:layout_height="256dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.801"
-        app:layout_constraintStart_toEndOf="@+id/btnEquip"
-        app:layout_constraintTop_toBottomOf="@+id/lvShopItems"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.633"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/confetti" />
 
 
 </android.support.constraint.ConstraintLayout>
