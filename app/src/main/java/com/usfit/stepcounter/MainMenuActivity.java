@@ -131,7 +131,7 @@ public class MainMenuActivity extends AppCompatActivity
 
         DebugEnabled = false;
 
-        weight = sharedPreferences.getFloat("Weight", 0.0f);
+        weight = sharedPreferences.getFloat("Weight", 150.0f);
 
         calCalcVar = 10.7f/20.0f;
 
@@ -228,6 +228,17 @@ public class MainMenuActivity extends AppCompatActivity
         StepCount+=x;
         int tempMoney = 0;
         if(StepCount != 0) {
+            int miles;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                miles = Math.floorDiv(StepCount , 5280);
+            }else{
+                miles = StepCount/5280;
+            }
+            if((StepCount % 5280) == 0) {
+                String str = "You walked " + miles +" mile!";
+                Toast.makeText(this,str,Toast.LENGTH_SHORT);
+            }
+
             if (StepCount % 1000 == 0) {
                 tempMoney = 100;
             } else if (StepCount % 100 == 0) {
