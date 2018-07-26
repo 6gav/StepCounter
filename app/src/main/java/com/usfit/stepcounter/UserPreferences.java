@@ -1,6 +1,7 @@
 package com.usfit.stepcounter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -128,4 +129,10 @@ public class UserPreferences extends AppCompatActivity {
             isImperial = false;
         }
     }
+
+    public void ToFriends(View v){
+        Intent friendsIntent = new Intent(this, FriendsActivity.class);
+        startActivity(friendsIntent);
+    }
+
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="true" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/blip_green_0" android:duration="20"/>
+    <item android:drawable="@drawable/blip_green_1" android:duration="20"/>
+    <item android:drawable="@drawable/blip_green_2" android:duration="20"/>
+    <item android:drawable="@drawable/blip_green_3" android:duration="20"/>
+    <item android:drawable="@drawable/blip_green_4" android:duration="20"/>
+    <item android:drawable="@drawable/blip_green_5" android:duration="20"/>
+    <item android:drawable="@drawable/blip_green_7" android:duration="20"/>
+    <item android:drawable="@drawable/blip_green_7" android:duration="20"/>
+</animation-list>
