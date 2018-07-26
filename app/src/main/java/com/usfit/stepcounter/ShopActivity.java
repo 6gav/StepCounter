@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
@@ -30,6 +31,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     Button btnPurchase, btnEquip;
     TextView MoneyText;
     Timer timer;
+    DetailManager detailManager;
 
     //Preferences
     SharedPreferences preferences;
@@ -144,6 +146,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         MonValue = preferences.getInt("MonValue", 0);
         purchases = preferences.getInt("Purchased Items", 0);
 
+        detailManager = new DetailManager(this);
+
         items = new Item[MaxItems];
         shop = new Item[MaxItems];
         cost = getResources().getIntArray(R.array.costs);
@@ -177,6 +181,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     public void OnCheckBoxClick(View v){
+        detailManager.PlaySound(R.raw.sfx_cbx_toggle);
         CheckBox[] boxes = new CheckBox[5];
         boxes[0] = findViewById(R.id.cbxHead);
         boxes[1] = findViewById(R.id.cbxTop);
@@ -333,6 +338,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         LoadShopData();
     }
     public void Purchase(View v){
+        detailManager.PlaySound(R.raw.sfx_buy);
         boolean purchaseSuccessful = Purchase();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && purchaseSuccessful) {
@@ -340,6 +346,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         }
     }
     public void Equip(View v){
+        detailManager.PlaySound(R.raw.sfx_equip);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PlayAnimation(btnEquip,getResources().getDrawable(R.drawable.blip_green));
         }

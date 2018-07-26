@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private int StepCounts, TapCount, MonValue, StepsUntilMon = 10;
     boolean activityRunning, DebugMode;
     private Button debugStepButton;
+    DetailManager detailManager;
+
+
     private SharedPreferences MoneyPref;
     private SharedPreferences.Editor MoneyEditor;
     private SharedPreferences AvatarPref;
@@ -45,10 +49,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         LoginStart();
 
-
+        detailManager = new DetailManager(this);
         TapCount = 4;
         DebugMode = false;
 
@@ -70,13 +73,7 @@ public class MainActivity extends AppCompatActivity {
         }, delay);
     }
 
-    private  void PlayAnimation(Button b, Drawable d){
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            b.setForeground(d);
-            ((AnimationDrawable) d).start();
-        }
-    }
 
     void DrawPlayer(){
         ((ImageView)findViewById(R.id.ivMainTop)).setImageDrawable(getDrawable(MoneyPref.getInt("A_TOP",R.drawable.outfit_t00)));
@@ -134,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void sendMessage(View v) {
-        PlayAnimation((Button)findViewById(R.id.btnALogger),getResources().getDrawable(R.drawable.blip_blue));
+        detailManager.PlaySound(R.raw.sfx_confirm);
+        detailManager.PlayAnimation((Button)findViewById(R.id.btnALogger),getResources().getDrawable(R.drawable.blip_blue));
 
         Intent newActivity = new Intent(this, MainMenuActivity.class);
         startActivity(newActivity);
@@ -144,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void ToAchievements(View v) {
-
-        //PlayAnimation((Button)findViewById(R.id.btnAchievements),getResources().getDrawable(R.drawable.blip_blue));
+        detailManager.PlaySound(R.raw.sfx_confirm);
+        detailManager.PlayAnimation((Button)findViewById(R.id.btnAchievements),getResources().getDrawable(R.drawable.blip_blue));
 
         Intent n = new Intent(this, AchievementsActivity.class);
         startActivity(n);
@@ -159,25 +157,29 @@ public class MainActivity extends AppCompatActivity {
     }
 */
     public void ToShop(View v) {
-        PlayAnimation((Button)findViewById(R.id.btnShop),getResources().getDrawable(R.drawable.blip_blue));
+        detailManager.PlaySound(R.raw.sfx_confirm);
+        detailManager.PlayAnimation((Button)findViewById(R.id.btnShop),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, ShopActivity.class);
         startActivity(n);
     }
 
     public void ToGoals(View v) {
-        //PlayAnimation((Button)findViewById(R.id.btnGoals),getResources().getDrawable(R.drawable.blip_blue));
+        detailManager.PlaySound(R.raw.sfx_confirm);
+        detailManager.PlayAnimation((Button)findViewById(R.id.btnGoals),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, GoalsActivity.class);
         startActivity(n);
     }
 
     public void ToInventory(View v) {
-        //PlayAnimation((Button)findViewById(R.id.btnInventory),getResources().getDrawable(R.drawable.blip_blue));
+        detailManager.PlaySound(R.raw.sfx_confirm);
+        detailManager.PlayAnimation((Button)findViewById(R.id.btnInventory),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, Inventory.class);
         startActivity(n);
     }
 
     public void ToPreferences(View v){
-        //PlayAnimation((Button)findViewById(R.id.btnUPrefs),getResources().getDrawable(R.drawable.blip_blue));
+        detailManager.PlaySound(R.raw.sfx_confirm);
+        detailManager.PlayAnimation((Button)findViewById(R.id.btnUPrefs),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, UserPreferences.class);
         startActivity(n);
     }
