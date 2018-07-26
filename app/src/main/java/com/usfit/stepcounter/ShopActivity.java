@@ -2,7 +2,12 @@ package com.usfit.stepcounter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +25,7 @@ import java.util.TimerTask;
 
 public  class ShopActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     //Components
-    ImageView currentImage;
+    ImageView currentImage,ivPurchaseAnimation;
     ListView lst;
     Button btnPurchase, btnEquip;
     TextView MoneyText;
@@ -40,7 +45,6 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     //region arrays
     int[] cost;
-
     int[] top = {
             R.drawable.outfit_t00,
             R.drawable.outfit_t01,
@@ -111,6 +115,13 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     /////////////////////////////// functions /////////////////////////////////////////////////////
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private  void PlayAnimation(Button b, Drawable d){
+        b.setForeground(d);
+        ((AnimationDrawable)d).start();
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         _selectedItemObject = shop[position];
@@ -143,6 +154,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             btnEquip = findViewById(R.id.btnEquip);
             btnPurchase = findViewById(R.id.btnPurchase);
             MoneyText = findViewById(R.id.tvMonValueInfo);
+            ivPurchaseAnimation = findViewById(R.id.ivPurchaseAnimation);
 
 
             CreateItems();
@@ -173,7 +185,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         boxes[4] = findViewById(R.id.cbxPurchased);
 
         String alltags = " ",tag = "";
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < boxes.length; i++){
             if(boxes[i].isChecked()) {
                 switch (boxes[i].getText().toString()) {
                     case "Top":
@@ -321,12 +333,20 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         LoadShopData();
     }
     public void Purchase(View v){
-        boolean n = Purchase();
+        boolean purchaseSuccessful = Purchase();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && purchaseSuccessful) {
+            PlayAnimation(btnPurchase,getResources().getDrawable(R.drawable.blip_green));
+        }
     }
     public void Equip(View v){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PlayAnimation(btnEquip,getResources().getDrawable(R.drawable.blip_green));
+        }
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(_selectedItemObject.getTag(),_selectedItemObject.getImage_Id());
         editor.apply();
+
     }
     public boolean Purchase(){
         boolean purchased = false;
@@ -351,6 +371,11 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
                 btnEquip.setEnabled(true);
                 btnPurchase.setEnabled(false);
+
+
+                AnimationDrawable d = (AnimationDrawable)ivPurchaseAnimation.getDrawable();
+                d.start();
+
             }
 
         }

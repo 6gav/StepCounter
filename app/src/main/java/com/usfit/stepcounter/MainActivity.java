@@ -3,11 +3,16 @@ package com.usfit.stepcounter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Button debugStepButton;
     private SharedPreferences MoneyPref;
     private SharedPreferences.Editor MoneyEditor;
+    private SharedPreferences AvatarPref;
     private TextView MoneyCounterTextView;
 
 
@@ -38,12 +44,18 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.SharedStepData), MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        LoginStart();
+
+
         TapCount = 4;
         DebugMode = false;
 
         count = findViewById(R.id.countTextView);
 
         MoneyPref = getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
+        //AvatarPref = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
         MonValue = MoneyPref.getInt("MonValue", 0);
         MoneyEditor = MoneyPref.edit();
         MoneyCounterTextView = findViewById(R.id.tvMonValueInfo);
@@ -58,7 +70,19 @@ public class MainActivity extends AppCompatActivity {
         }, delay);
     }
 
+    private  void PlayAnimation(Button b, Drawable d){
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            b.setForeground(d);
+            ((AnimationDrawable) d).start();
+        }
+    }
+
+    void DrawPlayer(){
+        ((ImageView)findViewById(R.id.ivMainTop)).setImageDrawable(getDrawable(MoneyPref.getInt("A_TOP",R.drawable.outfit_t00)));
+        ((ImageView)findViewById(R.id.ivMainBottom)).setImageDrawable(getDrawable(MoneyPref.getInt("A_BOT",R.drawable.outfit_b00)));
+        ((ImageView)findViewById(R.id.ivMainFeet)).setImageDrawable(getDrawable(MoneyPref.getInt("A_FOT",R.drawable.outfit_f1)));
+    }
 
     private void DebugEnable() {
         debugStepButton.setVisibility(View.VISIBLE);
@@ -110,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void sendMessage(View v) {
+        PlayAnimation((Button)findViewById(R.id.btnALogger),getResources().getDrawable(R.drawable.blip_blue));
+
         Intent newActivity = new Intent(this, MainMenuActivity.class);
         startActivity(newActivity);
 
@@ -118,31 +144,40 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void ToAchievements(View v) {
+
+        //PlayAnimation((Button)findViewById(R.id.btnAchievements),getResources().getDrawable(R.drawable.blip_blue));
+
         Intent n = new Intent(this, AchievementsActivity.class);
         startActivity(n);
     }
-
+/*
+    allows to change the avatar's skin, hair, etc.
     public void ToAvatar(View v) {
+        //PlayAnimation(btnAchievements,getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, AvatarActivity.class);
         startActivity(n);
     }
-
+*/
     public void ToShop(View v) {
+        PlayAnimation((Button)findViewById(R.id.btnShop),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, ShopActivity.class);
         startActivity(n);
     }
 
     public void ToGoals(View v) {
+        //PlayAnimation((Button)findViewById(R.id.btnGoals),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, GoalsActivity.class);
         startActivity(n);
     }
 
     public void ToInventory(View v) {
+        //PlayAnimation((Button)findViewById(R.id.btnInventory),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, Inventory.class);
         startActivity(n);
     }
 
     public void ToPreferences(View v){
+        //PlayAnimation((Button)findViewById(R.id.btnUPrefs),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, UserPreferences.class);
         startActivity(n);
     }
@@ -173,7 +208,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAvailableProviders(providers)
                         .build(),
                 RC_SIGN_IN);
-
+    }
+    public void LoginStart(View v){
+        LoginStart();
     }
 
 

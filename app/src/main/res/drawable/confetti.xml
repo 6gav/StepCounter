@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="true" >
+    <item android:drawable="@drawable/confetti_00" android:duration="100" />
+    <item android:drawable="@drawable/confetti_01" android:duration="100"/>
+    <item android:drawable="@drawable/confetti_02" android:duration="100"/>
+    <item android:drawable="@drawable/confetti_03" android:duration="100"/>
+    <item android:drawable="@drawable/confetti_04" android:duration="90"/>
+    <item android:drawable="@drawable/confetti_05" android:duration="80"/>
+    <item android:drawable="@drawable/confetti_06" android:duration="70"/>
+    <item android:drawable="@drawable/confetti_07" android:duration="60"/>
+    <item android:drawable="@drawable/confetti_09" android:duration="50"/>
+    <item android:drawable="@drawable/confetti_00" android:duration="100"/>
+</animation-list>
