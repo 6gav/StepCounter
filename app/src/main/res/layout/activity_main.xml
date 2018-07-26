@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.379" />
 
     <Button
-        android:id="@+id/newScreenButton"
+        android:id="@+id/btnALogger"
         android:layout_width="136dp"
         android:layout_height="64dp"
         android:layout_marginBottom="24dp"
@@ -73,10 +73,10 @@
         android:onClick="ToAchievements"
         android:text="Achievements"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/newScreenButton"
+        app:layout_constraintEnd_toEndOf="@+id/btnALogger"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newScreenButton"
+        app:layout_constraintTop_toBottomOf="@+id/btnALogger"
         app:layout_constraintVertical_bias="0.122" />
 
     <Button
@@ -103,7 +103,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorButton"
-        app:layout_constraintBottom_toTopOf="@+id/newScreenButton"
+        app:layout_constraintBottom_toTopOf="@+id/btnALogger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.869"
         app:layout_constraintStart_toStartOf="parent"
@@ -157,7 +157,7 @@
         android:onClick="ToPreferences"
         android:text="User \nPreferences"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/newScreenButton"
+        app:layout_constraintEnd_toEndOf="@+id/btnALogger"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAchievements"
@@ -172,11 +172,11 @@
         android:background="@drawable/click_button"
         android:onClick="ToGoals"
         android:text="Goals"
-        app:layout_constraintBottom_toBottomOf="@+id/newScreenButton"
+        app:layout_constraintBottom_toBottomOf="@+id/btnALogger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/newScreenButton"
-        app:layout_constraintTop_toTopOf="@+id/newScreenButton"
+        app:layout_constraintStart_toEndOf="@+id/btnALogger"
+        app:layout_constraintTop_toTopOf="@+id/btnALogger"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
@@ -190,7 +190,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/newScreenButton"
+        app:layout_constraintTop_toBottomOf="@+id/btnALogger"
         app:srcCompat="@android:drawable/btn_dialog" />
 
     <ImageView

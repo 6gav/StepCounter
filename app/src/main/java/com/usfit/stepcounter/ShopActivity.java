@@ -115,6 +115,13 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     /////////////////////////////// functions /////////////////////////////////////////////////////
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private  void PlayAnimation(Button b, Drawable d){
+        b.setForeground(d);
+        ((AnimationDrawable)d).start();
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         _selectedItemObject = shop[position];
@@ -167,11 +174,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         //currentImage.setImageDrawable(items[selectedItem].getImage());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private  void PlayAnimation(Button b, Drawable d){
-        b.setForeground(d);
-        ((AnimationDrawable)d).start();
-    }
+
 
     public void OnCheckBoxClick(View v){
         CheckBox[] boxes = new CheckBox[5];
