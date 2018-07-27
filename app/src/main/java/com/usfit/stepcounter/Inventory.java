@@ -16,7 +16,7 @@ public class Inventory extends ShopActivity {
     //Components
     Button btnInvApply;
     Drawable tempImage;
-
+    DetailManager detailManager;
     //arrays
     int[] images = {
             -1,
@@ -37,15 +37,22 @@ public class Inventory extends ShopActivity {
 
         lst = findViewById(R.id.lvInvItems);
         btnInvApply = findViewById(R.id.btnInvApply);
-
+        detailManager = new DetailManager(this);
         ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         CreateItems();
         LoadShopData("Purchased",A);
+        DrawPlayer();
+    }
+
+    void DrawPlayer(){
+        ((ImageView)findViewById(R.id.ivInvFace)).setImageDrawable(getDrawable(preferences.getInt("A_FAC",R.drawable.expression_0)));
+        ((ImageView)findViewById(R.id.ivInvHead)).setImageDrawable(getDrawable(preferences.getInt("A_HED",R.drawable.hair_00)));
+        ((ImageView)findViewById(R.id.ivInvBody)).setImageDrawable(getDrawable(preferences.getInt("A_BOD",R.drawable.body_s0)));
+
         ((ImageView)findViewById(R.id.ivInvTop)).setImageDrawable(getDrawable(preferences.getInt("A_TOP",R.drawable.outfit_t00)));
         ((ImageView)findViewById(R.id.ivInvBottom)).setImageDrawable(getDrawable(preferences.getInt("A_BOT",R.drawable.outfit_b00)));
         ((ImageView)findViewById(R.id.ivInvFeet)).setImageDrawable(getDrawable(preferences.getInt("A_FOT",R.drawable.outfit_f1)));
     }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //TextView tv = (TextView)view;

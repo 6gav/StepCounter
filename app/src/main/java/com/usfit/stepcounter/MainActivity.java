@@ -71,11 +71,21 @@ public class MainActivity extends AppCompatActivity {
                 h.postDelayed(runnable, delay);
             }
         }, delay);
+
+        DrawPlayer();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        detailManager.Release();
+        super.onDestroy();
+    }
 
     void DrawPlayer(){
+        ((ImageView)findViewById(R.id.ivMainFace)).setImageDrawable(getDrawable(MoneyPref.getInt("A_FAC",R.drawable.expression_0)));
+        ((ImageView)findViewById(R.id.ivMainHead)).setImageDrawable(getDrawable(MoneyPref.getInt("A_HED",R.drawable.hair_00)));
+        ((ImageView)findViewById(R.id.ivMainBody)).setImageDrawable(getDrawable(MoneyPref.getInt("A_BOD",R.drawable.body_s0)));
+
         ((ImageView)findViewById(R.id.ivMainTop)).setImageDrawable(getDrawable(MoneyPref.getInt("A_TOP",R.drawable.outfit_t00)));
         ((ImageView)findViewById(R.id.ivMainBottom)).setImageDrawable(getDrawable(MoneyPref.getInt("A_BOT",R.drawable.outfit_b00)));
         ((ImageView)findViewById(R.id.ivMainFeet)).setImageDrawable(getDrawable(MoneyPref.getInt("A_FOT",R.drawable.outfit_f1)));
