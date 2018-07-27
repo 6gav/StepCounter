@@ -194,8 +194,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(n);
     }
 
+    public void ToLogin(View v){
+        Intent n = new Intent(this,LoginActivity.class);
+        startActivity(n);
+    }
 
-    private void LoginStart(){
+    public void ToFriends(View v){
+        Intent n = new Intent(this, FriendsActivity.class);
+        startActivity(n);
+    }
+
+    public void LoginStart(){
         final int RC_SIGN_IN = 123;
 
 // ...
