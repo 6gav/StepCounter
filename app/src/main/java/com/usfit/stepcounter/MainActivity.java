@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(n);
     }
 
-    public void LoginStart(View v){
+    public void LoginStart(){
         final int RC_SIGN_IN = 123;
 
 // ...

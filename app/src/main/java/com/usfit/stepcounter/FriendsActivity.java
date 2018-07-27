@@ -37,6 +37,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     //Users
     User currentUser, displayedUser;
+    FirebaseUser LoggedUser;
 
 
 
