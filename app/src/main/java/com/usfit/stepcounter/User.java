@@ -1,10 +1,16 @@
 package com.usfit.stepcounter;
 
+import java.util.List;
+import java.util.Vector;
+
 public class User {
+
+    private static User currentUser;
 
     public String username;
 
     public int topWear, bottomWear, footWear;
+
 
     public User(){
 
@@ -12,7 +18,6 @@ public class User {
 
     public User(String username){
         this.username = username;
-
     }
 
 
@@ -24,5 +29,11 @@ public class User {
 
     }
 
+    public static void SetCurrentUser(User currentUser){
+        User.currentUser = currentUser;
+    }
 
+    public static User GetCurrentUser(){
+        return User.currentUser;
+    }
 }
