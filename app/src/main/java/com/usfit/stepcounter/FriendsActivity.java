@@ -73,6 +73,7 @@ public class FriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
         mAuth = FirebaseAuth.getInstance();
+        LoggedUser = mAuth.getCurrentUser();
         currentUID = mAuth.getCurrentUser().getUid();
 
         currentUser = User.GetCurrentUser();
@@ -107,6 +108,9 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     public void AddUser(View v){
+        if(currentUser == null){
+            currentUser = new User(currentUsername.getText().toString(), LoggedUser.getEmail());
+        }
         SaveOutfit();
         SaveUser();
 
@@ -153,7 +157,7 @@ public class FriendsActivity extends AppCompatActivity {
             FriendRequestHolder fReq = new FriendRequestHolder(myUsername, currentUID, key);
             Map<String, Object> childMap = new HashMap<>();
 
-            childMap.put("/friend-requests/" + currentUID + "/" + key, fReq);
+            childMap.put("/friend-requests/" + friendUID + "/" + key, fReq);
 
             ref.updateChildren(childMap);
         }

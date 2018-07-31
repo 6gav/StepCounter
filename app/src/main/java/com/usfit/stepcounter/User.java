@@ -44,8 +44,7 @@ public class User {
         return User.currentUser;
     }
 
-    public void AddMapTest(){
-    }
+
 
     public void AddFriend(UserInfoPackage friend){
         friendsList.add(friend);

@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         String temp = "X " + MoneyPref.getInt("MonValue", 0);
         MoneyCounterTextView.setText(temp);
         DrawPlayer();
-
+        fUser = mAuth.getCurrentUser();
         if(fUser != null) {
             LoadUser();
         }
@@ -283,6 +283,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void SignOut(View v){
         mAuth.signOut();
+        fUser = null;
+        User.SetCurrentUser(null);
+
     }
 
 
