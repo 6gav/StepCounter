@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@color/colorBackground"
+    android:background="@drawable/bck00"
     tools:context="com.usfit.stepcounter.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
@@ -32,8 +32,8 @@
 
     <Button
         android:id="@+id/btnALogger"
-        android:layout_width="136dp"
-        android:layout_height="64dp"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
@@ -50,8 +50,8 @@
 
     <Button
         android:id="@+id/btnShop"
-        android:layout_width="136dp"
-        android:layout_height="64dp"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/click_button"
@@ -65,8 +65,8 @@
 
     <Button
         android:id="@+id/btnAchievements"
-        android:layout_width="136dp"
-        android:layout_height="64dp"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/click_button"
@@ -81,8 +81,8 @@
 
     <Button
         android:id="@+id/btnInventory"
-        android:layout_width="136dp"
-        android:layout_height="64dp"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
         android:background="@drawable/click_button"
         android:onClick="ToInventory"
         android:text="Inventory"
@@ -148,8 +148,8 @@
 
     <Button
         android:id="@+id/btnUPrefs"
-        android:layout_width="136dp"
-        android:layout_height="64dp"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -165,8 +165,8 @@
 
     <Button
         android:id="@+id/btnGoals"
-        android:layout_width="136dp"
-        android:layout_height="64dp"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/click_button"
@@ -236,20 +236,6 @@
         app:srcCompat="@drawable/hair_00" />
 
     <ImageView
-        android:id="@+id/ivMainTop"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
-        app:srcCompat="@drawable/outfit_t00" />
-
-    <ImageView
         android:id="@+id/ivMainBottom"
         android:layout_width="128dp"
         android:layout_height="128dp"
@@ -262,6 +248,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
         app:srcCompat="@drawable/outfit_b00" />
+
+    <ImageView
+        android:id="@+id/ivMainTop"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
+        app:srcCompat="@drawable/outfit_t00" />
 
     <ImageView
         android:id="@+id/ivMainFeet"
@@ -279,36 +279,36 @@
 
     <Button
         android:id="@+id/friendsActivityButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/click_button"
         android:onClick="ToFriends"
         android:text="Friends"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/signOutButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.965"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/signOutButton" />
 
     <Button
         android:id="@+id/signOutButton"
-        android:layout_width="93dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/main_button_width"
+        android:layout_height="@dimen/main_button_height"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:onClick="SignOut"
+        android:background="@drawable/click_button"
         android:text="Sign Out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs" />
 
 </android.support.constraint.ConstraintLayout>

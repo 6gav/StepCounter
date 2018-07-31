@@ -6,7 +6,7 @@
 
     //item prices
     <integer-array name="costs">
-        <item>10</item>
+        <item>0</item>
         <item>10</item>
         <item>10</item>
 
@@ -30,7 +30,7 @@
         <item>55</item>
         <item>65</item>//Shirts
 
-        <item>10</item>
+        <item>0</item>
         <item>10</item>
         <item>10</item>
 
@@ -46,7 +46,7 @@
         <item>130</item>
         <item>140</item>//Bottoms
 
-        <item>10</item>
+        <item>0</item>
         <item>10</item>
         <item>10</item>
 

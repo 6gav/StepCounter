@@ -18,12 +18,16 @@ public class ProfileActivity extends AppCompatActivity {
     Button btnAddFriend;
     ConstraintLayout clytProfileBackground;
     FirebaseStorage storage;
+
+    public void InitProfile(){
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        ivProfilePhoto = findViewById(R.id.ivProfilePhoto);
+        ivProfilePhoto = findViewById(R.id.ivProfileBody);
         btnAddFriend = findViewById(R.id.btnAddFriend);
         clytProfileBackground = findViewById(R.id.clytProfileBackground);
 
@@ -32,5 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
         RoundedBitmapDrawable mDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
         mDrawable.setCircular(true);
         ivProfilePhoto.setImageDrawable(mDrawable);
+
+
     }
 }
