@@ -3,12 +3,14 @@ package com.usfit.stepcounter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.math.MathUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,14 +22,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.LinearLayout.LayoutParams;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
 
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener{
@@ -42,7 +47,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     //Variables
     float Stride, CalorieCount, MiKm, weight, calCalcVar;
-    int StepCount, DebugTapCount, LastStepCount;
+    int StepCount, DebugTapCount, LastStepCount,winWidth,winHeight;
     boolean tracking, DebugEnabled;
 
 
@@ -56,6 +61,7 @@ public class MainMenuActivity extends AppCompatActivity
     Button temp;
     EditText debugNumberTextView;
     RadioGroup measurementRadioGroup;
+    LayoutParams layoutParams;
 
 
     //Timer
@@ -103,6 +109,11 @@ public class MainMenuActivity extends AppCompatActivity
 
         calorieTextView = findViewById(R.id.calorieTextView);
 
+        Rect dimen = new Rect();
+        getWindowManager().getDefaultDisplay().getRectSize(dimen);
+
+        winWidth = dimen.width();
+        winHeight = dimen.height();
 
         //Preferences
         sharedPreferences = getSharedPreferences(getString(R.string.SharedStepData), Context.MODE_PRIVATE);
@@ -234,11 +245,11 @@ public class MainMenuActivity extends AppCompatActivity
             }else{
                 miles = StepCount/5280;
             }
+
             if((StepCount % 5280) == 0) {
                 String str = "You walked " + miles +" mile!";
                 Toast.makeText(this,str,Toast.LENGTH_SHORT);
             }
-
             if (StepCount % 1000 == 0) {
                 tempMoney = 100;
             } else if (StepCount % 100 == 0) {
@@ -246,6 +257,8 @@ public class MainMenuActivity extends AppCompatActivity
             } else if (StepCount % 10 == 0) {
                 tempMoney = 1;
             }
+
+            SetMarker(0.5f);
         }
 
         if(tempMoney > 0) {
@@ -259,8 +272,22 @@ public class MainMenuActivity extends AppCompatActivity
         editor.apply();
         DistanceCalc();
 
+
     }
 
+    public void SetMarker(float pos){
+        pos = MathUtils.clamp(pos,0,1);
+        ImageView ivUserMarker = findViewById(R.id.ivUserMarker);
+        layoutParams = (LayoutParams)ivUserMarker.getLayoutParams();
+
+        layoutParams.leftMargin = (int)(pos*winWidth);
+        layoutParams.topMargin = winHeight-16;
+
+        ivUserMarker.setLayoutParams(layoutParams);
+
+
+
+    }
     public void RadioSwitch(View v){ DistanceCalc(); }
 
     public void DistanceCalc() {

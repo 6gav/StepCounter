@@ -118,10 +118,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     /////////////////////////////// functions /////////////////////////////////////////////////////
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private  void PlayAnimation(Button b, Drawable d){
-        b.setForeground(d);
-        ((AnimationDrawable)d).start();
+        detailManager.PlayAnimation(b,d);
     }
 
     @Override
@@ -149,12 +147,13 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         MonValue = preferences.getInt("MonValue", 0);
         purchases = preferences.getInt("Purchased Items", 0);
 
-        detailManager = new DetailManager(this);
 
         items = new Item[MaxItems];
         shop = new Item[MaxItems];
         cost = getResources().getIntArray(R.array.costs);
         if(IsShop == true) {
+
+            detailManager = new DetailManager(this);
             lst = findViewById(R.id.lvShopItems);
             currentImage = findViewById(R.id.ivCurrentImage);
             btnEquip = findViewById(R.id.btnEquip);
@@ -174,8 +173,10 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     protected void onDestroy() {
-        detailManager.PlaySound(R.raw.sfx_deny);
-        detailManager.Release();
+        if(IsShop) {
+            detailManager.PlaySound(R.raw.sfx_deny);
+            detailManager.Release();
+        }
         super.onDestroy();
     }
 
@@ -236,7 +237,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setName(topNames[j]);
             item.setImage(top[i]);
             item.setTag("A_TOP");
-            isPurchased = false;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
+            isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
             if(!item.isPurchased()) {
@@ -257,7 +258,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setName(botNames[i]);
             item.setImage(bottom[i]);
             item.setTag("A_BOT");
-            isPurchased = false;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
+            isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
             item.setPurchased(isPurchased);
             description = "";
             if(!item.isPurchased()) {
@@ -278,7 +279,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setName(fotNames[i]);
             item.setImage(footwear[i]);
             item.setTag("A_FOT");
-            isPurchased = false;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
+            isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
             item.setPurchased(isPurchased);
             description = "";
             if(!item.isPurchased()) {
@@ -303,7 +304,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         LoadShopData(Tag, new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1));
     }
 
-        public void LoadShopData(String Tag,ArrayAdapter<String> AAdapter) {
+    public void LoadShopData(String Tag,ArrayAdapter<String> AAdapter) {
         int i,j = 0;
         for (i = 0; i < MaxItems; ++i) {
             /*Item item = new Item();
@@ -313,17 +314,17 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setDescription("Purchase " + item.getName() + " for " + item.getCost() + "$.");
             items[i] = item;*/
             //
-            boolean purchased = Tag.contains("Purchased");//search for purchased items
+            boolean displayPurchasedItems = Tag.contains("Purchased");//search for purchased items
 
             if(items[i] != null) {
-                if(Tag.contains(items[i].getTag()) || "All" == Tag) {
-                        if(purchased && items[i].isPurchased()) {
+                if(Tag.contains(items[i].getTag()) || Tag.contains("All")) {
+                        if(displayPurchasedItems && items[i].isPurchased()) {
                             AAdapter.add(items[i].getDescription());
                             shop[j] = items[i];
                             items[i].setPosition(j);
                             j++;
                         }
-                        else if(!purchased){
+                        else if(!displayPurchasedItems){
                             AAdapter.add(items[i].getDescription());
                             shop[j] = items[i];
                             items[i].setPosition(j);

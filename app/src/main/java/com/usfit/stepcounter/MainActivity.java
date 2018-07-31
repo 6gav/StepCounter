@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             LoginStart();
         }
 
-        LoadUser();
+
 
         detailManager = new DetailManager(this);
         TapCount = 4;
@@ -160,7 +160,9 @@ public class MainActivity extends AppCompatActivity {
         MoneyCounterTextView.setText(temp);
         DrawPlayer();
 
-
+        if(fUser != null) {
+            LoadUser();
+        }
 
     }
 
