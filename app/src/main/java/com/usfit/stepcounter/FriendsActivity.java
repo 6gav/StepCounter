@@ -29,6 +29,8 @@ public class FriendsActivity extends AppCompatActivity {
     //Preferences
     SharedPreferences outfitPrefs;
 
+    //Variables
+    String currentUID;
 
     //Components
     EditText currentUsername;
@@ -48,7 +50,7 @@ public class FriendsActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference();
 
-    DatabaseReference usersRef;
+    DatabaseReference usersRef, uidsRef;
 
 
     @Override
@@ -58,9 +60,15 @@ public class FriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
         usersRef = ref.child("users");
+        uidsRef = ref.child("uids");
 
         mAuth = FirebaseAuth.getInstance();
 
+        currentUID = mAuth.getCurrentUser().getUid();
+
+
+
+        currentUser = User.GetCurrentUser();
 
 
 
@@ -82,10 +90,20 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     public void AddUser(View v){
+        String username = currentUsername.getText().toString();
+        currentUser = new User(username);
+        SaveOutfit();
+        SaveUser();
 
-        String userKey = currentUsername.getText().toString();
+    }
 
-        currentUser = new User(userKey);
+    public void SaveOutfit(){
+        int[] tempOutfit = new int[3];
+
+        tempOutfit[0] = outfitPrefs.getInt("A_TOP", R.drawable.outfit_t00);
+        tempOutfit[1] = outfitPrefs.getInt("A_BOT", R.drawable.outfit_b00);
+        tempOutfit[2] = outfitPrefs.getInt("A_FOT", R.drawable.outfit_f00);
+        currentUser.SetOutfit(tempOutfit);
     }
 
     public void FindUser(View v){
@@ -109,17 +127,11 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
 
-    public void SaveOutfit(View v){
-        int[] tempOutfit = new int[3];
 
-        tempOutfit[0] = outfitPrefs.getInt("A_TOP", R.drawable.outfit_t00);
-        tempOutfit[1] = outfitPrefs.getInt("A_BOT", R.drawable.outfit_b00);
-        tempOutfit[2] = outfitPrefs.getInt("A_FOT", R.drawable.outfit_f00);
-        currentUser.SetOutfit(tempOutfit);
-    }
+    public void SaveUser(){
 
-    public void SaveUser(View v){
-        usersRef.child(currentUser.username).setValue(currentUser);
+        usersRef.child(currentUID).setValue(currentUser);
+        uidsRef.child(currentUser.username).setValue(currentUID);
     }
 
 

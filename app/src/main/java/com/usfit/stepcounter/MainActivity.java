@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,12 +39,22 @@ public class MainActivity extends AppCompatActivity {
     boolean activityRunning, DebugMode;
     private Button debugStepButton;
     DetailManager detailManager;
+    String userName;
+
 
 
     private SharedPreferences MoneyPref;
     private SharedPreferences.Editor MoneyEditor;
     private SharedPreferences AvatarPref;
     private TextView MoneyCounterTextView;
+
+
+
+    //Firebase
+    DatabaseReference db;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    FirebaseAuth mAuth;
+    FirebaseUser fUser;
 
 
     Handler h = new Handler();
@@ -49,7 +67,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LoginStart();
+        //Firebase
+
+        db = firebaseDatabase.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        fUser = mAuth.getCurrentUser();
+
+        if(fUser == null) {
+            LoginStart();
+        }
+
+        LoadUser();
 
         detailManager = new DetailManager(this);
         TapCount = 4;
@@ -213,6 +241,22 @@ public class MainActivity extends AppCompatActivity {
     }
     public void LoginStart(View v){
         LoginStart();
+    }
+
+
+    public void LoadUser(){
+        db.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User tempUser = dataSnapshot.getValue(User.class);
+                User.SetCurrentUser(tempUser);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
