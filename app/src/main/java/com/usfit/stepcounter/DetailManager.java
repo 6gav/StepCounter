@@ -14,6 +14,7 @@ public class DetailManager {
     MediaPlayer sfx_player;
     Context context;
     int selectedTrack;
+
     public DetailManager(Context _context){
         context = _context;
         selectedTrack = R.raw.sfx_confirm;

@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         DrawPlayer();
     }
 
+
     @Override
     protected void onDestroy() {
         detailManager.Release();
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         String temp = "X " + MoneyPref.getInt("MonValue", 0);
         MoneyCounterTextView.setText(temp);
+        DrawPlayer();
 
 
 

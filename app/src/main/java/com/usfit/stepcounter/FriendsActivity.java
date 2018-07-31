@@ -77,8 +77,9 @@ public class FriendsActivity extends AppCompatActivity {
         //Preferences
         outfitPrefs = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace",MODE_PRIVATE);
 
+        currentUser = new User(currentUsername.getText().toString());
 
-
+        LoadOutfit(currentUser);
     }
 
     public void AddUser(View v){
@@ -86,6 +87,7 @@ public class FriendsActivity extends AppCompatActivity {
         String userKey = currentUsername.getText().toString();
 
         currentUser = new User(userKey);
+        LoadOutfit(currentUser);
     }
 
     public void FindUser(View v){
@@ -95,7 +97,7 @@ public class FriendsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 displayedUser = dataSnapshot.getValue(User.class);
-                LoadOutfit();
+                LoadOutfit(displayedUser);
             }
 
             @Override
@@ -128,10 +130,10 @@ public class FriendsActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
     }
 
-    private void LoadOutfit(){
-        playerFoot.setImageDrawable(getResources().getDrawable(displayedUser.footWear));
-        playerTop.setImageDrawable(getResources().getDrawable(displayedUser.topWear));
-        playerBot.setImageDrawable(getResources().getDrawable(displayedUser.bottomWear));
+    private void LoadOutfit(User user){
+        playerFoot.setImageDrawable(getResources().getDrawable(user.footWear));
+        playerTop.setImageDrawable(getResources().getDrawable(user.topWear));
+        playerBot.setImageDrawable(getResources().getDrawable(user.bottomWear));
     }
 
 }

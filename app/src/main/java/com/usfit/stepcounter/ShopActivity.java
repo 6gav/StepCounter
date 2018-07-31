@@ -128,7 +128,9 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         detailManager.PlaySound(R.raw.sfx_select);
         _selectedItemObject = shop[position];
+
         btnPurchase.setEnabled(_selectedItemObject != null);
+
         if( btnPurchase.isEnabled()){
             btnPurchase.setEnabled(!_selectedItemObject.isPurchased());
         }
@@ -153,7 +155,6 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         shop = new Item[MaxItems];
         cost = getResources().getIntArray(R.array.costs);
         if(IsShop == true) {
-
             lst = findViewById(R.id.lvShopItems);
             currentImage = findViewById(R.id.ivCurrentImage);
             btnEquip = findViewById(R.id.btnEquip);
@@ -165,19 +166,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             CreateItems();
             LoadShopData(preferences.getString("ShopTag", "All"));
             MoneyUpdate();
-            /*
-            TimerTask t = new TimerTask() {
-                @Override
-                public void run() {
-
-                    MonValue++;
-                    //MoneyUpdate(MonValue);
-                }
-            };
 
 
-            timer.scheduleAtFixedRate(t, 500, 500);
-            */
         }
         //currentImage.setImageDrawable(items[selectedItem].getImage());
     }
@@ -191,6 +181,9 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     public void OnCheckBoxClick(View v){
         detailManager.PlaySound(R.raw.sfx_cbx_toggle);
+        OnCheckBoxClick();
+    }
+    public void OnCheckBoxClick(){
         CheckBox[] boxes = new CheckBox[5];
         boxes[0] = findViewById(R.id.cbxHead);
         boxes[1] = findViewById(R.id.cbxTop);
@@ -226,11 +219,6 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     protected void CreateItems() {
         int i,j = 0;
-        int[] firstItems = {
-                0,
-                top.length,
-                bottom.length+top.length
-        };
         String allNames = getResources().getString(R.string.shop_items_top);
         String[] topNames,botNames,fotNames;
         topNames = allNames.split(",");
@@ -239,7 +227,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         allNames = getResources().getString(R.string.shop_items_footwear);
         fotNames = allNames.split(",");
 
-        String description = "";
+        String description;
         boolean isPurchased;
         for(i = 0; i < (top.length);i++){
             Item item = new Item();
@@ -248,8 +236,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setName(topNames[j]);
             item.setImage(top[i]);
             item.setTag("A_TOP");
-            isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);
-            if(firstItems[0] == i){isPurchased = true;}
+            isPurchased = false;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
             if(!item.isPurchased()) {
@@ -270,9 +257,9 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setName(botNames[i]);
             item.setImage(bottom[i]);
             item.setTag("A_BOT");
-            isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
-            if(firstItems[1] == i){isPurchased = true;}
+            isPurchased = false;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
             item.setPurchased(isPurchased);
+            description = "";
             if(!item.isPurchased()) {
                 description += "Purchase " + item.getName() + " for " + item.getCost() + "$.";
             }
@@ -291,9 +278,9 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setName(fotNames[i]);
             item.setImage(footwear[i]);
             item.setTag("A_FOT");
-            isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
-            if(firstItems[2] == i){isPurchased = true;}
+            isPurchased = false;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
             item.setPurchased(isPurchased);
+            description = "";
             if(!item.isPurchased()) {
                 description += "Purchase " + item.getName() + " for " + item.getCost() + "$.";
             }
@@ -305,13 +292,10 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             ++j;
         }
 
-        items[firstItems[0]].setPurchased(true);
-        items[firstItems[1]].setPurchased(true);
-        items[firstItems[2]].setPurchased(true);
-
     }
 
     //
+
     public void LoadShopData(){
         LoadShopData("All");
     }
@@ -329,7 +313,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setDescription("Purchase " + item.getName() + " for " + item.getCost() + "$.");
             items[i] = item;*/
             //
-            boolean purchased = Tag.contains("Purchased");
+            boolean purchased = Tag.contains("Purchased");//search for purchased items
+
             if(items[i] != null) {
                 if(Tag.contains(items[i].getTag()) || "All" == Tag) {
                         if(purchased && items[i].isPurchased()) {
@@ -338,7 +323,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
                             items[i].setPosition(j);
                             j++;
                         }
-                        else if(!(purchased && items[i].isPurchased())){
+                        else if(!purchased){
                             AAdapter.add(items[i].getDescription());
                             shop[j] = items[i];
                             items[i].setPosition(j);
@@ -376,14 +361,20 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         itemoffset = (itemoffset < MaxItems-3 ? itemoffset + 1 : itemoffset);
         LoadShopData();
     }
-    public void Purchase(View v){
-        detailManager.PlaySound(R.raw.sfx_buy);
+    public void Purchase(View v) {
         boolean purchaseSuccessful = Purchase();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && purchaseSuccessful) {
-            PlayAnimation(btnPurchase,getResources().getDrawable(R.drawable.blip_green));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (purchaseSuccessful) {
+                detailManager.PlaySound(R.raw.sfx_buy);
+                PlayAnimation(btnPurchase, getResources().getDrawable(R.drawable.blip_green));
+                detailManager.PlayAnimation(ivPurchaseAnimation, getResources().getDrawable(R.drawable.confetti));
+            } else {
+                detailManager.PlaySound(R.raw.sfx_reject);
+            }
         }
     }
+
     public void Equip(View v){
         detailManager.PlaySound(R.raw.sfx_equip);
         detailManager.PlayAnimation(btnEquip,getResources().getDrawable(R.drawable.blip_green));
@@ -417,8 +408,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
                 btnEquip.setEnabled(true);
                 btnPurchase.setEnabled(false);
 
-
-                detailManager.PlayAnimation(ivPurchaseAnimation);
+            OnCheckBoxClick();
 
             }
 
