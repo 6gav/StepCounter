@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRecycleAdapter.ViewHolder>{
@@ -17,6 +23,8 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
     private ArrayList<String> mFriendNames = new ArrayList<>();
     private ArrayList<String> mFriendUIDS = new ArrayList<>();
     private Context mContext;
+
+    private DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
     public FriendListRecycleAdapter(ArrayList<String> mFriendNames, ArrayList<String> mFriendUIDS, Context mContext) {
         this.mFriendNames = mFriendNames;
@@ -33,13 +41,27 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         viewHolder.friendName.setText(mFriendNames.get(i));
+        db.child("users").child(mFriendUIDS.get(i)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+             User temp = dataSnapshot.getValue(User.class);
+                viewHolder.friendTop.setImageDrawable(mContext.getDrawable(temp.topWear));
+                viewHolder.friendBot.setImageDrawable(mContext.getDrawable(temp.bottomWear));
+                viewHolder.friendFoot.setImageDrawable(mContext.getDrawable(temp.footWear));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mFriendNames.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -54,6 +76,7 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
             friendBot = itemView.findViewById(R.id.friendBottomImageView);
             friendFoot = itemView.findViewById(R.id.friendFootImageView);
             parentLayout = itemView.findViewById(R.id.FriendListLayout);
+            friendName = itemView.findViewById(R.id.friendUsernameTextView);
         }
     }
 
