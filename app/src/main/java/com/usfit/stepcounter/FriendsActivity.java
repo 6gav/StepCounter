@@ -49,7 +49,7 @@ public class FriendsActivity extends AppCompatActivity {
     FriendRequestHolder currentRequest;
 
     //Components
-    EditText currentUsername;
+    EditText currentUsername, currentAge;
     TextView currentRequestTextView;
 
     ImageView playerTop, playerBot, playerFoot;
@@ -60,6 +60,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     List<UserInfoPackage> tempList;
     ChildEventListener requestChildListener, acceptChildListener;
+    ValueEventListener outfitEventListener;
 
 
 
@@ -105,12 +106,15 @@ public class FriendsActivity extends AppCompatActivity {
 
         currentRequestTextView = findViewById(R.id.currentRequestTextView);
 
+        currentAge = findViewById(R.id.userAgeInput);
+
 
         //Preferences
         outfitPrefs = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace",MODE_PRIVATE);
 
 
-
+        AddOutfitListener();
+        LoadOutfit();
         ListenForRequests();
         ListenForAccepts();
 
@@ -119,6 +123,7 @@ public class FriendsActivity extends AppCompatActivity {
     public void AddUser(View v){
         if(currentUser == null){
             currentUser = new User(currentUsername.getText().toString(), LoggedUser.getEmail());
+            currentUser.uAge = Integer.valueOf(currentAge.getText().toString());
         }
         SaveOutfit();
         SaveUser();
@@ -189,10 +194,33 @@ public class FriendsActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
     }
 
+    private void AddOutfitListener(){
+        outfitEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                displayedUser = dataSnapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+    }
+
     private void LoadOutfit(){
-        playerFoot.setImageDrawable(getResources().getDrawable(displayedUser.footWear));
-        playerTop.setImageDrawable(getResources().getDrawable(displayedUser.topWear));
-        playerBot.setImageDrawable(getResources().getDrawable(displayedUser.bottomWear));
+        if(currentRequest != null) {
+            usersRef.child(currentRequest.senderID).addValueEventListener(outfitEventListener);
+            playerFoot.setImageDrawable(getResources().getDrawable(displayedUser.footWear));
+            playerTop.setImageDrawable(getResources().getDrawable(displayedUser.topWear));
+            playerBot.setImageDrawable(getResources().getDrawable(displayedUser.bottomWear));
+        }
+        else {
+            displayedUser = new User();
+            playerFoot.setImageDrawable(getResources().getDrawable(displayedUser.footWear));
+            playerTop.setImageDrawable(getResources().getDrawable(displayedUser.topWear));
+            playerBot.setImageDrawable(getResources().getDrawable(displayedUser.bottomWear));
+        }
     }
 
     public void ListenForRequests(){
@@ -296,6 +324,9 @@ public class FriendsActivity extends AppCompatActivity {
 
 
             currentRequest = null;
+            requestHolderList.clear();;
+
+            LoadRequests();
         }
         else
             Toast.makeText(this, "You have no friend request at the moment.", Toast.LENGTH_SHORT).show();
@@ -303,13 +334,14 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     public void LoadRequests() {
-        if (requestHolderList.get(0) != null) {
+        if (!requestHolderList.isEmpty()) {
             currentRequest = requestHolderList.get(0);
             currentRequestTextView.setText(currentRequest.sender);
         } else {
             currentRequestTextView.setText(R.string.NoRequestCurrently);
             requestHolderList.clear();
         }
+        LoadOutfit();
     }
 
     public void ToFriendsList(View v){

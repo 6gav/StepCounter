@@ -26,10 +26,12 @@ public class User {
 
     public String username, email, myKey;
 
-    public int topWear, bottomWear, footWear;
+    public int topWear, bottomWear, footWear, uAge;
 
     public User(){
-
+        topWear = R.drawable.outfit_t00;
+        bottomWear = R.drawable.outfit_b00;
+        footWear = R.drawable.outfit_f00;
     }
 
     public User(String username, String email){
