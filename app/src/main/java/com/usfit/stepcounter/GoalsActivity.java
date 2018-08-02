@@ -121,7 +121,7 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
     public void SaveGoal(View v){
 
     if (existingGoals == 3){
-
+        //TODO:check to see if goal already exists
         currentGoal.setText(R.string.MaxActiveGoal);
         return;
     }
@@ -199,7 +199,7 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
         ivParticles.setBackgroundResource(R.drawable.particletrail);
         AnimationDrawable animationDrawable = (AnimationDrawable)ivParticles.getBackground();
         animationDrawable.start();*/
-        int moneyEarned = stepsTaken,
+        int moneyEarned = (int)Math.pow(stepsTaken,1.3f),
             OrigMoney = MoneyTracker.getInt("MonValue",0);
 
         MoneyTracker.edit().putInt("MonValue",moneyEarned+OrigMoney);
