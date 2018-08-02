@@ -233,6 +233,8 @@ public class FriendsActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 UserInfoPackage acceptedFriend = dataSnapshot.getValue(UserInfoPackage.class);
+                ref.child("accept-notices").child(currentUser.myKey).child(acceptedFriend.aKey).setValue(null);
+                acceptedFriend.SetAKey("");
                 currentUser.AddFriend(acceptedFriend);
                 currentUser.UpdateUserProfile(currentUser);
             }
@@ -282,6 +284,7 @@ public class FriendsActivity extends AppCompatActivity {
             String key = usersRef.push().getKey();
             myUsername = currentUser.username;
             UserInfoPackage newAcceptInfo = new UserInfoPackage(myUID, myUsername);
+            newAcceptInfo.SetAKey(key);
             Map<String, Object> childMap = new HashMap<>();
 
             childMap.put("/accept-notices/" + currentRequest.senderID + "/" + key, newAcceptInfo);
