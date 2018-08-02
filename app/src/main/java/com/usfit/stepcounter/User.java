@@ -26,7 +26,7 @@ public class User {
 
     public String username, email, myKey;
 
-    public int topWear, bottomWear, footWear, uAge;
+    public int topWear, bottomWear, footWear, uAge, totalSteps;
 
     public User(){
         topWear = R.drawable.outfit_t00;
@@ -39,6 +39,7 @@ public class User {
         this.email = email;
         myKey = FirebaseAuth.getInstance().getCurrentUser().getUid();
         myInfo = new UserInfoPackage(myKey, username);
+        totalSteps = 0;
     }
 
 
@@ -72,6 +73,8 @@ public class User {
         tempMap.put(myKey, newInfo);
 
         dbRef.child("users").updateChildren(tempMap);
+
+        SetCurrentUser(this);
 
     }
 }
