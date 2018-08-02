@@ -354,6 +354,7 @@ public class MainMenuActivity extends AppCompatActivity
                 String tempStepText = "Steps: " + String.valueOf(StepCount);
                 StepCounter.setText(tempStepText);
                 AchievementChecker.Check(getApplicationContext());
+                gCheck.Check(getApplicationContext());
                 runnable=this;
 
                 h.postDelayed(runnable, delay);

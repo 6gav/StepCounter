@@ -27,7 +27,6 @@ public class AchievementsActivity extends AppCompatActivity {
         //                                0     1    2      3    4
         //    //New Achievement Syntax - Name:Type:Amount:Reward:ID
         String[] resFull = getResources().getStringArray(R.array.aFull),
-                resReq = getResources().getStringArray(R.array.aReq),
                 achievement;
         String description;
         for(int i = 0; i < resFull.length; i++){

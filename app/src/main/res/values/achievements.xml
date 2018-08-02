@@ -6,49 +6,6 @@
 
 
 
-    //Achievement Titles
-    <string-array name="aHeadings">
-        <item>Beginner Walker</item>
-        <item>Advanced Walker</item>
-        <item>Extreme Walker</item>
-
-    </string-array>
-
-
-
-    //Achievement descriptions
-    <string-array name="aDescs">
-        <item>Walk 50 steps</item>
-        <item>Walk 500 steps</item>
-        <item>Walk 5000 steps</item>
-    </string-array>
-
-
-
-    //Achievement Awards
-    <string-array name="aAwards">
-        <item>10 Currency</item>
-        <item>100 Currency</item>
-        <item>1000 Currency</item>
-    </string-array>
-
-
-
-    //Achievement Requirements - Format is Type:Amount:Reward
-    <string-array name="aReq">
-        <item>Steps:50:10</item>
-        <item>Steps:500:100</item>
-        <item>Steps:5000:1000</item>
-
-    </string-array>
-
-
-    //Achievement ID
-    <string-array name="aID">
-        <item>ach1</item>
-        <item>ach2</item>
-        <item>ach3</item>
-    </string-array>
 
 
 

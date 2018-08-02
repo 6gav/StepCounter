@@ -11,19 +11,30 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.DrawableWrapper;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
+import android.text.Layout;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DetailManager {
 
     MediaPlayer sfx_player;
     Context context;
     int selectedTrack;
+    static Timer timer;
+
     public DetailManager(Context _context){
         context = _context;
         selectedTrack = R.raw.sfx_confirm;
         sfx_player = MediaPlayer.create(context,selectedTrack);
+        timer = new Timer();
     }
 
     public void PlaySound(int track){
@@ -76,5 +87,28 @@ public class DetailManager {
 
             wrapper.draw(canvas);
         }
+    }
+
+    public static void AddObject(final View v, int x, int y, final ConstraintLayout layout, long delay){
+        v.setX(x);
+        v.setY(y);
+
+
+        int index = layout.getChildCount();
+        layout.addView(v,index);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                DetailManager.RemoveObject(layout,v);
+            }
+        },delay);
+    }
+    public static void RemoveObject(ConstraintLayout layout, View v){
+        layout.removeView(v);
+    }
+
+    public void makeText(String text){
+        Toast.makeText(context,text, Toast.LENGTH_SHORT);
     }
 }

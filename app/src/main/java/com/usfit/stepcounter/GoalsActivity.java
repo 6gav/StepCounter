@@ -164,7 +164,7 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
                 if (Difference >= StepGoal) {
                     currentGoal.setText(R.string.GoalCompleted);
                     Goals[i] = "";
-                    temp = "Completed This Goal!!!";
+                    temp = "";//Completed This Goal!!!
                     CompleteGoal(Goal[0],StepGoal);
                 } else {
                     //TODO:check to see if goal already exists
@@ -172,8 +172,11 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
                     boolean goalExists = false;
                     for(int j = 0; j < Goals.length;j++) {
                         if(Goals[j]!= null){
-                            if(String.valueOf(StepGoal)==Goals[j].split(",")[1]){//goal exists in array
-                                goalExists = true;
+                            String[] tempGoal = Goals[j].split(",");
+                            if(tempGoal.length>1) {
+                                if (String.valueOf(StepGoal) ==tempGoal[1]) {//goal exists in array
+                                    goalExists = true;
+                                }
                             }
                         }
                     }if(!goalExists) {
@@ -181,8 +184,8 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
                         currentGoal.setText("");
                     }
                 }
-
-                adapter.add(temp);
+                if(temp != "")
+                    adapter.add(temp);
             }
             lvCurrentGoals.setAdapter(adapter);
         }

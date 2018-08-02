@@ -3,6 +3,9 @@ package com.usfit.stepcounter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class GoalChecker{
@@ -11,20 +14,21 @@ public class GoalChecker{
     String[] Goals,Goal;
     Activity activity;
     int StepsAtGoalCreate, CaloriesAtGoalCreate,GoalAtCreate,existingGoals;
+
     public GoalChecker(Activity _activity){
         activity = _activity;
         GoalTracker = _activity.getSharedPreferences("com.usfit.stepcounter.GoalTracker", Context.MODE_PRIVATE);
         StepTracker = _activity.getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
         MoneyTracker = _activity.getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
 
-        StepsAtGoalCreate = StepTracker.getInt("StepCount", 0);
-        CaloriesAtGoalCreate = Math.round(StepTracker.getFloat("CalorieCount", 0));
+
         existingGoals = GoalTracker.getInt("GoalCount",0);
 
     }
 
     int LoadType(String T){
-        int goalAtCreate = StepsAtGoalCreate;
+        CaloriesAtGoalCreate = Math.round(StepTracker.getFloat("CalorieCount", 0));
+        int goalAtCreate = StepsAtGoalCreate = StepTracker.getInt("StepCount", 0);
 
         switch (T){
             case "Steps":
@@ -37,15 +41,17 @@ public class GoalChecker{
         return goalAtCreate;
     }
 
-    void Check(Context mContext){
+    public void Check(Context mContext){
         String temp = GoalTracker.getString("CurrentGoals", "");
         if(!temp.equals("")) {
 
+            String[] goalsCompleted = { "","","",};
             Goals = temp.split(";");
             for(int i = 0;i < Goals.length;i++){
                 Goals[i] = HandleGoal(Goals[i].split(","),temp,mContext);
             }
         }
+
     }
     String HandleGoal(String[] _Goal,String temp,Context mContext){
 
@@ -56,27 +62,27 @@ public class GoalChecker{
         int Difference = GoalAtCreate - OrigSteps;
 
         if (Difference >= StepGoal) {//goal was completed
-            Toast.makeText(mContext,"You Completed your goal of "+StepGoal+" "+Goal[0], Toast.LENGTH_SHORT);
-            CompleteGoal(Goal[0],StepGoal);
+
+            String text = "You have completed your goal of "+StepGoal+" "+Goal[0]+", and have been rewarded "+CompleteGoal(Goal[0]+" Cash",StepGoal);
+            ///*
+            Toast.makeText(activity.getApplicationContext(),"HELLO!!!", Toast.LENGTH_LONG);
+            ImageView iv = new ImageView(mContext);
+            iv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.stickavatar));
+
+            ConstraintLayout app_bar_main_menu_coordinator_layout = activity.findViewById(R.id.app_bar_main_menu_coordinator_layout);
+
+
+            /*iv.setX(50);
+            iv.setY(50);(iv,50,50,app_bar_main_menu_coordinator_layout,1000);
+
+            int index = app_bar_main_menu_coordinator_layout.getChildCount();
+            app_bar_main_menu_coordinator_layout.addView(iv,index);
+            */
             return "";
-        } else {
-            temp = Goal[0] + ": " + Difference + "/" + StepGoal;
-            boolean goalExists = false;
-            for(int j = 0; j < Goals.length;j++) {
-                if(Goals[j]!= null){
-                    if(String.valueOf(StepGoal)==Goals[j].split(",")[1]){//goal exists in array
-                        goalExists = true;
-                    }
-                }
-            }if(!goalExists) {
-                return Goal[0] + "," + StepGoal + "," + OrigSteps + ";";
-                //TODO:currentGoal.setText("");
-            }
         }
-        Toast.makeText(mContext,"NOOO", Toast.LENGTH_SHORT);
-        return "";
+        return Goal[0] + "," + StepGoal + "," + OrigSteps + ";";
     }
-    public void CompleteGoal(String type, int stepsTaken){
+    public int CompleteGoal(String type, int stepsTaken){
         int moneyEarned = (int)Math.pow(stepsTaken,1.3f),
                 OrigMoney = MoneyTracker.getInt("MonValue",0);
 
@@ -84,5 +90,6 @@ public class GoalChecker{
         existingGoals--;
         if(existingGoals<0)existingGoals=0;
         GoalTracker.edit().putInt("GoalCount",existingGoals);
+        return  moneyEarned;
     }
 }
