@@ -50,6 +50,8 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
                 viewHolder.friendTop.setImageDrawable(mContext.getDrawable(temp.topWear));
                 viewHolder.friendBot.setImageDrawable(mContext.getDrawable(temp.bottomWear));
                 viewHolder.friendFoot.setImageDrawable(mContext.getDrawable(temp.footWear));
+                String tempSteps = "Total steps: " + temp.totalSteps;
+                viewHolder.friendSteps.setText(tempSteps);
             }
 
             @Override
@@ -67,7 +69,7 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView friendBody, friendTop, friendBot, friendFoot;
-        TextView friendName;
+        TextView friendName, friendSteps;
         ConstraintLayout parentLayout;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -77,6 +79,7 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
             friendFoot = itemView.findViewById(R.id.friendFootImageView);
             parentLayout = itemView.findViewById(R.id.FriendListLayout);
             friendName = itemView.findViewById(R.id.friendUsernameTextView);
+            friendSteps = itemView.findViewById(R.id.friendTotalStepsTextView);
         }
     }
 

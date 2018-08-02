@@ -69,7 +69,7 @@ public class MainMenuActivity extends AppCompatActivity
     //Timer
     Handler h = new Handler();
     int delay = 250; //1 second=1000 millisecond, 15*1000=15seconds
-    Runnable runnable;
+    Runnable runnable, dateRunnable;
 
 
     @Override
@@ -155,13 +155,7 @@ public class MainMenuActivity extends AppCompatActivity
         gCheck = new GoalChecker(this);
 
         //Date Check
-        String tmpDate = timeChecker.getString("LastDateAccessed", "null");
-        String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
-        if(!tmpDate.equals(date)){
-            StepCount = 0;
-            dateEditor.putString("LastDateAccessed", date);
-            dateEditor.apply();
-        }
+        DateCheck();
 
 
         if(Stride != -1.0f)
@@ -360,6 +354,16 @@ public class MainMenuActivity extends AppCompatActivity
             }
         }, delay);
 
+
+        h.postDelayed(new Runnable() {
+            public void run() {
+                DateCheck();
+                runnable=this;
+
+                h.postDelayed(runnable, delay);
+            }
+        }, delay);
+
         Stride = sharedPreferences.getFloat("StrideLength", -1.0f);
         if(Stride != -1.0f)
         {
@@ -376,8 +380,8 @@ public class MainMenuActivity extends AppCompatActivity
 
     @Override
     protected  void onPause(){
-        h.removeCallbacks(runnable);
         super.onPause();
+        h.removeCallbacks(runnable);
 
 
     }
@@ -460,7 +464,7 @@ public class MainMenuActivity extends AppCompatActivity
     @Override
     public void onSensorChanged(SensorEvent event) {
         if((int)event.values[0] != LastStepCount && tracking)
-        StepTrack(1);
+        StepTrack((int)event.values[0] - LastStepCount);
 
 
         LastStepCount = (int)event.values[0];
@@ -472,6 +476,24 @@ public class MainMenuActivity extends AppCompatActivity
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
 
+    }
+
+    public void DateCheck(){
+
+        String tmpDate = timeChecker.getString("LastDateAccessed", "null");
+        String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
+        if(!tmpDate.equals(date)){
+            int TotalSteps = sharedPreferences.getInt("com.usfit.stepcounter.totalsteps", 0);
+            TotalSteps += StepCount;
+            User tempUser = User.GetCurrentUser();
+            tempUser.totalSteps = TotalSteps;
+            tempUser.UpdateUserProfile(tempUser);
+            StepCount = 0;
+            dateEditor.putString("LastDateAccessed", date);
+            dateEditor.apply();
+            sharedPreferences.edit().putInt("com.usfit.stepcounter.totalsteps", TotalSteps).apply();
+
+        }
     }
 
 
