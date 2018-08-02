@@ -39,6 +39,7 @@
         <item>Steps:50:10</item>
         <item>Steps:500:100</item>
         <item>Steps:5000:1000</item>
+
     </string-array>
 
 
@@ -56,7 +57,10 @@
     <string-array name="aFull">
         <item>Beginner Walker:Steps:50:10:ach1</item>
         <item>Advanced Walker:Steps:500:100:ach2</item>
-        <item>Extreme Walker:Steps:5000:1000:ach3</item>
+        <item>1337 Walker:Steps:1337:13370:ach3</item>
+        <item>Extreme Walker:Steps:5000:1000:ach4</item>
+        <item>Superb Walker:Steps:10000:5000:ach5</item>
+        <item>Marvelous Walker:Steps:100000:15000:ach6</item>
     </string-array>
 
     

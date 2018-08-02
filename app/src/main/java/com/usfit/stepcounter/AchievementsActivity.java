@@ -24,17 +24,23 @@ public class AchievementsActivity extends AppCompatActivity {
     }
 
     private void Init(){
-        String[] resHeading = getResources().getStringArray(R.array.aHeadings);
-        String[] resDesc = getResources().getStringArray(R.array.aDescs);
-        String[] resAward = getResources().getStringArray(R.array.aAwards);
-        String[] resReq = getResources().getStringArray(R.array.aReq);
-        String[] resID = getResources().getStringArray(R.array.aID);
-        for(int i = 0; i < resHeading.length; i++){
-            mHeadings.add(resHeading[i]);
-            mDescs.add(resDesc[i]);
-            mAwards.add(resAward[i]);
-            mReqs.add(resReq[i]);
-            mIDs.add(resID[i]);
+        //                                0     1    2      3    4
+        //    //New Achievement Syntax - Name:Type:Amount:Reward:ID
+        String[] resFull = getResources().getStringArray(R.array.aFull),
+                resReq = getResources().getStringArray(R.array.aReq),
+                achievement;
+        String description;
+        for(int i = 0; i < resFull.length; i++){
+            achievement = resFull[i].split(":");
+            description = "";
+
+
+
+            mHeadings.add(achievement[0]);
+            mDescs.add(description);
+            mAwards.add(achievement[3]+ " Currency");
+            mReqs.add(achievement[1]+":"+achievement[2]+":"+achievement[3]);
+            mIDs.add(achievement[4]);
         }
         InitRecycler();
     }
