@@ -1,8 +1,14 @@
 package com.usfit.stepcounter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.DrawFilter;
+import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableWrapper;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.widget.AdapterView;
@@ -14,7 +20,6 @@ public class DetailManager {
     MediaPlayer sfx_player;
     Context context;
     int selectedTrack;
-
     public DetailManager(Context _context){
         context = _context;
         selectedTrack = R.raw.sfx_confirm;
@@ -63,5 +68,13 @@ public class DetailManager {
 
     public void Release(){
         sfx_player.release();
+    }
+
+    public void DrawCrisp(ImageView i,Canvas canvas){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            AliasingDrawableWrapper wrapper = new AliasingDrawableWrapper(i.getDrawable());
+
+            wrapper.draw(canvas);
+        }
     }
 }
