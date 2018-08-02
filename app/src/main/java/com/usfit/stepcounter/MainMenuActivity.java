@@ -45,6 +45,9 @@ public class MainMenuActivity extends AppCompatActivity
     //Achievements
     AchievementChecker aCheck;
 
+    //Goals
+    GoalChecker gCheck;
+
     //Variables
     float Stride, CalorieCount, MiKm, weight, calCalcVar;
     int StepCount, DebugTapCount, LastStepCount,winWidth,winHeight;
@@ -61,8 +64,7 @@ public class MainMenuActivity extends AppCompatActivity
     Button temp;
     EditText debugNumberTextView;
     RadioGroup measurementRadioGroup;
-    LayoutParams layoutParams;
-
+    DetailManager detailManager;
 
     //Timer
     Handler h = new Handler();
@@ -150,6 +152,7 @@ public class MainMenuActivity extends AppCompatActivity
 
         aCheck = new AchievementChecker();
 
+        gCheck = new GoalChecker(this);
 
         //Date Check
         String tmpDate = timeChecker.getString("LastDateAccessed", "null");
@@ -258,7 +261,6 @@ public class MainMenuActivity extends AppCompatActivity
                 tempMoney = 1;
             }
 
-            SetMarker(0.5f);
         }
 
         if(tempMoney > 0) {
@@ -274,16 +276,19 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     }
-
     public void SetMarker(float pos){
-        pos = MathUtils.clamp(pos,0,1);
+        for(int i = 10000; i != 1;i*=0.1f) {
+            while (pos > i) {
+                pos--;
+            }
+        }
+        while(pos > 1){
+            pos--;
+        }
         ImageView ivUserMarker = findViewById(R.id.ivUserMarker);
-        layoutParams = (LayoutParams)ivUserMarker.getLayoutParams();
-
-        layoutParams.leftMargin = (int)(pos*winWidth);
-        layoutParams.topMargin = winHeight-16;
-
-        ivUserMarker.setLayoutParams(layoutParams);
+        float x = (((pos*winWidth)-(winWidth/2))*0.8f);
+        x+=winWidth*0.05f;
+        ivUserMarker.setX(x);
 
 
 
@@ -312,6 +317,7 @@ public class MainMenuActivity extends AppCompatActivity
             String tempString = "Distance: " + MiKm + " " + distanceString;
             distanceTextView.setText(tempString);
         }
+        SetMarker(MiKm);
         CalorieCalc(TempDist);
     }
 

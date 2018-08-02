@@ -29,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -184,6 +185,19 @@
         app:layout_constraintVertical_bias="0.93" />
 
     <ImageView
+        android:id="@+id/ivUserMarker"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/measurementRadioGroup"
+        app:srcCompat="@drawable/position_marker_00" />
+
+    <ImageView
         android:id="@+id/ivTrack"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -195,18 +209,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/measurementRadioGroup"
         app:srcCompat="@drawable/track" />
-
-    <ImageView
-        android:id="@+id/ivUserMarker"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/measurementRadioGroup"
-        app:srcCompat="@drawable/position_marker_00" />
 
 </android.support.constraint.ConstraintLayout>
