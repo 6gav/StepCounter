@@ -28,7 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         String temp = "X " + MoneyPref.getInt("MonValue", 0);
         MoneyCounterTextView.setText(temp);
         DrawPlayer();
-
+        fUser = mAuth.getCurrentUser();
         if(fUser != null) {
             LoadUser();
         }
@@ -232,8 +234,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ToFriends(View v){
-        Intent n = new Intent(this, FriendsActivity.class);
-        startActivity(n);
+        if(fUser != null) {
+            Intent n = new Intent(this, FriendsActivity.class);
+            startActivity(n);
+        }
+        else
+        {
+            Toast.makeText(this, "You need to be logged in to do that.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void LoginStart(){
@@ -271,6 +279,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void SignOut(View v){
+        mAuth.signOut();
+        fUser = null;
+        User.SetCurrentUser(null);
+
     }
 
 

@@ -42,9 +42,8 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".FriendsActivity">
-
-        </activity>
+        <activity android:name=".FriendsActivity"></activity>
+        <activity android:name=".FriendsListActivity"></activity>
     </application>
 
 </manifest>
