@@ -1,7 +1,9 @@
 package com.usfit.stepcounter;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.media.MediaRouter;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +14,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,8 +55,11 @@ public class FriendsActivity extends AppCompatActivity {
     ImageView playerTop, playerBot, playerFoot;
 
     //Users
-    User currentUser, displayedUser;
+    User currentUser, displayedUser, tempFriendUser;
     FirebaseUser LoggedUser;
+
+    List<UserInfoPackage> tempList;
+    ChildEventListener requestChildListener, acceptChildListener;
 
 
 
@@ -80,8 +87,7 @@ public class FriendsActivity extends AppCompatActivity {
 
         usersRef = ref.child("users");
         uidsRef = ref.child("uids");
-        requestsRef = ref.child("friend-requests").child(mAuth.getCurrentUser().getUid());
-
+        requestsRef = ref.child("friend-requests").child(currentUID);
 
 
 
@@ -104,6 +110,9 @@ public class FriendsActivity extends AppCompatActivity {
         outfitPrefs = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace",MODE_PRIVATE);
 
 
+
+        ListenForRequests();
+        ListenForAccepts();
 
     }
 
@@ -186,9 +195,9 @@ public class FriendsActivity extends AppCompatActivity {
         playerBot.setImageDrawable(getResources().getDrawable(displayedUser.bottomWear));
     }
 
-    public void TestingFunc(View v){
+    public void ListenForRequests(){
 
-        ChildEventListener childEventListener = new ChildEventListener() {
+        requestChildListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 FriendRequestHolder friendRequestHolder = dataSnapshot.getValue(FriendRequestHolder.class);
@@ -216,21 +225,95 @@ public class FriendsActivity extends AppCompatActivity {
 
             }
         };
-        requestsRef.addChildEventListener(childEventListener);
+        requestsRef.addChildEventListener(requestChildListener);
+    }
+
+    public void ListenForAccepts(){
+        acceptChildListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                UserInfoPackage acceptedFriend = dataSnapshot.getValue(UserInfoPackage.class);
+                currentUser.AddFriend(acceptedFriend);
+                currentUser.UpdateUserProfile(currentUser);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        ref.child("accept-notices").child(currentUID).addChildEventListener(acceptChildListener);
     }
 
 
     public void AcceptRequest(View v){
-        requestsRef.child(currentRequest.key).setValue(null);
-        currentUser.AddFriend(new UserInfoPackage(currentRequest.senderID, currentRequest.sender));
+        if(currentRequest != null) {
 
+            //Logic for current user
+            requestsRef.child(currentRequest.key).setValue(null);
+            currentUser.AddFriend(new UserInfoPackage(currentRequest.senderID, currentRequest.sender));
+            currentUser.UpdateUserProfile(currentUser);
+
+
+            //Logic for friend
+
+
+
+
+
+
+            String myUID = currentUser.myKey;
+
+            String key = usersRef.push().getKey();
+            myUsername = currentUser.username;
+            UserInfoPackage newAcceptInfo = new UserInfoPackage(myUID, myUsername);
+            Map<String, Object> childMap = new HashMap<>();
+
+            childMap.put("/accept-notices/" + currentRequest.senderID + "/" + key, newAcceptInfo);
+
+            ref.updateChildren(childMap);
+
+
+
+
+
+            currentRequest = null;
+        }
+        else
+            Toast.makeText(this, "You have no friend request at the moment.", Toast.LENGTH_SHORT).show();
 
     }
 
-    public void LoadRequests(){
-        currentRequest = requestHolderList.get(0);
-        currentRequestTextView.setText(currentRequest.sender);
+    public void LoadRequests() {
+        if (requestHolderList.get(0) != null) {
+            currentRequest = requestHolderList.get(0);
+            currentRequestTextView.setText(currentRequest.sender);
+        } else {
+            currentRequestTextView.setText(R.string.NoRequestCurrently);
+            requestHolderList.clear();
+        }
     }
+
+    public void ToFriendsList(View v){
+        Intent n = new Intent(this, FriendsListActivity.class);
+        startActivity(n);
+    }
+
 }
 
 

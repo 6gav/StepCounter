@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/FriendListLayout">
+
+    <ImageView
+        android:id="@+id/friendBodyImageView"
+        android:layout_width="150dp"
+        android:layout_height="160dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/player" />
+
+    <ImageView
+        android:id="@+id/friendBottomImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/friendBodyImageView"
+        app:layout_constraintEnd_toEndOf="@+id/friendBodyImageView"
+        app:layout_constraintStart_toStartOf="@+id/friendBodyImageView"
+        app:layout_constraintTop_toTopOf="@+id/friendBodyImageView"
+        app:srcCompat="@drawable/outfit_b00" />
+
+    <ImageView
+        android:id="@+id/friendTopImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/friendBodyImageView"
+        app:layout_constraintEnd_toEndOf="@+id/friendBodyImageView"
+        app:layout_constraintStart_toStartOf="@+id/friendBodyImageView"
+        app:layout_constraintTop_toTopOf="@+id/friendBodyImageView"
+        app:srcCompat="@drawable/outfit_t00" />
+
+    <ImageView
+        android:id="@+id/friendFootImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/friendBodyImageView"
+        app:layout_constraintEnd_toEndOf="@+id/friendBodyImageView"
+        app:layout_constraintStart_toStartOf="@+id/friendBodyImageView"
+        app:layout_constraintTop_toTopOf="@+id/friendBodyImageView"
+        app:srcCompat="@drawable/outfit_f00" />
+
+    <TextView
+        android:id="@+id/friendUsernameTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Username"
+        app:layout_constraintBottom_toBottomOf="@+id/friendBodyImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friendBodyImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

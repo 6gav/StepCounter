@@ -34,4 +34,5 @@
         completions."
     </string>
     <string name="SharedStepData">com.usfit.stepcounter.stepdata</string>
+    <string name="NoRequestCurrently">No request currently</string>
 </resources>
