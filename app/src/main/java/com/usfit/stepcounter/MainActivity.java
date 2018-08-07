@@ -69,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        User.SetCurrentUser(new User());
+
+
         //Firebase
 
         db = firebaseDatabase.getReference();
@@ -279,9 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        if(User.GetCurrentUser() == null){
-            User.SetCurrentUser(new User());
-        }
+
     }
 
     public void SignOut(View v){

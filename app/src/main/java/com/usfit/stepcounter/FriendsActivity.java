@@ -186,6 +186,7 @@ public class FriendsActivity extends AppCompatActivity {
         myInfo = new UserInfoPackage(currentUID, currentUser.username);
         uidsRef.child(currentUser.username).setValue(myInfo);
 
+        currentUser.isOnline = true;
         User.SetCurrentUser(currentUser);
 
     }
