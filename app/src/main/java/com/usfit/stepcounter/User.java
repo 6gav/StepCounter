@@ -1,5 +1,7 @@
 package com.usfit.stepcounter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,7 +20,7 @@ import java.util.Vector;
 
 public class User {
 
-    public List<UserInfoPackage> friendsList = new ArrayList<>();
+    public List<UserInfoPackage> friendsList;
 
     private static User currentUser;
 
@@ -28,10 +30,14 @@ public class User {
 
     public int topWear, bottomWear, footWear, uAge, totalSteps;
 
+    public boolean isOnline;
+
     public User(){
         topWear = R.drawable.outfit_t00;
         bottomWear = R.drawable.outfit_b00;
         footWear = R.drawable.outfit_f00;
+        friendsList = new ArrayList<>();
+        isOnline = false;
     }
 
     public User(String username, String email){
@@ -40,6 +46,7 @@ public class User {
         myKey = FirebaseAuth.getInstance().getCurrentUser().getUid();
         myInfo = new UserInfoPackage(myKey, username);
         totalSteps = 0;
+        friendsList = new ArrayList<>();
     }
 
 
@@ -66,15 +73,19 @@ public class User {
     }
 
     public void UpdateUserProfile(User newInfo){
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = db.getReference();
 
-        HashMap<String, Object> tempMap = new HashMap<>();
-        tempMap.put(myKey, newInfo);
+        if(newInfo != null && newInfo.isOnline) {
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference dbRef = db.getReference();
 
-        dbRef.child("users").updateChildren(tempMap);
+            HashMap<String, Object> tempMap = new HashMap<>();
+            tempMap.put(newInfo.myKey, newInfo);
 
-        SetCurrentUser(this);
+            dbRef.child("users").updateChildren(tempMap);
+        }
+        SetCurrentUser(newInfo);
 
     }
+
+
 }

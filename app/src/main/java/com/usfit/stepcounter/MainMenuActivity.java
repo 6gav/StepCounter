@@ -29,13 +29,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
 
 public class MainMenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener{
+        implements SensorEventListener{
 
 
     //Sensor
@@ -80,18 +83,7 @@ public class MainMenuActivity extends AppCompatActivity
             /////////////////////////Android Stuff////////////////////////////////////
                                         //region Builder
             setContentView(R.layout.activity_main_menu);
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
 
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
-
-            NavigationView navigationView = findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
-            //endregion  -
             //////////////////////////////////////////////////////////////////////////
 
 
@@ -192,7 +184,6 @@ public class MainMenuActivity extends AppCompatActivity
 
 
 
-        debugNumberTextView.setEnabled(true);
     }
 
 
@@ -219,6 +210,7 @@ public class MainMenuActivity extends AppCompatActivity
         temp.setEnabled(true);
         temp.setClickable(true);
         debugNumberTextView.setVisibility(View.VISIBLE);
+        debugNumberTextView.setEnabled(true);
 
     }
 
@@ -404,15 +396,7 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -436,38 +420,6 @@ public class MainMenuActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
-    ///////////////////DO NOT USE THIS//////////////////////
-    //////////////WILL BE REMOVED IN REDESIGN///////////////
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-    ////////////////////////////////////////////////////////
     @Override
     public void onSensorChanged(SensorEvent event) {
         if((int)event.values[0] != LastStepCount && tracking)
@@ -486,22 +438,33 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     public void DateCheck(){
-
-        String tmpDate = timeChecker.getString("LastDateAccessed", "null");
-        String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
-        if(!tmpDate.equals(date)){
-            int TotalSteps = sharedPreferences.getInt("com.usfit.stepcounter.totalsteps", 0);
-            TotalSteps += StepCount;
-            User tempUser = User.GetCurrentUser();
-            if(tempUser != null) {
+        User tempUser = User.GetCurrentUser();
+        if(tempUser != null) {
+            String tmpDate = timeChecker.getString("LastDateAccessed", "null");
+            String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
+            if (!tmpDate.equals(date)) {
+                int TotalSteps = sharedPreferences.getInt("totalSteps", 0);
+                TotalSteps += StepCount;
                 tempUser.totalSteps = TotalSteps;
                 tempUser.UpdateUserProfile(tempUser);
-            }
-            StepCount = 0;
-            dateEditor.putString("LastDateAccessed", date);
-            dateEditor.apply();
-            sharedPreferences.edit().putInt("com.usfit.stepcounter.totalsteps", TotalSteps).apply();
+                StepCount = 0;
+                dateEditor.putString("LastDateAccessed", date);
+                dateEditor.apply();
+                sharedPreferences.edit().putInt("totalSteps", TotalSteps).apply();
 
+            } else {
+                int todaySteps, todayDiff;
+                todaySteps = sharedPreferences.getInt(date, 0);
+                todayDiff = StepCount - todaySteps;
+                tempUser.totalSteps += todayDiff;
+
+                sharedPreferences.edit().putInt(date, StepCount).apply();
+                tempUser.UpdateUserProfile(tempUser);
+            }
+        }
+        else{
+            tempUser = new User();
+            User.SetCurrentUser(tempUser);
         }
     }
 
