@@ -18,7 +18,7 @@ import java.util.Vector;
 
 public class User {
 
-    public List<UserInfoPackage> friendsList = new ArrayList<>();
+    public List<UserInfoPackage> friendsList;
 
     private static User currentUser;
 
@@ -32,6 +32,8 @@ public class User {
         topWear = R.drawable.outfit_t00;
         bottomWear = R.drawable.outfit_b00;
         footWear = R.drawable.outfit_f00;
+        friendsList = new ArrayList<>();
+
     }
 
     public User(String username, String email){
@@ -40,6 +42,7 @@ public class User {
         myKey = FirebaseAuth.getInstance().getCurrentUser().getUid();
         myInfo = new UserInfoPackage(myKey, username);
         totalSteps = 0;
+        friendsList = new ArrayList<>();
     }
 
 
@@ -70,11 +73,11 @@ public class User {
         DatabaseReference dbRef = db.getReference();
 
         HashMap<String, Object> tempMap = new HashMap<>();
-        tempMap.put(myKey, newInfo);
+        tempMap.put(newInfo.myKey, newInfo);
 
         dbRef.child("users").updateChildren(tempMap);
 
-        SetCurrentUser(this);
+        SetCurrentUser(newInfo);
 
     }
 }

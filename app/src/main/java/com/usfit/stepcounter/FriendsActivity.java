@@ -186,6 +186,8 @@ public class FriendsActivity extends AppCompatActivity {
         myInfo = new UserInfoPackage(currentUID, currentUser.username);
         uidsRef.child(currentUser.username).setValue(myInfo);
 
+        User.SetCurrentUser(currentUser);
+
     }
 
 
@@ -345,8 +347,14 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     public void ToFriendsList(View v){
-        Intent n = new Intent(this, FriendsListActivity.class);
-        startActivity(n);
+        if(currentUser != null && currentUser.friendsList != null && currentUser.friendsList.size() != 0) {
+            Intent n = new Intent(this, FriendsListActivity.class);
+            startActivity(n);
+        }
+        else
+        {
+            Toast.makeText(this, "You have no friends currently, or have not yet signed up.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

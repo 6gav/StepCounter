@@ -279,6 +279,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        if(User.GetCurrentUser() == null){
+            User.SetCurrentUser(new User());
+        }
     }
 
     public void SignOut(View v){
