@@ -9,34 +9,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.storage.FirebaseStorage;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    ImageView ivProfilePhoto;
-    Button btnAddFriend;
+    Button btnProfileFriend;
     ConstraintLayout clytProfileBackground;
-    FirebaseStorage storage;
 
-    public void InitProfile(){
-
+    TextView tvFriendCount,tvFriendTitle,tvStepCount,tvStepTitle,tvProfileName;
+    public void InitProfile(User user){
+        tvProfileName.setText(user.username);
+        tvStepCount.setText(user.totalSteps);
+        tvStepCount.setText(user.friendsList.size());
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        ivProfilePhoto = findViewById(R.id.ivProfileBody);
-        btnAddFriend = findViewById(R.id.btnAddFriend);
+        btnProfileFriend = findViewById(R.id.btnProfileFriend);
         clytProfileBackground = findViewById(R.id.clytProfileBackground);
 
-        storage = FirebaseStorage.getInstance();
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.player);
-        RoundedBitmapDrawable mDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-        mDrawable.setCircular(true);
-        ivProfilePhoto.setImageDrawable(mDrawable);
+        tvFriendCount = findViewById(R.id.tvFriendCount);
+        tvFriendTitle = findViewById(R.id.tvFriendTitle);
+        tvStepCount = findViewById(R.id.tvStepsCount);
+        tvStepTitle = findViewById(R.id.tvStepsTitle);
+        tvProfileName = findViewById(R.id.tvProfileName);
 
-
+        if(User.GetCurrentUser() != null){
+            InitProfile(User.GetCurrentUser());
+        }
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <size
+        android:width="@dimen/main_button_width"
+        android:height="@dimen/main_button_height"
+        />
+    <padding
+        android:bottom="5dp"
+        android:left="10dp"
+        android:right="10dp"
+        android:top="5dp"
+        ></padding>
+
+    <solid android:color="@color/colorBackgroundGreen"/>
+
+    <stroke android:color="@color/colorBackgroundGreenAlt"
+
+        android:width="@dimen/background_pad_thickness"></stroke>
+
+</shape>

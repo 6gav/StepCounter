@@ -47,6 +47,54 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     //region arrays
     int[] cost;
+
+    int[] body = {
+            R.drawable.body_s0,
+            R.drawable.body_s1,
+            R.drawable.body_s2,
+            R.drawable.body_s3,
+            R.drawable.body_s4,
+    };
+
+    int[] headwear = {
+            R.drawable.hair_00,
+            R.drawable.hair_01,
+            R.drawable.hair_02,
+
+            R.drawable.hair_03,
+            R.drawable.hair_04,
+            R.drawable.hair_05,
+
+            R.drawable.hair_06,
+            R.drawable.hair_07,
+            R.drawable.hair_08,
+
+            R.drawable.hair_09,
+            R.drawable.hair_010,
+            R.drawable.hair_011,
+
+            R.drawable.hair_012,
+            R.drawable.hair_013,
+            R.drawable.hair_014,
+
+            R.drawable.hair_015,
+            R.drawable.hair_016//17
+
+
+    };
+
+    int[] expressions = {
+            R.drawable.expression_0,
+            R.drawable.expression_1,
+            R.drawable.expression_2,
+
+            R.drawable.expression_3,
+            R.drawable.expression_4,
+            R.drawable.expression_5,
+
+            R.drawable.expression_6,//7
+    };
+
     int[] top = {
             R.drawable.outfit_t00,
             R.drawable.outfit_t01,
@@ -109,7 +157,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     //Variables
     boolean Validated = false;
-    private int MonValue, itemoffset, MaxItems = 50,selectedItem = 0, purchases = 0,cue = 0;
+    private int MonValue, itemoffset, MaxItems = 75,selectedItem = 0, purchases = 0,cue = 0;
     Item _selectedItemObject = null;
     Boolean IsShop = true;
 
@@ -163,7 +211,26 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
             CreateItems();
-            LoadShopData(preferences.getString("ShopTag", "All"));
+            ///region initialize base items
+            selectedItem = 0;
+            if(false == items[selectedItem].isPurchased()){
+                _selectedItemObject = items[selectedItem];
+                Purchase();
+                Equip();
+            }
+            selectedItem = top.length;
+            if(false == items[selectedItem].isPurchased()){
+                _selectedItemObject = items[selectedItem];
+                Purchase();
+                Equip();
+            }
+            selectedItem = top.length+ bottom.length+1;
+            if(false == items[selectedItem].isPurchased()){
+                _selectedItemObject = items[selectedItem];
+                Purchase();
+                Equip();
+            }
+            LoadShopData(preferences.getString("ShopTag", "A_TOPA_BOTA_FOTA_HED"));
             MoneyUpdate();
 
 
@@ -221,12 +288,20 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void CreateItems() {
         int i,j = 0;
         String allNames = getResources().getString(R.string.shop_items_top);
-        String[] topNames,botNames,fotNames;
+        String[] topNames,botNames,fotNames,facNames,hedNames,bodNames;
         topNames = allNames.split(",");
         allNames = getResources().getString(R.string.shop_items_bottom);
         botNames = allNames.split(",");
         allNames = getResources().getString(R.string.shop_items_footwear);
         fotNames = allNames.split(",");
+
+
+        allNames = getResources().getString(R.string.shop_items_face);
+        facNames = allNames.split(",");
+        allNames = getResources().getString(R.string.shop_items_body);
+        bodNames = allNames.split(",");
+        allNames = getResources().getString(R.string.shop_items_hair);
+        hedNames = allNames.split(",");
 
         String description;
         boolean isPurchased;
@@ -286,13 +361,67 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
                 description += "Purchase " + item.getName() + " for " + item.getCost() + "$.";
             }
             else {
-                description += "Equip " + item.getName()+ ".";
+                description += item.getName()+ ".";
             }
             item.setDescription(description);
             items[j] = item;
             ++j;
         }
-
+        for(i = 0; i < (headwear.length-4);i++){
+            Item item = new Item();
+            item.setCost(cost[j]);
+            item.setName(hedNames[i]);
+            item.setImage(headwear[i]);
+            item.setTag("A_HAR");
+            isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
+            item.setPurchased(isPurchased);
+            description = "";
+            description += "Wear " + item.getName()+ ".";
+            item.setDescription(description);
+            items[j] = item;
+            ++j;
+        }for(i = headwear.length-4; i < (headwear.length);i++){
+            Item item = new Item();
+            item.setCost(cost[j]);
+            item.setName(hedNames[i]);
+            item.setImage(headwear[i]);
+            item.setTag("A_HED");
+            isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);
+            item.setPurchased(isPurchased);
+            description = "";
+            description += "Wear " + item.getName()+ ".";
+            item.setDescription(description);
+            items[j] = item;
+            ++j;
+        }
+        for(i = 0; i < (body.length);i++){
+            Item item = new Item();
+            item.setCost(cost[i]);
+            item.setName(bodNames[i]);
+            item.setImage(body[i]);
+            item.setTag("A_BOD");
+            isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
+            item.setPurchased(isPurchased);
+            description = "";
+            description += "Wear " + item.getName()+ ".";
+            item.setDescription(description);
+            items[j] = item;
+            ++j;
+        }
+        for(i = 0; i < (facNames.length);i++){
+            Item item = new Item();
+            item.setCost(cost[i]);
+            item.setName(facNames[i]);
+            item.setImage(expressions[i]);
+            item.setTag("A_FAC");
+            isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
+            item.setPurchased(isPurchased);
+            description = "";
+            description += "Wear " + item.getName()+ ".";
+            item.setDescription(description);
+            items[j] = item;
+            ++j;
+        }
     }
 
     //
@@ -377,11 +506,16 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void Equip(View v){
+        Equip();
+    }
+    public void Equip(){
         detailManager.PlaySound(R.raw.sfx_equip);
         detailManager.PlayAnimation(btnEquip,getResources().getDrawable(R.drawable.blip_green));
 
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(_selectedItemObject.getTag(),_selectedItemObject.getImage_Id());
+        String tag = _selectedItemObject.getTag();
+        if(tag == "A_HAR")tag = "A_HED";
+        editor.putInt(tag,_selectedItemObject.getImage_Id());
         editor.apply();
 
     }
@@ -475,7 +609,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         public Drawable getImage() {
 
             try {
-                return getResources().getDrawable(image_id);
+                return detailManager.DrawCrisp(image_id);//getResources().getDrawable(image_id);
             }catch (Exception e){
                 e.printStackTrace();
             }

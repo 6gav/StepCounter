@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/bck00"
+    android:background="@drawable/bck_rose"
     tools:context="com.usfit.stepcounter.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
@@ -101,7 +101,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:background="@color/colorButton"
         app:layout_constraintBottom_toTopOf="@+id/btnALogger"
         app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:onClick="MoneyUpdate"
         android:text="X 0"
         android:textColor="@android:color/black"
@@ -132,14 +132,13 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Version 1.8"
+        android:text="version 1.10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintStart_toStartOf="@+id/btnShop"
         app:layout_constraintTop_toBottomOf="@+id/btnShop"
         app:layout_constraintVertical_bias="1.0" />
@@ -193,90 +192,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btnALogger"
         app:srcCompat="@android:drawable/btn_dialog" />
 
-    <ImageView
-        android:id="@+id/ivMainBody"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
-        app:srcCompat="@drawable/body_s0" />
-
-    <ImageView
-        android:id="@+id/ivMainFace"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
-        app:srcCompat="@drawable/expression_0" />
-
-    <ImageView
-        android:id="@+id/ivMainHead"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
-        app:srcCompat="@drawable/hair_00" />
-
-    <ImageView
-        android:id="@+id/ivMainBottom"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
-        app:srcCompat="@drawable/outfit_b00" />
-
-    <ImageView
-        android:id="@+id/ivMainTop"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
-        app:srcCompat="@drawable/outfit_t00" />
-
-    <ImageView
-        android:id="@+id/ivMainFeet"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs"
-        app:srcCompat="@drawable/outfit_f1" />
-
     <Button
         android:id="@+id/friendsActivityButton"
         android:layout_width="@dimen/main_button_width"
@@ -311,5 +226,18 @@
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUPrefs" />
+
+    <include
+        layout="@layout/avatar_layout"
+        android:layout_width="133dp"
+        android:layout_height="236dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPlayerRank" />
 
 </android.support.constraint.ConstraintLayout>

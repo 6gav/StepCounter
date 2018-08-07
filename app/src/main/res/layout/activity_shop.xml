@@ -5,7 +5,7 @@
     android:id="@+id/clShopLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bck00"
+    android:background="@drawable/bck_tan"
     tools:context="com.usfit.stepcounter.ShopActivity">
 
 

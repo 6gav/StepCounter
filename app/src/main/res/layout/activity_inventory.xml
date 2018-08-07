@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@drawable/bck_tan"
     tools:context="com.usfit.stepcounter.Inventory">
 
     <Button
@@ -15,103 +15,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/click_button"
         android:enabled="false"
         android:onClick="ApplyChanges"
         android:text="Apply"
-        android:background="@drawable/click_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.038" />
-
-    <ImageView
-        android:id="@+id/ivInvBody"
-        android:layout_width="130dp"
-        android:layout_height="260dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInvApply"
-        app:layout_constraintVertical_bias="0.393"
-        app:layout_constraintEnd_toStartOf="@+id/lvInvItems"
-        app:srcCompat="@drawable/player" />
-
-    <ImageView
-        android:id="@+id/ivInvFace"
-        android:layout_width="130dp"
-        android:layout_height="260dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/lvInvItems"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInvApply"
-        app:layout_constraintVertical_bias="0.393"
-        app:srcCompat="@drawable/player" />
-
-    <ImageView
-        android:id="@+id/ivInvHead"
-        android:layout_width="130dp"
-        android:layout_height="260dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/lvInvItems"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInvApply"
-        app:layout_constraintVertical_bias="0.393"
-        app:srcCompat="@drawable/player" />
-
-    <ImageView
-        android:id="@+id/ivInvBottom"
-        android:layout_width="130dp"
-        android:layout_height="260dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/lvInvItems"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInvApply"
-        app:layout_constraintVertical_bias="0.393"
-        app:srcCompat="@drawable/outfit_b00" />
-
-    <ImageView
-        android:id="@+id/ivInvTop"
-        android:layout_width="130dp"
-        android:layout_height="260dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:onClick="ApplyChanges"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/lvInvItems"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInvApply"
-        app:layout_constraintVertical_bias="0.393"
-        app:srcCompat="@drawable/outfit_t00" />
-
-    <ImageView
-        android:id="@+id/ivInvFeet"
-        android:layout_width="130dp"
-        android:layout_height="260dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInvApply"
-        app:layout_constraintVertical_bias="0.393"
-        app:layout_constraintEnd_toStartOf="@+id/lvInvItems"
-        app:srcCompat="@drawable/outfit_f1" />
 
     <ListView
         android:id="@+id/lvInvItems"
@@ -127,4 +40,17 @@
         app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        layout="@layout/avatar_layout"
+        android:layout_width="138dp"
+        android:layout_height="235dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lvInvItems"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnInvApply"
+        app:layout_constraintVertical_bias="0.396" />
 </android.support.constraint.ConstraintLayout>

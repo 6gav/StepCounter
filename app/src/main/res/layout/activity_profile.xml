@@ -5,117 +5,27 @@
     android:id="@+id/clytProfileBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@drawable/bck_green"
     tools:context="com.usfit.stepcounter.ProfileActivity"
     tools:layout_editor_absoluteY="81dp">
-
-    <ImageView
-        android:id="@+id/ivProfileBody"
-        android:layout_width="133dp"
-        android:layout_height="138dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:src="@drawable/player"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
-
-    <ImageView
-        android:id="@+id/ivProfilePhoto5"
-        android:layout_width="133dp"
-        android:layout_height="138dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:src="@drawable/player"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
-
-    <ImageView
-        android:id="@+id/ivProfilePhoto4"
-        android:layout_width="133dp"
-        android:layout_height="138dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:src="@drawable/player"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
-
-    <ImageView
-        android:id="@+id/ivProfilePhoto3"
-        android:layout_width="133dp"
-        android:layout_height="138dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:src="@drawable/player"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
-
-    <ImageView
-        android:id="@+id/ivProfilePhoto2"
-        android:layout_width="133dp"
-        android:layout_height="138dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:src="@drawable/player"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
 
     <TextView
         android:id="@+id/tvProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="164dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Name"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ivProfileBody"
-        app:layout_constraintStart_toStartOf="@+id/ivProfileBody"
-        app:layout_constraintTop_toBottomOf="@+id/ivProfileBody"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clytProfileContainer"
+        app:layout_constraintVertical_bias="0.137" />
 
     <TextView
         android:id="@+id/tvProfileDescription"
@@ -216,20 +126,63 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btnAddFriend"
+        android:id="@+id/btnProfileUPrefs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/round_button"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:text="Add Friend"
+        android:background="@drawable/click_button"
+        android:text="Preferences"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/llytData"
+        app:layout_constraintHorizontal_bias="0.814"
+        app:layout_constraintStart_toStartOf="@+id/llytData"
+        app:layout_constraintTop_toTopOf="@+id/vVBBorder"
+        app:layout_constraintVertical_bias="0.157" />
+
+    <Button
+        android:id="@+id/btnProfileFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/click_button"
+        android:text="Friends"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/llytData"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="@+id/llytData"
         app:layout_constraintTop_toTopOf="@+id/vVBBorder"
         app:layout_constraintVertical_bias="0.19" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clytProfileContainer"
+        android:layout_width="82dp"
+        android:layout_height="93dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.119">
+
+        <include
+            layout="@layout/avatar_layout"
+            android:layout_width="154dp"
+            android:layout_height="106dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

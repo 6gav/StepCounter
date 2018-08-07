@@ -7,4 +7,22 @@
     <color name="colorButton">#86FFF7</color>
     <color name="colorDetail">#67AFE8</color>
     <color name="colorDark">#7A81FF</color>
+
+
+    Backgrounds
+    <color name="colorBackgroundTan"     >#B19559</color>
+    <color name="colorBackgroundGreen"   >#7BB159</color>
+    <color name="colorBackgroundTeal"    >#59B1AB</color>
+    <color name="colorBackgroundNavy"    >#5994B1</color>
+    <color name="colorBackgroundBlue"    >#7C69D9</color>
+    <color name="colorBackgroundLavender">#D969C4</color>
+    <color name="colorBackgroundRose"    >#A23C3C</color>
+
+    <color name="colorBackgroundTanAlt"     >#D5B36A</color>
+    <color name="colorBackgroundGreenAlt"   >#91CF69</color>
+    <color name="colorBackgroundTealAlt"    >#67CDC6</color>
+    <color name="colorBackgroundNavyAlt"    >#66A9CA</color>
+    <color name="colorBackgroundBlueAlt"    >#7C69D9</color>
+    <color name="colorBackgroundLavenderAlt">#FF7EE7</color>
+    <color name="colorBackgroundRoseAlt"    >#D96969</color>
 </resources>

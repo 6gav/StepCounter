@@ -65,6 +65,7 @@ public class MainMenuActivity extends AppCompatActivity
     EditText debugNumberTextView;
     RadioGroup measurementRadioGroup;
     DetailManager detailManager;
+    ImageView ivTrack,ivPos;
 
     //Timer
     Handler h = new Handler();
@@ -117,6 +118,10 @@ public class MainMenuActivity extends AppCompatActivity
         winWidth = dimen.width();
         winHeight = dimen.height();
 
+
+//        detailManager = new DetailManager(this);
+  //      ivTrack = ((ImageView)findViewById(R.id.ivTrack));
+    //    detailManager.DrawCrisp(ivTrack,R.drawable.track);
         //Preferences
         sharedPreferences = getSharedPreferences(getString(R.string.SharedStepData), Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -338,6 +343,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     }
 
+
     @Override
     protected void onResume(){
 
@@ -487,8 +493,10 @@ public class MainMenuActivity extends AppCompatActivity
             int TotalSteps = sharedPreferences.getInt("com.usfit.stepcounter.totalsteps", 0);
             TotalSteps += StepCount;
             User tempUser = User.GetCurrentUser();
-            tempUser.totalSteps = TotalSteps;
-            tempUser.UpdateUserProfile(tempUser);
+            if(tempUser != null) {
+                tempUser.totalSteps = TotalSteps;
+                tempUser.UpdateUserProfile(tempUser);
+            }
             StepCount = 0;
             dateEditor.putString("LastDateAccessed", date);
             dateEditor.apply();

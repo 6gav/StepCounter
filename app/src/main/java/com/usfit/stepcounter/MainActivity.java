@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, delay);
 
-        DrawPlayer();
+        DetailManager.DrawPlayer(this,MoneyPref);
     }
 
 
@@ -112,15 +112,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    void DrawPlayer(){
-        ((ImageView)findViewById(R.id.ivMainFace)).setImageDrawable(getDrawable(MoneyPref.getInt("A_FAC",R.drawable.expression_0)));
-        ((ImageView)findViewById(R.id.ivMainHead)).setImageDrawable(getDrawable(MoneyPref.getInt("A_HED",R.drawable.hair_00)));
-        ((ImageView)findViewById(R.id.ivMainBody)).setImageDrawable(getDrawable(MoneyPref.getInt("A_BOD",R.drawable.body_s0)));
 
-        ((ImageView)findViewById(R.id.ivMainTop)).setImageDrawable(getDrawable(MoneyPref.getInt("A_TOP",R.drawable.outfit_t00)));
-        ((ImageView)findViewById(R.id.ivMainBottom)).setImageDrawable(getDrawable(MoneyPref.getInt("A_BOT",R.drawable.outfit_b00)));
-        ((ImageView)findViewById(R.id.ivMainFeet)).setImageDrawable(getDrawable(MoneyPref.getInt("A_FOT",R.drawable.outfit_f1)));
-    }
 
     private void DebugEnable() {
         debugStepButton.setVisibility(View.VISIBLE);
@@ -160,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
         String temp = "X " + MoneyPref.getInt("MonValue", 0);
         MoneyCounterTextView.setText(temp);
-        DrawPlayer();
+        DetailManager.DrawPlayer(this,MoneyPref);
         fUser = mAuth.getCurrentUser();
         if(fUser != null) {
             LoadUser();
@@ -200,6 +192,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(n);
     }
 */
+
+public  void ToProfile(View V){
+    detailManager.PlaySound(R.raw.sfx_confirm);
+    detailManager.PlayAnimation((Button)findViewById(R.id.btnShop),getResources().getDrawable(R.drawable.blip_blue));
+    Intent n = new Intent(this, ProfileActivity.class);
+    startActivity(n);
+}
     public void ToShop(View v) {
         detailManager.PlaySound(R.raw.sfx_confirm);
         detailManager.PlayAnimation((Button)findViewById(R.id.btnShop),getResources().getDrawable(R.drawable.blip_blue));

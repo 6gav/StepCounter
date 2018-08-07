@@ -48,12 +48,12 @@ public class GoalChecker{
             String[] goalsCompleted = { "","","",};
             Goals = temp.split(";");
             for(int i = 0;i < Goals.length;i++){
-                Goals[i] = HandleGoal(Goals[i].split(","),temp,mContext);
+                Goals[i] = testGoal(Goals[i].split(","),temp,mContext);
             }
         }
 
     }
-    String HandleGoal(String[] _Goal,String temp,Context mContext){
+    String testGoal(String[] _Goal,String temp,Context mContext){
 
         Goal = _Goal;int StepGoal = Integer.valueOf(Goal[1]);
         int OrigSteps = Integer.valueOf(Goal[2]);
@@ -65,7 +65,7 @@ public class GoalChecker{
 
             String text = "You have completed your goal of "+StepGoal+" "+Goal[0]+", and have been rewarded "+CompleteGoal(Goal[0]+" Cash",StepGoal);
             ///*
-            Toast.makeText(activity.getApplicationContext(),"HELLO!!!", Toast.LENGTH_LONG);
+            Toast.makeText(activity.getApplicationContext(),text, Toast.LENGTH_LONG).show();
             ImageView iv = new ImageView(mContext);
             iv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.stickavatar));
 

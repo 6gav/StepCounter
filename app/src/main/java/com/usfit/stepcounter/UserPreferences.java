@@ -134,5 +134,10 @@ public class UserPreferences extends AppCompatActivity {
         Intent friendsIntent = new Intent(this, FriendsActivity.class);
         startActivity(friendsIntent);
     }
+    public void ToAvatarCustomize(View v){
+        Intent n = new Intent(this,AvatarCustomizationActivity.class);
+        startActivity(n);
+    }
+
 
 }
