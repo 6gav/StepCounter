@@ -55,6 +55,7 @@ public class MainMenuActivity extends AppCompatActivity
     float Stride, CalorieCount, MiKm, weight, calCalcVar;
     int StepCount, DebugTapCount, LastStepCount,winWidth,winHeight;
     boolean tracking, DebugEnabled;
+    User currentUser;
 
 
     //Preferences
@@ -150,6 +151,8 @@ public class MainMenuActivity extends AppCompatActivity
         aCheck = new AchievementChecker();
 
         gCheck = new GoalChecker(this);
+
+        currentUser = StaticHolderClass.currentUser;
 
         //Date Check
         DateCheck();
@@ -438,15 +441,14 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     public void DateCheck(){
-        User tempUser = User.GetCurrentUser();
-        if(tempUser != null) {
+        if(currentUser != null) {
             String tmpDate = timeChecker.getString("LastDateAccessed", "null");
             String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
             if (!tmpDate.equals(date)) {
                 int TotalSteps = sharedPreferences.getInt("totalSteps", 0);
                 TotalSteps += StepCount;
-                tempUser.totalSteps = TotalSteps;
-                tempUser.UpdateUserProfile(tempUser);
+                currentUser.mTotalSteps = TotalSteps;
+                currentUser.UpdateUser();
                 StepCount = 0;
                 dateEditor.putString("LastDateAccessed", date);
                 dateEditor.apply();
@@ -456,15 +458,11 @@ public class MainMenuActivity extends AppCompatActivity
                 int todaySteps, todayDiff;
                 todaySteps = sharedPreferences.getInt(date, 0);
                 todayDiff = StepCount - todaySteps;
-                tempUser.totalSteps += todayDiff;
+                currentUser.mTotalSteps += todayDiff;
 
                 sharedPreferences.edit().putInt(date, StepCount).apply();
-                tempUser.UpdateUserProfile(tempUser);
+                currentUser.PublishUser();
             }
-        }
-        else{
-            tempUser = new User();
-            User.SetCurrentUser(tempUser);
         }
     }
 

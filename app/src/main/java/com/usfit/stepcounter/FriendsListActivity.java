@@ -17,7 +17,7 @@ public class FriendsListActivity extends AppCompatActivity {
     private ArrayList<String> mUIDS = new ArrayList<>();
     private ArrayList<String> mNames = new ArrayList<>();
 
-    private List<UserInfoPackage> friends = User.GetCurrentUser().friendsList;
+    private List<UserInfoPackage> friends = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

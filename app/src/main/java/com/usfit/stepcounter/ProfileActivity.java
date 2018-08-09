@@ -20,9 +20,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView tvFriendCount,tvFriendTitle,tvStepCount,tvStepTitle,tvProfileName;
     public void InitProfile(User user){
-        tvProfileName.setText(user.username);
-        tvStepCount.setText(user.totalSteps);
-        tvStepCount.setText(user.friendsList.size());
+        tvProfileName.setText(user.mUsername);
+        tvStepCount.setText(user.mTotalSteps);
+        //tvStepCount.setText(user.friendsList.size());
     };
 
     @Override
@@ -39,8 +39,8 @@ public class ProfileActivity extends AppCompatActivity {
         tvStepTitle = findViewById(R.id.tvStepsTitle);
         tvProfileName = findViewById(R.id.tvProfileName);
 
-        if(User.GetCurrentUser() != null){
-            InitProfile(User.GetCurrentUser());
+        if(StaticHolderClass.currentUser != null){
+            InitProfile(StaticHolderClass.currentUser);
         }
     }
 }
