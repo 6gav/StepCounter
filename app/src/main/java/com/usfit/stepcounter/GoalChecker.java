@@ -69,7 +69,7 @@ public class GoalChecker{
             ImageView iv = new ImageView(mContext);
             iv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.stickavatar));
 
-            ConstraintLayout app_bar_main_menu_coordinator_layout = activity.findViewById(R.id.app_bar_main_menu_coordinator_layout);
+
 
 
             /*iv.setX(50);
