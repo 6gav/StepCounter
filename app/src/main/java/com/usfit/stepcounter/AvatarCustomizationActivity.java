@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 public class AvatarCustomizationActivity extends ShopActivity {
 
@@ -48,7 +49,7 @@ public class AvatarCustomizationActivity extends ShopActivity {
 
 
         switch (_selectedItemObject.getTag()){
-            case "A_HAR":
+            case "hair_00":
                 currentImage = ivAvatarHead;
                 img = 0;
                 break;
@@ -56,23 +57,23 @@ public class AvatarCustomizationActivity extends ShopActivity {
                 currentImage = ivAvatarHead;
                 img = 0;
                 break;
-            case "A_TOP":
+            case "outfit_t00":
                 currentImage = ivAvatarTop;
                 img = 1;
                 break;
-            case "A_BOT":
+            case "outfit_b00":
                 currentImage = ivAvatarBottom;
                 img = 2;
                 break;
-            case "A_FOT":
+            case "outfit_f00":
                 currentImage = ivAvatarFeet;
                 img = 3;
                 break;
-            case "A_FAC":
+            case "expression_00":
                 currentImage = ivAvatarFace;
                 img = 5;
                 break;
-            case "A_BOD":
+            case "body_s0":
                 currentImage = ivAvatarBody;
                 img = 4;
                 break;
@@ -117,12 +118,12 @@ ImageView ivAvatarFace,ivAvatarHead,ivAvatarBody,ivAvatarTop,ivAvatarBottom,ivAv
         ivAvatarTop = ((ImageView)findViewById(R.id.ivAvatarTop));
         ivAvatarBottom = ((ImageView)findViewById(R.id.ivAvatarBottom));
         ivAvatarFeet = ((ImageView)findViewById(R.id.ivAvatarFeet));
-        btnAvatarApply = findViewById(R.id.btnAvatarApply);
+        //btnAvatarApply = findViewById(R.id.btnAvatarApply);
 
         lst = findViewById(R.id.lvAvatarItems);
         ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         CreateItems();
-        LoadShopData("A_BOD A_FAC A_HAR",A);
+        LoadShopData("body_s0 expression_00 hair_00",A);
         DrawPlayer();
     }
     void DrawPlayer(){
@@ -133,15 +134,15 @@ ImageView ivAvatarFace,ivAvatarHead,ivAvatarBody,ivAvatarTop,ivAvatarBottom,ivAv
     public void ApplyChanges(View v){
         SharedPreferences.Editor editor = preferences.edit();
         detailManager.PlaySound(R.raw.sfx_equip);
-        detailManager.PlayAnimation((Button)findViewById(R.id.btnAvatarApply),getResources().getDrawable(R.drawable.blip_blue));
+        //detailManager.PlayAnimation((ListView)findViewById(R.id.lvAvatarItems),getResources().getDrawable(R.drawable.blip_blue));
         String[] tags = {
-                "A_HED",
-                "A_TOP",
-                "A_BOT",
+                "hair_00",
+                "outfit_t00",
+                "outfit_b00",
 
-                "A_FOT",
-                "A_BOD",
-                "A_FAC"
+                "outfit_f00",
+                "body_s0",
+                "expression_00"
         };
 
         for(int i = 0; i < 6; i++)

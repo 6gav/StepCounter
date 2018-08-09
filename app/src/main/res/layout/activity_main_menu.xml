@@ -35,7 +35,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <Button
-        android:id="@+id/startTrackingStepsButton"
+        android:id="@+id/btnTrackSteps"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -43,54 +43,35 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/click_button"
-        android:onClick="startTracking"
+        android:onClick="toggleTracking"
         android:text="Start Tracking"
         app:layout_anchorGravity="left|center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/appBarLayout"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/stopTrackingStepsButton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/click_button"
-        android:onClick="stopTracking"
-        android:text="Stop Tracking"
-        app:layout_anchorGravity="right|center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/stepCounterTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="21dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:onClick="DebugTry"
         android:text="Steps: "
         app:layout_anchorGravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/stopTrackingStepsButton"
-        app:layout_constraintStart_toEndOf="@+id/startTrackingStepsButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/distanceTrackerTextView"
+        app:layout_constraintStart_toStartOf="@+id/distanceTrackerTextView"
+        app:layout_constraintTop_toBottomOf="@+id/distanceTrackerTextView" />
 
     <Button
         android:id="@+id/MainMenuDebugStepper"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -101,16 +82,14 @@
         app:layout_anchorGravity="left|bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.026" />
 
     <EditText
         android:id="@+id/stepNumberTextView"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -118,25 +97,22 @@
         android:inputType="numberSigned"
         android:visibility="invisible"
         app:layout_anchorGravity="bottom|center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/MainMenuDebugStepper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/MainMenuDebugStepper"
-        app:layout_constraintTop_toTopOf="@+id/MainMenuDebugStepper"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/MainMenuDebugStepper" />
 
     <RadioGroup
         android:id="@+id/measurementRadioGroup"
-        android:layout_width="55dp"
+        android:layout_width="232dp"
         android:layout_height="83dp"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/stopTrackingStepsButton"
-        app:layout_constraintStart_toEndOf="@+id/startTrackingStepsButton"
-        app:layout_constraintTop_toBottomOf="@+id/distanceTrackerTextView"
-        app:layout_constraintVertical_bias="0.25">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/milesRadioButton"
@@ -149,7 +125,7 @@
 
         <RadioButton
             android:id="@+id/kilometersRadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="RadioSwitch"
@@ -159,43 +135,29 @@
     <TextView
         android:id="@+id/distanceTrackerTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="22dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Distance: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/stopTrackingStepsButton"
-        app:layout_constraintStart_toEndOf="@+id/startTrackingStepsButton"
-        app:layout_constraintTop_toBottomOf="@+id/stepCounterTextView"
-        app:layout_constraintVertical_bias="0.07999998" />
+        app:layout_constraintBottom_toTopOf="@+id/measurementRadioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toEndOf="@+id/btnTrackSteps"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.204" />
 
     <TextView
         android:id="@+id/calorieTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Calories: "
-        app:layout_constraintBottom_toTopOf="@+id/stepCounterTextView"
-        app:layout_constraintEnd_toEndOf="@+id/stepCounterTextView"
-        app:layout_constraintStart_toStartOf="@+id/stepCounterTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93" />
-
-    <ImageView
-        android:id="@+id/ivUserMarker"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/measurementRadioGroup"
-        app:srcCompat="@drawable/position_marker_00" />
+        android:text="Calories: "
+        app:layout_constraintEnd_toEndOf="@+id/stepCounterTextView"
+        app:layout_constraintStart_toStartOf="@+id/stepCounterTextView"
+        app:layout_constraintTop_toBottomOf="@+id/stepCounterTextView" />
 
     <ImageView
         android:id="@+id/ivTrack"
@@ -204,10 +166,42 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:cropToPadding="false"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/measurementRadioGroup"
-        app:srcCompat="@drawable/track" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bmp_race_strip_00" />
+
+    <ImageView
+        android:id="@+id/ivUserMarker"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/measurementRadioGroup"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/position_marker_00" />
+
+    <include
+        android:id="@+id/incAvatarMarker"
+        layout="@layout/avatar_portrait_layout"
+        android:layout_width="90dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/ivTrack"
+        app:layout_constraintStart_toStartOf="@+id/ivTrack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

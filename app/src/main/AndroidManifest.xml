@@ -21,32 +21,47 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".MainMenuActivity"
             android:label="@string/title_activity_main_menu"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AvatarActivity" />
-        <activity android:name=".AchievementsActivity" />
-        <activity android:name=".ShopActivity" />
-        <activity android:name=".UserPreferences" />
-        <activity android:name=".Inventory" />
-        <activity android:name=".GoalsActivity" />
-        <activity android:name=".ProfileActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".AvatarActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".AchievementsActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".ShopActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".UserPreferences"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".Inventory"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".GoalsActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".ProfileActivity"
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".FriendsListActivity" />
-        <activity android:name=".AvatarCustomizationActivity" />
-        <activity android:name=".FriendsActivity" />
-        <activity android:name=".NewUserActivity" />
-        <activity android:name=".FriendRequestsActivity"></activity>
+        <activity android:name=".FriendsListActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".AvatarCustomizationActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".FriendsActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".NewUserActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".FriendRequestsActivity"
+            android:screenOrientation="sensorPortrait"></activity>
     </application>
 
 </manifest>

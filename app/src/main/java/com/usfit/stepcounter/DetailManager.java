@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.DrawFilter;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -144,12 +146,33 @@ public class DetailManager {
     }
 
     public static void DrawPlayer(Activity activity, SharedPreferences preferences){
-        ((ImageView)activity.findViewById(R.id.ivAvatarFace)).setImageDrawable(activity.getDrawable(preferences.getInt("A_FAC",R.drawable.expression_0)));
-        ((ImageView)activity.findViewById(R.id.ivAvatarHead)).setImageDrawable(activity.getDrawable(preferences.getInt("A_HED", R.drawable.hair_00)));
-        ((ImageView)activity.findViewById(R.id.ivAvatarBody)).setImageDrawable(activity.getDrawable(preferences.getInt("A_BOD",R.drawable.body_s0)));
+        if(preferences == null)
+        {
+            preferences = activity.getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
+        }
+        ((ImageView)activity.findViewById(R.id.ivAvatarFace)).setImageDrawable(getDrawable(activity,preferences.getInt("expression_0",R.drawable.expression_0),preferences.getInt("expression_0T",0)));
+        ((ImageView)activity.findViewById(R.id.ivAvatarHead)).setImageDrawable(getDrawable(activity,preferences.getInt("hair_00",R.drawable.hair_00),preferences.getInt("hair_00T",0)));
+        ((ImageView)activity.findViewById(R.id.ivAvatarBody)).setImageDrawable(getDrawable(activity,preferences.getInt("body_s0",R.drawable.body_s0),preferences.getInt("body_s0T",0)));
 
-        ((ImageView)activity.findViewById(R.id.ivAvatarTop)).setImageDrawable(activity.getDrawable(preferences.getInt("A_TOP",R.drawable.outfit_t00)));
-        ((ImageView)activity.findViewById(R.id.ivAvatarBottom)).setImageDrawable(activity.getDrawable(preferences.getInt("A_BOT",R.drawable.outfit_b00)));
-        ((ImageView)activity.findViewById(R.id.ivAvatarFeet)).setImageDrawable(activity.getDrawable(preferences.getInt("A_FOT",R.drawable.outfit_f1)));
+        ((ImageView)activity.findViewById(R.id.ivAvatarTop)).setImageDrawable(getDrawable(activity,preferences.getInt("outfit_t00",R.drawable.outfit_t00),preferences.getInt("outfit_t00T",9)));
+        ((ImageView)activity.findViewById(R.id.ivAvatarBottom)).setImageDrawable(getDrawable(activity,preferences.getInt("outfit_b00",R.drawable.outfit_b00),preferences.getInt("outfit_b00T",0)));
+        ((ImageView)activity.findViewById(R.id.ivAvatarFeet)).setImageDrawable(getDrawable(activity,preferences.getInt("outfit_f00",R.drawable.outfit_f00),preferences.getInt("outfit_f00T",0)));
+    }
+    private static Drawable getDrawable(Activity activity, int drawable_id,int tint){
+        Drawable drawable = activity.getDrawable(drawable_id);
+        Color color = new Color();
+        color.alpha(255);
+        color.red(0);
+        color.blue(255);
+        color.green(0);
+        //tint = Color.argb(100,255,0,0);
+        if(tint != 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                drawable.setColorFilter(tint, PorterDuff.Mode.ADD);
+
+        }else {
+            drawable.setTintList(null);
+        }
+
+        return drawable;
     }
 }
