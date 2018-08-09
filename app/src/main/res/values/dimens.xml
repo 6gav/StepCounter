@@ -8,4 +8,5 @@
     <dimen name="main_button_width">136dp</dimen>
     <dimen name="main_button_height">64dp</dimen>
     <dimen name="background_pad_thickness">20dp</dimen>
+    <dimen name="portrait_pad_thickness">8dp</dimen>
 </resources>

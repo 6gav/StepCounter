@@ -24,8 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clytProfileContainer"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <TextView
         android:id="@+id/tvProfileDescription"
@@ -159,30 +158,16 @@
         app:layout_constraintTop_toTopOf="@+id/vVBBorder"
         app:layout_constraintVertical_bias="0.19" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/clytProfileContainer"
-        android:layout_width="82dp"
-        android:layout_height="93dp"
-        android:layout_marginBottom="8dp"
+    <include
+        android:id="@+id/include"
+        layout="@layout/avatar_portrait_layout"
+        android:layout_width="154dp"
+        android:layout_height="106dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119">
-
-        <include
-            layout="@layout/avatar_layout"
-            android:layout_width="154dp"
-            android:layout_height="106dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

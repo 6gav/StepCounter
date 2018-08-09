@@ -230,7 +230,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
                 Purchase();
                 Equip();
             }
-            LoadShopData(preferences.getString("ShopTag", "A_TOPA_BOTA_FOTA_HED"));
+            LoadShopData(preferences.getString("ShopTag", "outfit_t00outfit_b00outfit_f00hair_00"));
             MoneyUpdate();
 
 
@@ -264,16 +264,16 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             if(boxes[i].isChecked()) {
                 switch (boxes[i].getText().toString()) {
                     case "Top":
-                        tag = "A_TOP ";
+                        tag = "outfit_t00 ";
                         break;
                     case "Head":
                         tag = "A_HED ";
                         break;
                     case "Footwear":
-                        tag = "A_FOT ";
+                        tag = "outfit_f00 ";
                         break;
                     case "Bottoms":
-                        tag = "A_BOT ";
+                        tag = "outfit_b00 ";
                         break;
                     case "Purchased":
                         tag = "Purchased";
@@ -311,7 +311,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setName("Shirt "+i);
             item.setName(topNames[j]);
             item.setImage(top[i]);
-            item.setTag("A_TOP");
+            item.setTag("outfit_t00");
             isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
@@ -332,7 +332,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setName("Bottoms "+i);
             item.setName(botNames[i]);
             item.setImage(bottom[i]);
-            item.setTag("A_BOT");
+            item.setTag("outfit_b00");
             isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
             item.setPurchased(isPurchased);
             description = "";
@@ -346,14 +346,14 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             items[j] = item;
             ++j;
         }
-        j = top.length+ bottom.length;
+        j = top.length+ bottom.length-1;
         for(i = 0; i < footwear.length;i++){
             Item item = new Item();
             item.setCost(cost[j]);
             item.setName("Footwear "+i);
             item.setName(fotNames[i]);
             item.setImage(footwear[i]);
-            item.setTag("A_FOT");
+            item.setTag("outfit_f00");
             isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
             item.setPurchased(isPurchased);
             description = "";
@@ -372,7 +372,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setCost(cost[j]);
             item.setName(hedNames[i]);
             item.setImage(headwear[i]);
-            item.setTag("A_HAR");
+            item.setTag("hair_00");
             isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
@@ -399,7 +399,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setCost(cost[i]);
             item.setName(bodNames[i]);
             item.setImage(body[i]);
-            item.setTag("A_BOD");
+            item.setTag("body_s0");
             isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
@@ -413,7 +413,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setCost(cost[i]);
             item.setName(facNames[i]);
             item.setImage(expressions[i]);
-            item.setTag("A_FAC");
+            item.setTag("expression_00");
             isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
@@ -514,7 +514,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
         SharedPreferences.Editor editor = preferences.edit();
         String tag = _selectedItemObject.getTag();
-        if(tag == "A_HAR")tag = "A_HED";
+        if(tag == "A_HED")tag = "hair_00";
         editor.putInt(tag,_selectedItemObject.getImage_Id());
         editor.apply();
 
@@ -609,7 +609,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         public Drawable getImage() {
 
             try {
-                return detailManager.DrawCrisp(image_id);//getResources().getDrawable(image_id);
+                return getResources().getDrawable(image_id);//detailManager.DrawCrisp(image_id);
             }catch (Exception e){
                 e.printStackTrace();
             }

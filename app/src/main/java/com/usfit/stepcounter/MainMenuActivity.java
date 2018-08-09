@@ -128,6 +128,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
         //Assignment
+
         StepCount = sharedPreferences.getInt("StepCount", 0);
 
         CalorieCount = sharedPreferences.getFloat("CalorieCount", 0);
@@ -167,7 +168,9 @@ public class MainMenuActivity extends AppCompatActivity
 
         StepTrack(0);
 
-        tracking = false;
+        //TODO: Save Boolean from user preferences
+        tracking = !sharedPreferences.getBoolean("track_on_enter",false);
+        toggleTracking(findViewById(R.id.btnTrackSteps));
 
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -186,15 +189,26 @@ public class MainMenuActivity extends AppCompatActivity
 
 
 
+        DetailManager.DrawPlayer(this,null);
 
     }
 
 
 
     //Tracking
-    public void startTracking(View v){ tracking = true; }
-    public void stopTracking(View v){ tracking = false; }
+    public void toggleTracking(View v){
+        tracking = !tracking;
+        String text = "";
 
+        if(tracking){
+            text = "Stop Tracking";
+        }
+        else {
+            text = "Start Tracking";
+        }
+
+        ((Button)v).setText(text);
+    }
 
 
     //Debug
@@ -280,9 +294,12 @@ public class MainMenuActivity extends AppCompatActivity
             pos--;
         }
         ImageView ivUserMarker = findViewById(R.id.ivUserMarker);
+        View incAvatarMarker = findViewById(R.id.incAvatarMarker);
+
         float x = (((pos*winWidth)-(winWidth/2))*0.8f);
         x+=winWidth*0.05f;
         ivUserMarker.setX(x);
+        incAvatarMarker.setX(x+(winWidth*0.4f));
 
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <bitmap
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/race_strip_00"
+    android:src="@drawable/race_strip_09"
     android:dither="false"
     android:filter="false"
     android:antialias="false"
