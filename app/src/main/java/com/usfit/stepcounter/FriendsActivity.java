@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.usfit.stepcounter.StaticHolderClass.currentUser;
+
 public class FriendsActivity extends AppCompatActivity {
 
     //Components
@@ -41,6 +43,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     //Firebase
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+    ChildEventListener requestListener, acceptListener;
 
 
     @Override
@@ -113,6 +116,16 @@ public class FriendsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.child("friend-requests").child(currentUser.mUID).removeEventListener(requestListener);
+        db.child("accept-requests").child(currentUser.mUID).removeEventListener(acceptListener);
+
+
+
+    }
+
     private void LoadOutfit(){
 
         avatarTop.setImageDrawable(getDrawable(R.drawable.outfit_t00 + displayedUser.mTop));
@@ -142,7 +155,6 @@ public class FriendsActivity extends AppCompatActivity {
 
 
     private void AddListeners(){
-        ChildEventListener requestListener, acceptListener;
 
         final User currentUser = StaticHolderClass.currentUser;
 
@@ -220,6 +232,10 @@ public class FriendsActivity extends AppCompatActivity {
 
     public void AcceptRequest(View v){
 
+        if(tempRequest == null) {
+            Toast.makeText(this, "You don't have a friend request currently", Toast.LENGTH_SHORT).show();
+            return;
+        }
         DatabaseReference acceptsRef = db.child("accept-requests");
 
         User currentUser = StaticHolderClass.currentUser;
@@ -237,6 +253,10 @@ public class FriendsActivity extends AppCompatActivity {
         acceptsRef.updateChildren(childMap);
 
         db.child("friend-requests").child(currentUser.mUID).child(tempRequest.RKey).setValue(null);
+
+        tempRequest = null;
+
+        requestUserNameTextView.setText("No Request.");
 
 
     }

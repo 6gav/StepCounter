@@ -1,6 +1,7 @@
 package com.usfit.stepcounter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
     private ArrayList<String> mFriendNames = new ArrayList<>();
     private ArrayList<String> mFriendUIDS = new ArrayList<>();
     private Context mContext;
+    ArrayList<User> mUsers = new ArrayList<>();
 
     private DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
@@ -47,6 +49,8 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
              User temp = dataSnapshot.getValue(User.class);
+                mUsers.add(temp);
+
                 viewHolder.friendTop.setImageDrawable(mContext.getDrawable(temp.mTop + R.drawable.outfit_t00));
                 viewHolder.friendBot.setImageDrawable(mContext.getDrawable(temp.mBot + R.drawable.outfit_b00));
                 viewHolder.friendFoot.setImageDrawable(mContext.getDrawable(temp.mFoot + R.drawable.outfit_f00));
@@ -54,6 +58,16 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent n = new Intent(mContext, ProfileActivity.class);
+                StaticHolderClass.displayedUser = mUsers.get(viewHolder.getAdapterPosition());
+                mContext.startActivity(n);
 
             }
         });

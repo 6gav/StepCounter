@@ -350,21 +350,14 @@ public class MainMenuActivity extends AppCompatActivity
                 StepCounter.setText(tempStepText);
                 AchievementChecker.Check(getApplicationContext());
                 gCheck.Check(getApplicationContext());
-                runnable=this;
-
-                h.postDelayed(runnable, delay);
-            }
-        }, delay);
-
-
-        h.postDelayed(new Runnable() {
-            public void run() {
                 DateCheck();
                 runnable=this;
 
                 h.postDelayed(runnable, delay);
             }
         }, delay);
+
+
 
         Stride = sharedPreferences.getFloat("StrideLength", -1.0f);
         if(Stride != -1.0f)
