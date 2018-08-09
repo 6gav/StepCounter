@@ -14,6 +14,10 @@ public class Friend extends UserInfoPackage {
     private ChildEventListener userChange;
 
 
+    public Friend(){
+
+    }
+
     public Friend(UserInfoPackage friend){
 
         mTop = friend.mTop;
@@ -30,6 +34,7 @@ public class Friend extends UserInfoPackage {
                  tempInfo.mTop = mTop;
                  tempInfo.mBot = mBot;
                  tempInfo.mFoot = mFoot;
+                 tempInfo.userName = userName;
             }
 
             @Override

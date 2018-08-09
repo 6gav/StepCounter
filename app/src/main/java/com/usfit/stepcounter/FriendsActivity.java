@@ -133,7 +133,7 @@ public class FriendsActivity extends AppCompatActivity {
         sentRequest.AddCurrentOutfit();
 
         Map<String, Object> childMap = new HashMap<>();
-        childMap.put("/" + currentUser.mUID + "/" + RKey, sentRequest);
+        childMap.put("/" + displayedUser.userID + "/" + RKey, sentRequest);
 
         requestsRef.updateChildren(childMap);
 

@@ -33,6 +33,14 @@ public class User {
 
     public User() {
 
+        if(friendsList == null)
+            friendsList = new ArrayList<>();
+        if(friendRequests == null)
+            friendRequests = new ArrayList<>();
+
+
+
+
     }
 
     public User(String nUsername, String nEmail, String nUID){
@@ -76,6 +84,9 @@ public class User {
             db = FirebaseDatabase.getInstance().getReference();
         }
         db.child("users").child(mUID).setValue(this);
+        UserInfoPackage tempInfo = new UserInfoPackage(mUsername, mUID);
+        tempInfo.AddCurrentOutfit();
+        db.child("uids").child(mUsername).setValue(tempInfo);
     }
 
     public void FullUpdateUser(Context mContext){

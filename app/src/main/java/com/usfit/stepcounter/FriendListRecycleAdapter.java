@@ -47,11 +47,9 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
              User temp = dataSnapshot.getValue(User.class);
-                viewHolder.friendTop.setImageDrawable(mContext.getDrawable(temp.mTop));
-                viewHolder.friendBot.setImageDrawable(mContext.getDrawable(temp.mBot));
-                viewHolder.friendFoot.setImageDrawable(mContext.getDrawable(temp.mFoot));
-                String tempSteps = "Total steps: " + temp.mTotalSteps;
-                viewHolder.friendSteps.setText(tempSteps);
+                viewHolder.friendTop.setImageDrawable(mContext.getDrawable(temp.mTop + R.drawable.outfit_t00));
+                viewHolder.friendBot.setImageDrawable(mContext.getDrawable(temp.mBot + R.drawable.outfit_b00));
+                viewHolder.friendFoot.setImageDrawable(mContext.getDrawable(temp.mFoot + R.drawable.outfit_f00));
             }
 
             @Override
