@@ -23,6 +23,9 @@ public class User {
     //Firebase
     private DatabaseReference db;
 
+    public List<Friend> friendsList;
+
+    public List<RequestInfo> friendRequests;
 
     public String mUsername, mEmail, mUID;
 
@@ -38,6 +41,9 @@ public class User {
         mEmail = nEmail;
         mUID = nUID;
         mTotalSteps = 0;
+
+        friendsList = new ArrayList<>();
+        friendRequests = new ArrayList<>();
 
         //Firebase
         db = FirebaseDatabase.getInstance().getReference();
@@ -56,8 +62,11 @@ public class User {
         }
         Map<String, Object> publishMap = new HashMap<>();
 
+        UserInfoPackage tempInfo = new UserInfoPackage(mUsername, mUID);
+        tempInfo.AddCurrentOutfit();
+
         publishMap.put("users/" + mUID, this);
-        publishMap.put("uids/" + mUsername, new UserInfoPackage(mUsername, mUID));
+        publishMap.put("uids/" + mUsername, tempInfo);
 
         db.updateChildren(publishMap);
     }
@@ -74,8 +83,24 @@ public class User {
         UpdateUser();
     }
 
+    public void AddFriend(RequestInfo friend){
+        if(friendsList == null)
+         friendsList = new ArrayList<>();
+
+        UserInfoPackage tempInfo = new UserInfoPackage(friend.userName, friend.userID);
+        tempInfo.AddOutfit(friend);
+
+        Friend tempFriend = new Friend(tempInfo);
+
+        friendsList.add(tempFriend);
+    }
 
 
+    public void AddRequest(RequestInfo NewReq) {
+        if(friendRequests == null)
+            friendRequests = new ArrayList<>();
+        friendRequests.add(NewReq);
 
 
+    }
 }

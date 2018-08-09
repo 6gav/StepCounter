@@ -29,6 +29,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="ToFriendsList"
         android:text="Friends List"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +97,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="SendRequest"
         android:text="Send Request"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/findFriendAvatarLayout"
@@ -119,4 +121,33 @@
         app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/findFriendNameInput" />
+
+    <TextView
+        android:id="@+id/friendRequestTempName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Friend Name"
+        app:layout_constraintBottom_toBottomOf="@+id/findFriendAvatarLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/findFriendAvatarLayout"
+        app:layout_constraintTop_toTopOf="@+id/findFriendAvatarLayout" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="AcceptRequest"
+        android:text="Accept Request"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/findFriendAvatarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/friendRequestTempName" />
 </android.support.constraint.ConstraintLayout>

@@ -35,9 +35,11 @@ public class NewUserActivity extends AppCompatActivity {
 
             User tempUser = new User(username, currentUser.getEmail(), currentUser.getUid());
             tempUser.LoadOutfit(this);
-            tempUser.PublishUser();
 
             StaticHolderClass.currentUser = tempUser;
+
+            tempUser.PublishUser();
+
         }
     }
 }

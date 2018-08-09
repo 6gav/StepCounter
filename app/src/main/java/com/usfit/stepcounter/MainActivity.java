@@ -98,6 +98,15 @@ public class MainActivity extends AppCompatActivity {
         }, delay);
 
         DetailManager.DrawPlayer(this,MoneyPref);
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CreateNewUser();
+            }
+        }, 5000);
+
     }
 
 
@@ -106,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         detailManager.Release();
         super.onDestroy();
 
+        if(StaticHolderClass.currentUser != null)
         StaticHolderClass.currentUser.FullUpdateUser(this);
 
 
@@ -159,6 +169,9 @@ public class MainActivity extends AppCompatActivity {
         CreateNewUser();
         else
             FirstRun = false;
+
+        if(StaticHolderClass.currentUser != null)
+            StaticHolderClass.currentUser.FullUpdateUser(this);
 
     }
 
@@ -281,19 +294,20 @@ public  void ToProfile(View V){
 
     public void LoadUser(){
     if(fUser != null) {
-        db.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User tempUser = dataSnapshot.getValue(User.class);
-                StaticHolderClass.currentUser = tempUser;
-            }
+        if(StaticHolderClass.currentUser == null) {
+            db.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User tempUser = dataSnapshot.getValue(User.class);
+                    StaticHolderClass.currentUser = tempUser;
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        }
     }
     else
         Toast.makeText(this, "Many features will be disabled if you do not log in.", Toast.LENGTH_LONG).show();
