@@ -20,7 +20,14 @@ public class ProfileActivity extends AppCompatActivity {
     Button btnProfileFriend,btnProfilePrefs;
     ConstraintLayout clytProfileBackground;
 
+    ImageView aTop, aBot, aFoot;
+
+    User displayedUser;
+
+    String mUsername;
+
     TextView tvFriendCount,tvFriendTitle,tvStepCount,tvStepTitle,tvProfileName;
+
 
 
     @Override
@@ -37,17 +44,36 @@ public class ProfileActivity extends AppCompatActivity {
         tvStepTitle = findViewById(R.id.tvStepsTitle);
         tvProfileName = findViewById(R.id.tvProfileName);
 
-        if(StaticHolderClass.currentUser != null){
-            InitProfile(StaticHolderClass.currentUser);
-            btnProfileFriend.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent n;
-                    n = new Intent();
+        aTop = clytProfileBackground.findViewById(R.id.ivAvatarTop);
+        aBot = clytProfileBackground.findViewById(R.id.ivAvatarBottom);
+        aFoot = clytProfileBackground.findViewById(R.id.ivAvatarFeet);
 
-                }
-            });
-        }
+        if(StaticHolderClass.displayedUser != null)
+        displayedUser = StaticHolderClass.displayedUser;
+
+
+
+        InitUser();
+
+
+    }
+
+
+    public void InitUser(){
+        tvProfileName.setText(displayedUser.mUsername);
+        tvStepCount.setText(String.valueOf(displayedUser.mTotalSteps));
+
+        aTop.setImageDrawable(getDrawable(R.drawable.outfit_t00 + displayedUser.mTop));
+        aBot.setImageDrawable(getDrawable(R.drawable.outfit_b00 + displayedUser.mBot));
+        aFoot.setImageDrawable(getDrawable(R.drawable.outfit_f00 + displayedUser.mFoot));
+    }
+
+    public void ToFriends(View v){
+
+        Intent n = new Intent(this, FriendsListActivity.class);
+        n.putExtra("mCurrentUser", false);
+        startActivity(n);
+
     }
 
     public void InitProfile(User user){

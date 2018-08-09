@@ -17,6 +17,8 @@ public class FriendsListActivity extends AppCompatActivity {
     private ArrayList<String> mUIDS = new ArrayList<>();
     private ArrayList<String> mNames = new ArrayList<>();
 
+    Boolean mCurrentUser;
+
     private List<Friend> friends = new ArrayList<>();
 
     @Override
@@ -24,20 +26,23 @@ public class FriendsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list);
 
+        mCurrentUser = getIntent().getBooleanExtra("mCurrentUser", true);
 
         friends = StaticHolderClass.currentUser.friendsList;
 
-
-        InitNames();
+        if(mCurrentUser)
+        InitNames(friends);
+        else
+            InitNames(StaticHolderClass.displayedUser.friendsList);
 
 
 
     }
 
-    private void InitNames(){
-        for(int i = 0; i < friends.size(); i++){
-            mNames.add(friends.get(i).userName);
-            mUIDS.add(friends.get(i).userID);
+    private void InitNames(List<Friend> nFriends){
+        for(int i = 0; i < nFriends.size(); i++){
+            mNames.add(nFriends.get(i).userName);
+            mUIDS.add(nFriends.get(i).userID);
         }
         InitView();
     }
