@@ -165,10 +165,13 @@ public class MainActivity extends AppCompatActivity {
         fUser = mAuth.getCurrentUser();
         LoadUser();
 
-        if(!FirstRun)
-        CreateNewUser();
-        else
-            FirstRun = false;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CreateNewUser();
+            }
+        }, 1500);
 
         if(StaticHolderClass.currentUser != null)
             StaticHolderClass.currentUser.FullUpdateUser(this);
