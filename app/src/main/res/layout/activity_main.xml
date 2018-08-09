@@ -57,11 +57,11 @@
         android:background="@drawable/click_button"
         android:onClick="ToShop"
         android:text="Shop"
-        app:layout_constraintBottom_toBottomOf="@+id/btnUPrefs"
+        app:layout_constraintBottom_toBottomOf="@+id/btnProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/btnUPrefs"
-        app:layout_constraintTop_toTopOf="@+id/btnUPrefs" />
+        app:layout_constraintStart_toEndOf="@+id/btnProfile"
+        app:layout_constraintTop_toTopOf="@+id/btnProfile" />
 
     <Button
         android:id="@+id/btnAchievements"
@@ -144,17 +144,16 @@
         app:layout_constraintVertical_bias="1.0" />
 
 
-
     <Button
-        android:id="@+id/btnUPrefs"
+        android:id="@+id/btnProfile"
         android:layout_width="@dimen/main_button_width"
         android:layout_height="@dimen/main_button_height"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/click_button"
-        android:onClick="ToPreferences"
-        android:text="User \nPreferences"
+        android:onClick="ToProfile"
+        android:text="My\n Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnALogger"
         app:layout_constraintHorizontal_bias="1.0"
@@ -225,7 +224,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUPrefs" />
+        app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
 
     <include
         layout="@layout/avatar_layout"
