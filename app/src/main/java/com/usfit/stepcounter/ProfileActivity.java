@@ -17,7 +17,7 @@ import com.google.firebase.storage.FirebaseStorage;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    Button btnProfileFriend;
+    Button btnProfileFriend,btnProfilePrefs;
     ConstraintLayout clytProfileBackground;
 
     ImageView aTop, aBot, aFoot;
@@ -28,11 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView tvFriendCount,tvFriendTitle,tvStepCount,tvStepTitle,tvProfileName;
 
-    public void InitProfile(User user){
-        tvProfileName.setText(user.mUsername);
-        tvStepCount.setText(String.valueOf(user.mTotalSteps));
-        //tvStepCount.setText(user.friendsList.size());
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,4 +75,11 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(n);
 
     }
+
+    public void InitProfile(User user){
+        if(user == null)return;
+        tvProfileName.setText(user.mUsername);
+        tvStepCount.setText(String.valueOf(user.mTotalSteps));
+        tvFriendCount.setText(String.valueOf(user.friendsList.size()));
+    };
 }

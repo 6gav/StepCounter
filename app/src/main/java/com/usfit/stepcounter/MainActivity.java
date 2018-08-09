@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -221,9 +220,11 @@ public class MainActivity extends AppCompatActivity {
 
 public  void ToProfile(View V){
     detailManager.PlaySound(R.raw.sfx_confirm);
-    detailManager.PlayAnimation((Button)findViewById(R.id.btnShop),getResources().getDrawable(R.drawable.blip_blue));
+    detailManager.PlayAnimation((Button)findViewById(R.id.btnProfile),getResources().getDrawable(R.drawable.blip_blue));
     Intent n = new Intent(this, ProfileActivity.class);
-    startActivity(n);
+    Bundle options = new Bundle();
+    options.putBoolean("isMainUser",true);
+    startActivity(n,options);
 }
     public void ToShop(View v) {
         detailManager.PlaySound(R.raw.sfx_confirm);
@@ -248,7 +249,7 @@ public  void ToProfile(View V){
 
     public void ToPreferences(View v){
         detailManager.PlaySound(R.raw.sfx_confirm);
-        detailManager.PlayAnimation((Button)findViewById(R.id.btnUPrefs),getResources().getDrawable(R.drawable.blip_blue));
+        detailManager.PlayAnimation((Button)findViewById(R.id.btnProfile),getResources().getDrawable(R.drawable.blip_blue));
         Intent n = new Intent(this, UserPreferences.class);
         startActivity(n);
     }
