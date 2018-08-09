@@ -3,18 +3,13 @@ package com.usfit.stepcounter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView count, count2, count3;
     private int StepCounts, TapCount, MonValue, StepsUntilMon = 10;
-    boolean activityRunning, DebugMode;
+    boolean activityRunning, DebugMode, FirstRun;
     private Button debugStepButton;
     DetailManager detailManager;
     String userName;
@@ -69,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        User.SetCurrentUser(new User());
-
+        FirstRun = true;
 
         //Firebase
 
@@ -114,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         detailManager.Release();
         super.onDestroy();
+
+        StaticHolderClass.currentUser.FullUpdateUser(this);
+
+
     }
 
 
@@ -158,10 +153,21 @@ public class MainActivity extends AppCompatActivity {
         MoneyCounterTextView.setText(temp);
         DetailManager.DrawPlayer(this,MoneyPref);
         fUser = mAuth.getCurrentUser();
-        if(fUser != null) {
-            LoadUser();
-        }
+        LoadUser();
 
+        if(!FirstRun)
+        CreateNewUser();
+        else
+            FirstRun = false;
+
+    }
+
+    public void CreateNewUser() {
+        FirebaseUser tempFUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (StaticHolderClass.currentUser == null && tempFUser != null) {
+            Intent n = new Intent(this, NewUserActivity.class);
+            startActivity(n);
+        }
     }
 
     public void onPause() {
@@ -237,9 +243,13 @@ public  void ToProfile(View V){
     }
 
     public void ToFriends(View v){
-        if(fUser != null) {
+        if(fUser != null && StaticHolderClass.currentUser != null) {
             Intent n = new Intent(this, FriendsActivity.class);
             startActivity(n);
+        }
+        else if(StaticHolderClass.currentUser == null && fUser != null){
+            Toast.makeText(this, "You must create a username before proceeding.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, NewUserActivity.class));
         }
         else
         {
@@ -270,11 +280,12 @@ public  void ToProfile(View V){
 
 
     public void LoadUser(){
+    if(fUser != null) {
         db.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User tempUser = dataSnapshot.getValue(User.class);
-                User.SetCurrentUser(tempUser);
+                StaticHolderClass.currentUser = tempUser;
             }
 
             @Override
@@ -284,11 +295,16 @@ public  void ToProfile(View V){
         });
 
     }
+    else
+        Toast.makeText(this, "Many features will be disabled if you do not log in.", Toast.LENGTH_LONG).show();
+
+
+    }
 
     public void SignOut(View v){
         mAuth.signOut();
         fUser = null;
-        User.SetCurrentUser(null);
+        StaticHolderClass.currentUser = null;
 
     }
 

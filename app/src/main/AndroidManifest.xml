@@ -42,9 +42,11 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".FriendsActivity" />
         <activity android:name=".FriendsListActivity" />
-        <activity android:name=".AvatarCustomizationActivity"></activity>
+        <activity android:name=".AvatarCustomizationActivity" />
+        <activity android:name=".FriendsActivity" />
+        <activity android:name=".NewUserActivity" />
+        <activity android:name=".FriendRequestsActivity"></activity>
     </application>
 
 </manifest>

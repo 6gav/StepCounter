@@ -20,72 +20,62 @@ import java.util.Vector;
 
 public class User {
 
-    public List<UserInfoPackage> friendsList;
-
-    private static User currentUser;
-
-    public UserInfoPackage myInfo;
-
-    public String username, email, myKey;
-
-    public int topWear, bottomWear, footWear, uAge, totalSteps;
-
-    public boolean isOnline;
-
-    public User(){
-        topWear = R.drawable.outfit_t00;
-        bottomWear = R.drawable.outfit_b00;
-        footWear = R.drawable.outfit_f00;
-        friendsList = new ArrayList<>();
-        isOnline = false;
-    }
-
-    public User(String username, String email){
-        this.username = username;
-        this.email = email;
-        myKey = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        myInfo = new UserInfoPackage(myKey, username);
-        totalSteps = 0;
-        friendsList = new ArrayList<>();
-    }
+    //Firebase
+    private DatabaseReference db;
 
 
-    public void SetOutfit(int[] outfitArray){
-        topWear = outfitArray[0];
-        bottomWear = outfitArray[1];
-        footWear = outfitArray[2];
+    public String mUsername, mEmail, mUID;
 
+    public int mTop, mBot, mFoot, mTotalSteps;
+
+    public User() {
 
     }
 
-    public static void SetCurrentUser(User currentUser){
-        User.currentUser = currentUser;
+    public User(String nUsername, String nEmail, String nUID){
+        //Variables
+        mUsername = nUsername;
+        mEmail = nEmail;
+        mUID = nUID;
+        mTotalSteps = 0;
+
+        //Firebase
+        db = FirebaseDatabase.getInstance().getReference();
     }
 
-    public static User GetCurrentUser(){
-        return User.currentUser;
+    public void LoadOutfit(Context mContext){
+        SharedPreferences outfitPrefs = mContext.getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
+        mTop  = outfitPrefs.getInt("A_TOP", R.drawable.outfit_t00) - R.drawable.outfit_t00;
+        mBot  = outfitPrefs.getInt("A_BOT", R.drawable.outfit_b00) - R.drawable.outfit_b00;
+        mFoot = outfitPrefs.getInt("A_FOT", R.drawable.outfit_f00) - R.drawable.outfit_f00;
     }
 
-
-
-    public void AddFriend(UserInfoPackage friend){
-        friendsList.add(friend);
-    }
-
-    public void UpdateUserProfile(User newInfo){
-
-        if(newInfo != null && newInfo.isOnline) {
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
-            DatabaseReference dbRef = db.getReference();
-
-            HashMap<String, Object> tempMap = new HashMap<>();
-            tempMap.put(newInfo.myKey, newInfo);
-
-            dbRef.child("users").updateChildren(tempMap);
+    public void PublishUser(){
+        if(db == null){
+            db = FirebaseDatabase.getInstance().getReference();
         }
-        SetCurrentUser(newInfo);
+        Map<String, Object> publishMap = new HashMap<>();
 
+        publishMap.put("users/" + mUID, this);
+        publishMap.put("uids/" + mUsername, new UserInfoPackage(mUsername, mUID));
+
+        db.updateChildren(publishMap);
     }
+
+    public void UpdateUser(){
+        if(db == null){
+            db = FirebaseDatabase.getInstance().getReference();
+        }
+        db.child("users").child(mUID).setValue(this);
+    }
+
+    public void FullUpdateUser(Context mContext){
+        LoadOutfit(mContext);
+        UpdateUser();
+    }
+
+
+
 
 
 }
