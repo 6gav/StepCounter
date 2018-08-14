@@ -40,6 +40,7 @@ public class NewUserActivity extends AppCompatActivity {
 
             tempUser.PublishUser();
 
+            finish();
         }
     }
 }

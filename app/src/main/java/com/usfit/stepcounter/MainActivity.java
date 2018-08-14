@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 CreateNewUser();
             }
-        }, 5000);
+        }, 1000);
 
     }
 

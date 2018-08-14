@@ -189,7 +189,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
 
-        DetailManager.DrawPlayer(this,null);
+        DetailManager.DrawPlayer(this,StaticHolderClass.currentUser);
 
     }
 

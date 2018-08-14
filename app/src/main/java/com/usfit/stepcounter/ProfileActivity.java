@@ -49,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
         aFoot = clytProfileBackground.findViewById(R.id.ivAvatarFeet);
 
 
+
             InitUser();
 
 
@@ -57,18 +58,27 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void InitUser(){
-        if(StaticHolderClass.displayedUser == null)return;
-        InitProfile(StaticHolderClass.displayedUser);
-
+        if(StaticHolderClass.displayedUser != null) {
+            InitProfile(StaticHolderClass.displayedUser);
+/*
         aTop.setImageDrawable(getDrawable(R.drawable.outfit_t00 + StaticHolderClass.displayedUser.mTop));
         aBot.setImageDrawable(getDrawable(R.drawable.outfit_b00 + StaticHolderClass.displayedUser.mBot));
         aFoot.setImageDrawable(getDrawable(R.drawable.outfit_f00 + StaticHolderClass.displayedUser.mFoot));
+        */
+
+            DetailManager.DrawPlayer(this, StaticHolderClass.displayedUser);
+        }else{
+            if(StaticHolderClass.currentUser == null)return;
+
+            InitProfile(StaticHolderClass.currentUser);
+            DetailManager.DrawPlayer(this, StaticHolderClass.currentUser);
+        }
+
     }
 
     public void ToFriends(View v){
-
         Intent n = new Intent(this, FriendsListActivity.class);
-        n.putExtra("mCurrentUser", true );
+        n.putExtra("mCurrentUser", false);
         startActivity(n);
 
     }

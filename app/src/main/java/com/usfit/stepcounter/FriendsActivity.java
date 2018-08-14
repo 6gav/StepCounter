@@ -134,7 +134,6 @@ public class FriendsActivity extends AppCompatActivity {
 
         sendButton.setVisibility(View.VISIBLE);
         sendButton.setEnabled(true);
-
     }
 
     public void SendRequest(View v){

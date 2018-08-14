@@ -389,7 +389,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
-            description += "Wear " + item.getName()+ ".";
+            description += "Get " + item.getName()+ " (Free!).";
             item.setDescription(description);
             items[j] = item;
             ++j;

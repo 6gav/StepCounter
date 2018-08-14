@@ -29,7 +29,7 @@ public class User {
 
     public String mUsername, mEmail, mUID;
 
-    public int mTop, mBot, mFoot, mTotalSteps;
+    public int mTop, mBot, mFoot,mface,mbody,mhair, mTotalSteps;
 
     public User() {
 
@@ -62,6 +62,10 @@ public class User {
         mTop  = outfitPrefs.getInt("outfit_t00", R.drawable.outfit_t00) - R.drawable.outfit_t00;
         mBot  = outfitPrefs.getInt("outfit_b00", R.drawable.outfit_b00) - R.drawable.outfit_b00;
         mFoot = outfitPrefs.getInt("outfit_f00", R.drawable.outfit_f00) - R.drawable.outfit_f00;
+
+        mface = outfitPrefs.getInt("expression_0",R.drawable.expression_0) - R.drawable.expression_0;
+        mbody = outfitPrefs.getInt("body_s0",R.drawable.body_s0) - R.drawable.body_s0;
+        mhair = outfitPrefs.getInt("hair_00",R.drawable.hair_00) - R.drawable.hair_00;
     }
 
     public void PublishUser(){

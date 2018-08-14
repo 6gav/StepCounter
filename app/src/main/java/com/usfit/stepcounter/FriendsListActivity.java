@@ -29,14 +29,17 @@ public class FriendsListActivity extends AppCompatActivity {
         mCurrentUser = getIntent().getBooleanExtra("mCurrentUser", true);
 
         friends = StaticHolderClass.currentUser.friendsList;
+
+
         if(StaticHolderClass.displayedUser == null){
             otherfr = StaticHolderClass.currentUser.friendsList;
         }
         else
         otherfr = StaticHolderClass.displayedUser.friendsList;
 
+
         if(mCurrentUser)
-        InitNames(friends);
+            InitNames(friends);
         else
             InitNames(otherfr);
 

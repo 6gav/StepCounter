@@ -145,6 +145,25 @@ public class DetailManager {
         Toast.makeText(context,text, Toast.LENGTH_SHORT);
     }
 
+    public static void DrawPlayer(Activity activity, User user){
+        int ufac = R.drawable.expression_0,
+                uhar = R.drawable.hair_00,
+                ubod = R.drawable.body_s0,
+                utop = R.drawable.outfit_t00,
+                ubot = R.drawable.outfit_b00,
+                ufot = R.drawable.outfit_f00;
+
+
+
+        ((ImageView)activity.findViewById(R.id.ivAvatarFace)).setImageDrawable(getDrawable(activity,user.mface + ufac));
+        ((ImageView)activity.findViewById(R.id.ivAvatarHead)).setImageDrawable(getDrawable(activity,user.mhair + uhar));
+        ((ImageView)activity.findViewById(R.id.ivAvatarBody)).setImageDrawable(getDrawable(activity,user.mbody + ubod));
+
+        ((ImageView)activity.findViewById(R.id.ivAvatarTop)).setImageDrawable(getDrawable(activity,user.mTop +   utop));
+        ((ImageView)activity.findViewById(R.id.ivAvatarBottom)).setImageDrawable(getDrawable(activity,user.mBot+ ubot));
+        ((ImageView)activity.findViewById(R.id.ivAvatarFeet)).setImageDrawable(getDrawable(activity,user.mFoot + ufot));
+    }
+
     public static void DrawPlayer(Activity activity, SharedPreferences preferences){
         if(preferences == null)
         {
@@ -167,11 +186,22 @@ public class DetailManager {
         color.green(0);
         //tint = Color.argb(100,255,0,0);
         if(tint != 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                drawable.setColorFilter(tint, PorterDuff.Mode.ADD);
+            drawable.setColorFilter(tint, PorterDuff.Mode.ADD);
 
         }else {
             drawable.setTintList(null);
         }
+
+        return drawable;
+    }
+    private static Drawable getDrawable(Activity activity, int drawable_id){
+        Drawable drawable = activity.getDrawable(drawable_id);
+        Color color = new Color();
+        color.alpha(255);
+        color.red(0);
+        color.blue(255);
+        color.green(0);
+
 
         return drawable;
     }
