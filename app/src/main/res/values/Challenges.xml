@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    
+    
+
+
+    //Challenges to send to friends
+    <string-array name="challenges">
+        //      Type:Amount:Reward:TimeLimit
+
+        //      For time limit, 0 is unlimited
+
+        <item>Distance:5:1000:2d</item>
+
+    </string-array>
+</resources>

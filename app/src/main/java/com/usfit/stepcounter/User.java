@@ -59,9 +59,9 @@ public class User {
 
     public void LoadOutfit(Context mContext){
         SharedPreferences outfitPrefs = mContext.getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
-        mTop  = outfitPrefs.getInt("A_TOP", R.drawable.outfit_t00) - R.drawable.outfit_t00;
-        mBot  = outfitPrefs.getInt("A_BOT", R.drawable.outfit_b00) - R.drawable.outfit_b00;
-        mFoot = outfitPrefs.getInt("A_FOT", R.drawable.outfit_f00) - R.drawable.outfit_f00;
+        mTop  = outfitPrefs.getInt("outfit_t00", R.drawable.outfit_t00) - R.drawable.outfit_t00;
+        mBot  = outfitPrefs.getInt("outfit_b00", R.drawable.outfit_b00) - R.drawable.outfit_b00;
+        mFoot = outfitPrefs.getInt("outfit_f00", R.drawable.outfit_f00) - R.drawable.outfit_f00;
     }
 
     public void PublishUser(){

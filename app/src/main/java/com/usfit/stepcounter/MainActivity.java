@@ -222,9 +222,8 @@ public  void ToProfile(View V){
     detailManager.PlaySound(R.raw.sfx_confirm);
     detailManager.PlayAnimation((Button)findViewById(R.id.btnProfile),getResources().getDrawable(R.drawable.blip_blue));
     Intent n = new Intent(this, ProfileActivity.class);
-    Bundle options = new Bundle();
-    options.putBoolean("isMainUser",true);
-    startActivity(n,options);
+    n.putExtra("mCurrentUser", true);
+    startActivity(n);
 }
     public void ToShop(View v) {
         detailManager.PlaySound(R.raw.sfx_confirm);
