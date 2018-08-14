@@ -5,8 +5,8 @@
     android:dither="false"
     android:filter="false"
     android:antialias="false"
-    android:tileMode="disabled"
     android:mipMap="false"
+    android:tileMode="disabled"
     >
 
 </bitmap>

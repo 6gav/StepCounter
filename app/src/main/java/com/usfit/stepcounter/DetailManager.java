@@ -146,6 +146,7 @@ public class DetailManager {
     }
 
     public static void DrawPlayer(Activity activity, User user){
+        if(user==null)return;
         int ufac = R.drawable.expression_0,
                 uhar = R.drawable.hair_00,
                 ubod = R.drawable.body_s0,

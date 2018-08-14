@@ -117,6 +117,15 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        boolean accept_friend = getIntent().getBooleanExtra("ADD_NEW_FRIEND",false);
+        if(accept_friend){
+            SendRequest();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         db.child("friend-requests").child(currentUser.mUID).removeEventListener(requestListener);
@@ -127,16 +136,26 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void LoadOutfit(){
+        StaticHolderClass.displayedUser = StaticHolderClass.GetUserFromPackage(displayedUser);
 
         avatarTop.setImageDrawable(getDrawable(R.drawable.outfit_t00 + displayedUser.mTop));
         avatarBot.setImageDrawable(getDrawable(R.drawable.outfit_b00 + displayedUser.mBot));
         avatarFoot.setImageDrawable(getDrawable(R.drawable.outfit_f00 + displayedUser.mFoot));
 
+        Intent n = new Intent(this,ProfileActivity.class);
+        n.putExtra("DisplayType","FriendSearch");
+        startActivity(n);
+
         sendButton.setVisibility(View.VISIBLE);
         sendButton.setEnabled(true);
+        /**/
     }
 
+
     public void SendRequest(View v){
+        SendRequest();
+    }
+    public void SendRequest(){
         DatabaseReference requestsRef = db.child("friend-requests");
         String RKey = requestsRef.child(displayedUser.userID).push().getKey();
 

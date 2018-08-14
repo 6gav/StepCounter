@@ -1,5 +1,6 @@
 package com.usfit.stepcounter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         btnProfileFriend = findViewById(R.id.btnProfileFriend);
+        btnProfilePrefs = findViewById(R.id.btnProfileUPrefs);
         clytProfileBackground = findViewById(R.id.clytProfileBackground);
 
         tvFriendCount = findViewById(R.id.tvFriendCount);
@@ -47,10 +49,31 @@ public class ProfileActivity extends AppCompatActivity {
         aTop = clytProfileBackground.findViewById(R.id.ivAvatarTop);
         aBot = clytProfileBackground.findViewById(R.id.ivAvatarBottom);
         aFoot = clytProfileBackground.findViewById(R.id.ivAvatarFeet);
+        String setupdata;
+
+        setupdata = getIntent().getStringExtra("DisplayType");
+        if(setupdata != null) {
+            switch (setupdata) {
+                case "FriendSearch":
+                    btnProfilePrefs.setText("Add Friend");
+                    btnProfilePrefs.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ///TODO: Add Friend
+                            finish();
+                        }
+                    });
+                    break;
+                case "FriendView":
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        InitUser();
 
 
-
-            InitUser();
 
 
 
@@ -58,21 +81,10 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void InitUser(){
-        if(StaticHolderClass.displayedUser != null) {
-            InitProfile(StaticHolderClass.displayedUser);
-/*
-        aTop.setImageDrawable(getDrawable(R.drawable.outfit_t00 + StaticHolderClass.displayedUser.mTop));
-        aBot.setImageDrawable(getDrawable(R.drawable.outfit_b00 + StaticHolderClass.displayedUser.mBot));
-        aFoot.setImageDrawable(getDrawable(R.drawable.outfit_f00 + StaticHolderClass.displayedUser.mFoot));
-        */
 
-            DetailManager.DrawPlayer(this, StaticHolderClass.displayedUser);
-        }else{
-            if(StaticHolderClass.currentUser == null)return;
 
-            InitProfile(StaticHolderClass.currentUser);
-            DetailManager.DrawPlayer(this, StaticHolderClass.currentUser);
-        }
+        InitProfile(StaticHolderClass.currentUser);
+        DetailManager.DrawPlayer(this, StaticHolderClass.currentUser);
 
     }
 
@@ -90,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void InitProfile(User user){
-
+        if(user == null)return;
         tvProfileName.setText(user.mUsername);
         tvStepCount.setText(String.valueOf(user.mTotalSteps));
         tvFriendCount.setText(String.valueOf(user.friendsList.size()));

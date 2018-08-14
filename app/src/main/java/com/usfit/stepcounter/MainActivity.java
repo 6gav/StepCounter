@@ -221,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
 public  void ToProfile(View V){
     detailManager.PlaySound(R.raw.sfx_confirm);
     detailManager.PlayAnimation((Button)findViewById(R.id.btnProfile),getResources().getDrawable(R.drawable.blip_blue));
+    StaticHolderClass.displayedUser = StaticHolderClass.currentUser;
     Intent n = new Intent(this, ProfileActivity.class);
     n.putExtra("mCurrentUser", true);
     startActivity(n);

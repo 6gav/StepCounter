@@ -4,6 +4,7 @@
     android:antialias="false"
     android:src="@drawable/position_marker"
     android:dither="false"
-    android:filter="false">
+    android:filter="false"
+    android:tileMode="disabled">
 
 </bitmap>

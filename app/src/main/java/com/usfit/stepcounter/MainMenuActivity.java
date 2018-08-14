@@ -113,9 +113,9 @@ public class MainMenuActivity extends AppCompatActivity
 
 
 //        detailManager = new DetailManager(this);
-  //      ivTrack = ((ImageView)findViewById(R.id.ivTrack));
     //    detailManager.DrawCrisp(ivTrack,R.drawable.track);
         //Preferences
+        ivTrack = (findViewById(R.id.ivTrack));
         sharedPreferences = getSharedPreferences(getString(R.string.SharedStepData), Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.apply();
@@ -268,23 +268,7 @@ public class MainMenuActivity extends AppCompatActivity
             } else if (StepCount % 10 == 0) {
                 tempMoney = 1;
             }
-            if((StepCount % 5280) <= 10) {
-                int img = miles % 10;
-                int[] images = {
-                        R.drawable.bmp_race_strip_00,
-                        R.drawable.bmp_race_strip_01,
-                        R.drawable.bmp_race_strip_02,
-                        R.drawable.bmp_race_strip_03,
-                        R.drawable.bmp_race_strip_04,
 
-                        R.drawable.bmp_race_strip_05,
-                        R.drawable.bmp_race_strip_06,
-                        R.drawable.bmp_race_strip_07,
-                        R.drawable.bmp_race_strip_08,
-                        R.drawable.bmp_race_strip_09,
-                };
-                ivTrack.setImageDrawable(getResources().getDrawable(images[img]));
-            }
         }
 
         if(tempMoney > 0) {
@@ -345,6 +329,24 @@ public class MainMenuActivity extends AppCompatActivity
             distanceTextView.setText(tempString);
         }
         SetMarker(MiKm);
+
+        if((MiKm * 5280)%10 <= 10) {
+            int img = (int)MiKm % 10;
+            int[] images = {
+                    R.drawable.bmp_race_strip_00,
+                    R.drawable.bmp_race_strip_01,
+                    R.drawable.bmp_race_strip_02,
+                    R.drawable.bmp_race_strip_03,
+                    R.drawable.bmp_race_strip_04,
+
+                    R.drawable.bmp_race_strip_05,
+                    R.drawable.bmp_race_strip_06,
+                    R.drawable.bmp_race_strip_07,
+                    R.drawable.bmp_race_strip_08,
+                    R.drawable.bmp_race_strip_09,
+            };
+            ivTrack.setImageDrawable(getResources().getDrawable(images[img]));
+        }
         CalorieCalc(TempDist);
     }
 
