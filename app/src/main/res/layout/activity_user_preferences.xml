@@ -21,10 +21,10 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.204" />
 
     <EditText
         android:id="@+id/heightSecondPlainText"
@@ -38,10 +38,10 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.67"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.211" />
 
     <TextView
         android:id="@+id/heightFirstTextView"
@@ -54,8 +54,10 @@
         android:text="ft"
         app:layout_constraintBottom_toBottomOf="@+id/heightFirstPlainText"
         app:layout_constraintEnd_toStartOf="@+id/heightFirstPlainText"
+        app:layout_constraintHorizontal_bias="0.275"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/heightFirstPlainText" />
+        app:layout_constraintTop_toTopOf="@+id/heightFirstPlainText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/inchesTextView"
@@ -67,57 +69,10 @@
         android:text="in"
         app:layout_constraintBottom_toBottomOf="@+id/heightSecondPlainText"
         app:layout_constraintEnd_toStartOf="@+id/heightSecondPlainText"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toEndOf="@+id/heightFirstPlainText"
-        app:layout_constraintTop_toTopOf="@+id/heightSecondPlainText" />
-
-    <Button
-        android:id="@+id/applyHeightButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="ApplyPreferences"
-        android:text="Apply"
-        android:background="@drawable/click_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/heightFirstPlainText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heightFirstPlainText"
-        app:layout_constraintVertical_bias="0.050000012" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="108dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:checkedButton="@+id/imperialRadioButton"
-        app:layout_constraintBottom_toTopOf="@+id/heightSecondPlainText"
-        app:layout_constraintEnd_toEndOf="@+id/heightSecondPlainText"
-        app:layout_constraintStart_toStartOf="@+id/heightFirstPlainText"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RadioButton
-            android:id="@+id/imperialRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="RadioListener"
-            android:text="Imperial (ft)" />
-
-        <RadioButton
-            android:id="@+id/metricRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="RadioListener"
-            android:text="Metric (cm)" />
-
-    </RadioGroup>
+        app:layout_constraintTop_toTopOf="@+id/heightSecondPlainText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/applyWeightButton"
@@ -125,15 +80,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="ApplyWeight"
-        android:text="Apply"
+        android:layout_marginStart="8dp"
         android:background="@drawable/click_button"
+        android:onClick="ApplyPrefs"
+        android:text="Apply"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/applyHeightButton"
-        app:layout_constraintStart_toStartOf="@+id/applyHeightButton"
-        app:layout_constraintTop_toBottomOf="@+id/applyHeightButton"
-        app:layout_constraintVertical_bias="0.49" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/weightInput"
@@ -146,26 +99,26 @@
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/applyWeightButton"
         app:layout_constraintEnd_toEndOf="@+id/heightFirstPlainText"
+        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="@+id/heightFirstPlainText"
-        app:layout_constraintTop_toBottomOf="@+id/applyHeightButton"
-        app:layout_constraintVertical_bias="0.71000004" />
+        app:layout_constraintTop_toBottomOf="@+id/heightFirstPlainText"
+        app:layout_constraintVertical_bias="0.702" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="Weight"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/weightInput"
         app:layout_constraintEnd_toStartOf="@+id/heightSecondPlainText"
-        app:layout_constraintStart_toEndOf="@+id/heightFirstPlainText"
-        app:layout_constraintTop_toBottomOf="@+id/applyHeightButton" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/heightFirstPlainText" />
 
     <TextView
         android:id="@+id/weightTextView"
@@ -176,26 +129,10 @@
         android:text="lb"
         app:layout_constraintBottom_toBottomOf="@+id/weightInput"
         app:layout_constraintEnd_toEndOf="@+id/heightFirstTextView"
+        app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toStartOf="@+id/heightFirstTextView"
-        app:layout_constraintTop_toTopOf="@+id/weightInput" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="ToFriends"
-        android:text="Friends"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/weightInput"
+        app:layout_constraintVertical_bias="0.421" />
 
     <Button
         android:id="@+id/btnToAvCustomization"
@@ -203,13 +140,46 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/click_button"
         android:onClick="ToAvatarCustomize"
         android:text="Customize \n Avatar"
         app:layout_constraintBottom_toTopOf="@+id/heightSecondPlainText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/swImperialMetric"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="104dp"
+        android:checked="false"
+        android:contentDescription="Preferred measurement type."
+        android:onClick="RadioListener"
+        android:text="Imperial/Metric \t"
+        android:textOff="Metric"
+        android:textOn="Imperial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/heightSecondPlainText"
+        app:layout_constraintTop_toBottomOf="@+id/btnToAvCustomization" />
+
+    <Switch
+        android:id="@+id/swTrackOnLogEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:checked="false"
+        android:contentDescription="When this is enabled, you will start tracking as soon as you enter your activity logger"
+        android:text="Track "
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="@+id/swImperialMetric"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/swImperialMetric"
+        app:layout_constraintTop_toBottomOf="@+id/swImperialMetric" />
+
 </android.support.constraint.ConstraintLayout>

@@ -16,7 +16,7 @@ public class AvatarCustomizationActivity extends ShopActivity {
     //region Declarations
 
     //Components
-    Button btnAvatarApply;
+    Button btnAvatarCustApply;
     Drawable tempImage;
     DetailManager detailManager;
     //arrays
@@ -45,7 +45,7 @@ public class AvatarCustomizationActivity extends ShopActivity {
         ImageView lv = currentImage;
 
         _selectedItemObject = shop[position];
-        btnAvatarApply.setEnabled(_selectedItemObject != null);
+        btnAvatarCustApply.setEnabled(_selectedItemObject != null);
 
 
         switch (_selectedItemObject.getTag()){
@@ -118,7 +118,7 @@ ImageView ivAvatarFace,ivAvatarHead,ivAvatarBody,ivAvatarTop,ivAvatarBottom,ivAv
         ivAvatarTop = ((ImageView)findViewById(R.id.ivAvatarTop));
         ivAvatarBottom = ((ImageView)findViewById(R.id.ivAvatarBottom));
         ivAvatarFeet = ((ImageView)findViewById(R.id.ivAvatarFeet));
-        //btnAvatarApply = findViewById(R.id.btnAvatarApply);
+        btnAvatarCustApply = findViewById(R.id.btnAvatarCustApply);
 
         lst = findViewById(R.id.lvAvatarItems);
         ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);

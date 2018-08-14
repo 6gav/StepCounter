@@ -48,36 +48,39 @@ public class ProfileActivity extends AppCompatActivity {
         aBot = clytProfileBackground.findViewById(R.id.ivAvatarBottom);
         aFoot = clytProfileBackground.findViewById(R.id.ivAvatarFeet);
 
-        if(StaticHolderClass.displayedUser != null)
-        displayedUser = StaticHolderClass.displayedUser;
 
+            InitUser();
 
-
-        InitUser();
 
 
     }
 
 
     public void InitUser(){
-        tvProfileName.setText(displayedUser.mUsername);
-        tvStepCount.setText(String.valueOf(displayedUser.mTotalSteps));
+        if(StaticHolderClass.displayedUser == null)return;
+        InitProfile(StaticHolderClass.displayedUser);
 
-        aTop.setImageDrawable(getDrawable(R.drawable.outfit_t00 + displayedUser.mTop));
-        aBot.setImageDrawable(getDrawable(R.drawable.outfit_b00 + displayedUser.mBot));
-        aFoot.setImageDrawable(getDrawable(R.drawable.outfit_f00 + displayedUser.mFoot));
+        aTop.setImageDrawable(getDrawable(R.drawable.outfit_t00 + StaticHolderClass.displayedUser.mTop));
+        aBot.setImageDrawable(getDrawable(R.drawable.outfit_b00 + StaticHolderClass.displayedUser.mBot));
+        aFoot.setImageDrawable(getDrawable(R.drawable.outfit_f00 + StaticHolderClass.displayedUser.mFoot));
     }
 
     public void ToFriends(View v){
 
         Intent n = new Intent(this, FriendsListActivity.class);
-        n.putExtra("mCurrentUser", false);
+        n.putExtra("mCurrentUser", true );
+        startActivity(n);
+
+    }
+
+    public void ToUserPrefs(View v){
+        Intent n = new Intent(this,UserPreferences.class);
         startActivity(n);
 
     }
 
     public void InitProfile(User user){
-        if(user == null)return;
+
         tvProfileName.setText(user.mUsername);
         tvStepCount.setText(String.valueOf(user.mTotalSteps));
         tvFriendCount.setText(String.valueOf(user.friendsList.size()));

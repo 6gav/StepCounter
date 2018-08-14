@@ -8,15 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserPreferences extends AppCompatActivity {
 
     //Declarations
-    RadioButton metricRadio, imperialRadio;
     TextView feetTextView, inchTextView, weightTextView;
     EditText heightInput1, heightInput2, weightInput;
+    Switch swImperialMetric,swTrackOnLogEnter;
     Boolean isImperial;
     float Inches;
     SharedPreferences userprefs;
@@ -37,16 +38,16 @@ public class UserPreferences extends AppCompatActivity {
         inchTextView = findViewById(R.id.inchesTextView);
         weightTextView = findViewById(R.id.weightTextView);
 
-        metricRadio = findViewById(R.id.metricRadioButton);
-        imperialRadio = findViewById(R.id.imperialRadioButton);
+        swImperialMetric = findViewById(R.id.swImperialMetric);
+        swTrackOnLogEnter = findViewById(R.id.swTrackOnLogEnter);
 
 
         userprefs = getSharedPreferences(getString(R.string.SharedStepData), Context.MODE_PRIVATE);
         userEditor = userprefs.edit();
         userEditor.apply();
         //Variable Initialization
-        isImperial = true;
-
+        isImperial = userprefs.getBoolean("IsImperial",true);
+        SwitchValue();
 
 
 
@@ -66,7 +67,19 @@ public class UserPreferences extends AppCompatActivity {
 
 
     //OnClicks
-    public void ApplyPreferences(View v){
+    public void OnTrackEnterClick(Switch sw){
+    }
+
+
+    public void ApplyPrefs(View v){
+        ApplyHeight(v);
+        ApplyWeight(v);
+
+        //Switch button data
+
+        userprefs.edit().putBoolean("IsImperial",isImperial).apply();
+    }
+    private void ApplyHeight(View v){
         if(isImperial){
             String tempFeet = heightInput1.getText().toString();
             String tempInches = heightInput2.getText().toString();
@@ -93,7 +106,7 @@ public class UserPreferences extends AppCompatActivity {
         }
     }
 
-    public void ApplyWeight(View v){
+    private void ApplyWeight(View v){
         String weightText = weightInput.getText().toString();
         if(!weightText.equals("")) {
             if (isImperial) {
@@ -113,7 +126,10 @@ public class UserPreferences extends AppCompatActivity {
     }
 
     public void RadioListener(View v){
-        if(imperialRadio.isChecked()){
+        SwitchValue();
+    }
+    private void SwitchValue(){
+        if(!swImperialMetric.isChecked()){
             feetTextView.setText(R.string.FeetTextAbbreviation);
             weightTextView.setText(R.string.InchTextAbbreviation);
             inchTextView.setVisibility(View.VISIBLE);

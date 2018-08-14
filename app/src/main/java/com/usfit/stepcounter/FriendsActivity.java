@@ -226,7 +226,9 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     public void ToFriendsList(View v){
-        startActivity(new Intent(this, FriendsListActivity.class));
+        Intent n = new Intent(this, FriendsListActivity.class);
+        n.putExtra("mCurrentUser", false);
+        startActivity(n);
     }
 
 

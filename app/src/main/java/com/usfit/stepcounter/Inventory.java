@@ -44,7 +44,7 @@ public class Inventory extends ShopActivity {
         btnInvApply = findViewById(R.id.btnInvApply);
         ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         CreateItems();
-        LoadShopData("A_TOPA_BOT_A_FOTPurchased",A);
+        LoadShopData("outfit_t00outfit_b00outfit_f00Purchased",A);
         DrawPlayer();
     }
 
@@ -104,13 +104,13 @@ public class Inventory extends ShopActivity {
         detailManager.PlaySound(R.raw.sfx_equip);
         detailManager.PlayAnimation((Button)findViewById(R.id.btnInvApply),getResources().getDrawable(R.drawable.blip_blue));
         String[] tags = {
-                "A_HED",
-                "A_TOP",
-                "A_BOT",
+                "hair_00",
+                "outfit_t00",
+                "outfit_b00",
 
-                "A_FOT",
-                "A_BOD",
-                "A_FAC"
+                "outfit_f00",
+                "body_s0",
+                "expression_00"
         };
 
         for(int i = 0; i < 6; i++)

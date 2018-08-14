@@ -268,7 +268,23 @@ public class MainMenuActivity extends AppCompatActivity
             } else if (StepCount % 10 == 0) {
                 tempMoney = 1;
             }
+            if((StepCount % 5280) <= 10) {
+                int img = miles % 10;
+                int[] images = {
+                        R.drawable.bmp_race_strip_00,
+                        R.drawable.bmp_race_strip_01,
+                        R.drawable.bmp_race_strip_02,
+                        R.drawable.bmp_race_strip_03,
+                        R.drawable.bmp_race_strip_04,
 
+                        R.drawable.bmp_race_strip_05,
+                        R.drawable.bmp_race_strip_06,
+                        R.drawable.bmp_race_strip_07,
+                        R.drawable.bmp_race_strip_08,
+                        R.drawable.bmp_race_strip_09,
+                };
+                ivTrack.setImageDrawable(getResources().getDrawable(images[img]));
+            }
         }
 
         if(tempMoney > 0) {

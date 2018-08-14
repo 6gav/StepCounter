@@ -20,7 +20,7 @@ public class FriendsListActivity extends AppCompatActivity {
     Boolean mCurrentUser;
 
     private List<Friend> friends = new ArrayList<>();
-
+    private List<Friend> otherfr = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,17 +29,23 @@ public class FriendsListActivity extends AppCompatActivity {
         mCurrentUser = getIntent().getBooleanExtra("mCurrentUser", true);
 
         friends = StaticHolderClass.currentUser.friendsList;
+        if(StaticHolderClass.displayedUser == null){
+            otherfr = StaticHolderClass.currentUser.friendsList;
+        }
+        else
+        otherfr = StaticHolderClass.displayedUser.friendsList;
 
         if(mCurrentUser)
         InitNames(friends);
         else
-            InitNames(StaticHolderClass.displayedUser.friendsList);
+            InitNames(otherfr);
 
 
 
     }
 
     private void InitNames(List<Friend> nFriends){
+
         for(int i = 0; i < nFriends.size(); i++){
             mNames.add(nFriends.get(i).userName);
             mUIDS.add(nFriends.get(i).userID);
