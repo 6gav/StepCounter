@@ -132,6 +132,7 @@ ImageView ivAvatarFace,ivAvatarHead,ivAvatarBody,ivAvatarTop,ivAvatarBottom,ivAv
 
 
     public void ApplyChanges(View v){
+        detailManager.PlayAnimation((Button)v,getDrawable(R.drawable.blip_blue));
         SharedPreferences.Editor editor = preferences.edit();
         detailManager.PlaySound(R.raw.sfx_equip);
         //detailManager.PlayAnimation((ListView)findViewById(R.id.lvAvatarItems),getResources().getDrawable(R.drawable.blip_blue));

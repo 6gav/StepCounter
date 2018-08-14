@@ -62,27 +62,27 @@ public class Inventory extends ShopActivity {
         _selectedItemObject = shop[position];
         btnInvApply.setEnabled(_selectedItemObject != null);
         switch (_selectedItemObject.getTag()){
-            case "A_HED":
+            case "hair_00":
                 currentImage = findViewById(R.id.ivAvatarHead);
                 img = 0;
                 break;
-            case "A_TOP":
+            case "outfit_t00":
                 currentImage = findViewById(R.id.ivAvatarTop);
                 img = 1;
                 break;
-            case "A_BOT":
+            case "outfit_b00":
                 currentImage = findViewById(R.id.ivAvatarBottom);
                 img = 2;
                 break;
-            case "A_FOT":
+            case "outfit_f00":
                 currentImage = findViewById(R.id.ivAvatarFeet);
                 img = 3;
                 break;
-            case "A_BOD":
+            case "body_s0":
                 currentImage = findViewById(R.id.ivAvatarBody);
                 img = 4;
                 break;
-            case "A_FAC":
+            case "expression_00":
                 currentImage = findViewById(R.id.ivAvatarFace);
                 img = 5;
                 break;
