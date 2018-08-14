@@ -28,6 +28,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView tvFriendCount,tvFriendTitle,tvStepCount,tvStepTitle,tvProfileName;
 
+    Boolean mCurrentUser;
+
 
 
     @Override
@@ -35,7 +37,10 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        mCurrentUser = getIntent().getBooleanExtra("mCurrentUser", false);
+
         btnProfileFriend = findViewById(R.id.btnProfileFriend);
+        btnProfilePrefs = findViewById(R.id.btnProfileUPrefs);
         clytProfileBackground = findViewById(R.id.clytProfileBackground);
 
         tvFriendCount = findViewById(R.id.tvFriendCount);
@@ -48,6 +53,18 @@ public class ProfileActivity extends AppCompatActivity {
         aBot = clytProfileBackground.findViewById(R.id.ivAvatarBottom);
         aFoot = clytProfileBackground.findViewById(R.id.ivAvatarFeet);
 
+
+        if(!mCurrentUser){
+            btnProfilePrefs.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent n = new Intent(getApplicationContext(), ChallengeActivity.class);
+                    n.putExtra("mUID", StaticHolderClass.displayedUser.mUID);
+                    startActivity(n);
+                }
+            });
+            btnProfilePrefs.setText("Send Challenge");
+        }
 
             InitUser();
 

@@ -5,13 +5,20 @@
     
 
 
-    //Challenges to send to friends
+    //Challenges to send to friends  Type:Amount:Reward:Time Limit
     <string-array name="challenges">
-        //      Type:Amount:Reward:TimeLimit
+        <item>Distance:1:20:0</item>
+        <item>Distance:5:100:0</item>
+        <item>Distance:10:200:0</item>
+        <item>Calories:10:5:0</item>
+        <item>Calories:50:25:0</item>
+        <item>Calories:100:50:0</item>
 
-        //      For time limit, 0 is unlimited
+    </string-array>
 
-        <item>Distance:5:1000:2d</item>
 
+    <string-array name="challengeTypes">
+        <item>Distance</item>
+        <item>Calories</item>
     </string-array>
 </resources>

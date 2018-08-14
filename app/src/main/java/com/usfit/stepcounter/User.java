@@ -27,6 +27,8 @@ public class User {
 
     public List<RequestInfo> friendRequests;
 
+    public List<Challenge> challenges;
+
     public String mUsername, mEmail, mUID;
 
     public int mTop, mBot, mFoot, mTotalSteps;
@@ -37,6 +39,8 @@ public class User {
             friendsList = new ArrayList<>();
         if(friendRequests == null)
             friendRequests = new ArrayList<>();
+        if(challenges == null)
+            challenges = new ArrayList<>();
 
 
 
@@ -113,5 +117,9 @@ public class User {
         friendRequests.add(NewReq);
 
 
+    }
+
+    public void AddChallenge(Challenge challenge){
+        challenges.add(challenge);
     }
 }

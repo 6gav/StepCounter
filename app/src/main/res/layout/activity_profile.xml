@@ -129,19 +129,15 @@
         android:id="@+id/btnProfileUPrefs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/click_button"
-        android:onClick="ToUserPrefs"
         android:text="Preferences"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnProfileFriend"
         app:layout_constraintEnd_toEndOf="@+id/llytData"
         app:layout_constraintHorizontal_bias="0.814"
         app:layout_constraintStart_toStartOf="@+id/llytData"
-        app:layout_constraintTop_toTopOf="@+id/vVBBorder"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintTop_toTopOf="@+id/btnProfileFriend" />
 
     <Button
         android:id="@+id/btnProfileFriend"

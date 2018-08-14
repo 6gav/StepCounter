@@ -338,6 +338,8 @@ public class MainMenuActivity extends AppCompatActivity
             TempDist = MiKm;
             if(distanceString.equals("Km"))
                 MiKm *= 1.609344f;
+
+            editor.putFloat("DistanceTrack", MiKm).apply();
             MiKm *= 1000;
             int tempInt = (int)MiKm;
             MiKm = (float)tempInt / 1000.0f;
