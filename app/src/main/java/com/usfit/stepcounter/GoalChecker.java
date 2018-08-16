@@ -12,6 +12,7 @@ public class GoalChecker{
 
     SharedPreferences GoalTracker,StepTracker,MoneyTracker;
     String[] Goals,Goal;
+    String CurrentGoals;
     Activity activity;
     int StepsAtGoalCreate, CaloriesAtGoalCreate,GoalAtCreate,existingGoals;
 
@@ -21,7 +22,12 @@ public class GoalChecker{
         StepTracker = _activity.getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE);
         MoneyTracker = _activity.getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
 
-
+        CurrentGoals = GoalTracker.getString("CurrentGoals", "");
+        if(!CurrentGoals.equals(""))
+            Goals = CurrentGoals.split(";");
+        else{
+            Goals = new String[]{""};
+        }
         existingGoals = GoalTracker.getInt("GoalCount",0);
 
     }
@@ -42,19 +48,17 @@ public class GoalChecker{
     }
 
     public void Check(Context mContext){
-        String temp = GoalTracker.getString("CurrentGoals", "");
-        if(!temp.equals("")) {
+        if(!CurrentGoals.equals("")) {
 
             String[] goalsCompleted = { "","","",};
-            Goals = temp.split(";");
             for(int i = 0;i < Goals.length;i++){
-                Goals[i] = testGoal(Goals[i].split(","),temp,mContext);
+                Goals[i] = testGoal(Goals[i].split(","),CurrentGoals,mContext);
             }
-        }
 
+        }
     }
     String testGoal(String[] _Goal,String temp,Context mContext){
-
+        if(_Goal[0] == "" && _Goal.length == 1)return _Goal[0];
         Goal = _Goal;int StepGoal = Integer.valueOf(Goal[1]);
         int OrigSteps = Integer.valueOf(Goal[2]);
         //GoalType: 0 Steps, 1 Calories
@@ -63,9 +67,9 @@ public class GoalChecker{
 
         if (Difference >= StepGoal) {//goal was completed
 
-            String text = "You have completed your goal of "+StepGoal+" "+Goal[0]+", and have been rewarded "+CompleteGoal(Goal[0]+" Cash",StepGoal);
+            String text = "You have completed your goal of "+StepGoal+" "+Goal[0]+", and have been rewarded "+CompleteGoal(Goal[0],StepGoal)+" Cash";
             ///*
-            Toast.makeText(activity.getApplicationContext(),text, Toast.LENGTH_LONG).show();
+            Toast.makeText(activity.getApplicationContext(),text, Toast.LENGTH_SHORT).show();
             ImageView iv = new ImageView(mContext);
             iv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.stickavatar));
 
@@ -80,16 +84,21 @@ public class GoalChecker{
             */
             return "";
         }
-        return Goal[0] + "," + StepGoal + "," + OrigSteps + ";";
+        return Goal[0] + "," + StepGoal + "," + OrigSteps ;
     }
     public int CompleteGoal(String type, int stepsTaken){
         int moneyEarned = (int)Math.pow(stepsTaken,1.3f),
                 OrigMoney = MoneyTracker.getInt("MonValue",0);
-
+        switch (type){
+            case "Calories":
+                moneyEarned*=2;
+                break;
+        }
         MoneyTracker.edit().putInt("MonValue",moneyEarned+OrigMoney);
         existingGoals--;
         if(existingGoals<0)existingGoals=0;
         GoalTracker.edit().putInt("GoalCount",existingGoals);
         return  moneyEarned;
     }
+
 }

@@ -59,7 +59,7 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
         StepsAtGoalCreate = StepTracker.getInt("StepCount", 0);
         CaloriesAtGoalCreate = Math.round(StepTracker.getFloat("CalorieCount", 0));
         Goals = new String[]{"","",""};
-        existingGoals = GoalTracker.getInt("GoalCount",0);
+        //existingGoals = GoalTracker.getInt("GoalCount",0);
 
         LoadGoal();
 
@@ -119,8 +119,11 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
      //endregion
 
     public void SaveGoal(View v){
+        for(int i = 0; i < existingGoals;i++){
+            if(Goals[i] == "")existingGoals--;
+        }
 
-    if (existingGoals == 3){
+    if (existingGoals >= 3){
         //TODO:check to see if goal already exists
         currentGoal.setText(R.string.MaxActiveGoal);
         return;
@@ -132,7 +135,7 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
         GoalAtCreate = LoadType(type);
         if(!temp.equals("") && !temp.equals("0")){
             String Goal = type +","+ temp + "," + String.valueOf(GoalAtCreate) + ";";
-            for(int i = 0; i < Goals.length; i++)
+            for(int i = 0; i < (Goals.length>=3?3:Goals.length); i++)
                 Goal += Goals[i];
             GoalTracker.edit().putString("CurrentGoals", Goal).apply();
             existingGoals++;
@@ -158,8 +161,8 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
                 //GoalType: 0 Steps, 1 Calories
                 GoalAtCreate = LoadType(Goal[0]);
                 int Difference = GoalAtCreate - OrigSteps;
+                Difference = Difference<0?0:Difference;
 
-                //Difference = Difference<0?0:Difference;
 
                 if (Difference >= StepGoal) {
                     currentGoal.setText(R.string.GoalCompleted);
@@ -187,6 +190,7 @@ public class GoalsActivity extends AppCompatActivity implements AdapterView.OnIt
                 if(temp != "")
                     adapter.add(temp);
             }
+            existingGoals = Goals.length;
             lvCurrentGoals.setAdapter(adapter);
         }
         else {

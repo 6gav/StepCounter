@@ -14,6 +14,8 @@ public class StaticHolderClass {
         user.mface= infoPackage.mFace;
         user.mhair= infoPackage.mHair;
         user.mbody= infoPackage.mBody;
+        user.mEmail = infoPackage.userID;
+        user.mUsername = infoPackage.userName;
         return user;
 
     }
