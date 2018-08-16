@@ -1,10 +1,13 @@
 package com.usfit.stepcounter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Button debugStepButton;
     DetailManager detailManager;
     String userName;
+    Challenge currentChallengeRequest;
 
 
 
@@ -54,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     Handler h = new Handler();
     int delay = 250; //1 second=1000 milliseconds, 15*1000=15seconds
     Runnable runnable;
+    private DialogInterface.OnClickListener challengeDialogListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +107,6 @@ public class MainActivity extends AppCompatActivity {
         DetailManager.DrawPlayer(this,MoneyPref);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                CreateNewUser();
-            }
-        }, 1000);
 
     }
 
@@ -164,16 +166,122 @@ public class MainActivity extends AppCompatActivity {
         fUser = mAuth.getCurrentUser();
         LoadUser();
 
+        if(fUser != null){
+            AddUserListeners();
+        }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                CreateNewUser();
-            }
-        }, 1500);
 
         if(StaticHolderClass.currentUser != null)
             StaticHolderClass.currentUser.FullUpdateUser(this);
+
+    }
+
+    private void AddUserListeners() {
+        challengeDialogListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch(which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        String key = db.push().getKey();
+
+
+                        Challenge acceptChallenge = currentChallengeRequest;
+
+                        acceptChallenge.cKey = key;
+                        acceptChallenge.mSender = new UserInfoPackage(StaticHolderClass.currentUser.mUsername, StaticHolderClass.currentUser.mUID);
+
+                        Map<String, Object> childMap = new HashMap<>();
+
+                        childMap.put(key, acceptChallenge);
+
+                        db.child("challenge-accepts").child(currentChallengeRequest.mSender.userID).updateChildren(childMap);
+
+                        StaticHolderClass.currentUser.AddChallenge(currentChallengeRequest);
+
+
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+
+                        break;
+                }
+            }
+        };
+
+
+        db.child("challenge-invites").child(fUser.getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                CreateNewDialog(dataSnapshot.getValue(Challenge.class));
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        db.child("challenge-accepts").child(fUser.getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Challenge temp = dataSnapshot.getValue(Challenge.class);
+                currentChallengeRequest = temp;
+
+                StaticHolderClass.currentUser.AddChallenge(temp);
+
+                String toastText = temp.mSender.userName + " accepted your challenge.";
+                Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void CreateNewDialog(Challenge value) {
+
+        currentChallengeRequest = value;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm");
+        builder.setMessage("Are you sure?");
+
+        builder.setPositiveButton("Yes", challengeDialogListener);
+        builder.setNegativeButton("No", challengeDialogListener);
+
+        AlertDialog alert = builder.create();
+        alert.show();
 
     }
 
@@ -303,7 +411,10 @@ public  void ToProfile(View V){
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User tempUser = dataSnapshot.getValue(User.class);
-                    StaticHolderClass.currentUser = tempUser;
+                    if(tempUser == null)
+                        CreateNewUser();
+                    else
+                        StaticHolderClass.currentUser = tempUser;
                 }
 
                 @Override
