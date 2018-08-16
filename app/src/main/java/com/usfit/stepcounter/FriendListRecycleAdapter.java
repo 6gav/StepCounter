@@ -70,7 +70,7 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
             public void onClick(View v) {
                 Intent n = new Intent(mContext, ProfileActivity.class);
                 StaticHolderClass.displayedUser = mUsers.get(viewHolder.getAdapterPosition());
-                n.putExtra("DisplayType","FriendSearch");
+                n.putExtra("DisplayType","FriendView");
                 mContext.startActivity(n);
 
             }

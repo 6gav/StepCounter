@@ -124,6 +124,8 @@ public class User {
     }
 
     public void AddChallenge(Challenge challenge){
+        if(challenges == null)
+            challenges = new ArrayList<>();
         challenges.add(challenge);
     }
 }

@@ -184,8 +184,9 @@ public class MainActivity extends AppCompatActivity {
                     case DialogInterface.BUTTON_POSITIVE:
                         String key = db.push().getKey();
 
+                        User tempUser = StaticHolderClass.currentUser;
 
-                        Challenge acceptChallenge = currentChallengeRequest;
+                        Challenge acceptChallenge = new Challenge(key, currentChallengeRequest.mType, currentChallengeRequest.mAmount, currentChallengeRequest.mReward, currentChallengeRequest.mTime, new UserInfoPackage(tempUser.mUsername, tempUser.mUID));
 
                         acceptChallenge.cKey = key;
                         acceptChallenge.mSender = new UserInfoPackage(StaticHolderClass.currentUser.mUsername, StaticHolderClass.currentUser.mUID);
@@ -198,12 +199,13 @@ public class MainActivity extends AppCompatActivity {
 
                         StaticHolderClass.currentUser.AddChallenge(currentChallengeRequest);
 
-
+                        db.child("challenge-invites").child(fUser.getUid()).child(currentChallengeRequest.cKey).setValue(null);
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
-
+                        db.child("challenge-invites").child(fUser.getUid()).child(currentChallengeRequest.cKey).setValue(null);
                         break;
                 }
+
             }
         };
 

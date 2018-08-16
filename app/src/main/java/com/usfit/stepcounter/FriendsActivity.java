@@ -148,7 +148,14 @@ public class FriendsActivity extends AppCompatActivity {
 
         sendButton.setVisibility(View.VISIBLE);
         sendButton.setEnabled(true);
-        /**/
+        /*
+        * C
+        * R
+        * O
+        * N
+        * C
+        * H
+        * */
     }
 
 
@@ -245,7 +252,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     public void ToFriendsList(View v){
         Intent n = new Intent(this, FriendsListActivity.class);
-        n.putExtra("mCurrentUser", false);
+        n.putExtra("mCurrentUser", true);
         startActivity(n);
     }
 
@@ -277,6 +284,8 @@ public class FriendsActivity extends AppCompatActivity {
         tempRequest = null;
 
         requestUserNameTextView.setText("No Request.");
+
+        currentUser.FullUpdateUser(this);
 
 
     }
