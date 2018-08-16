@@ -69,20 +69,22 @@ public class ProfileActivity extends AppCompatActivity {
                     });
                     break;
                 case "FriendView":
+                    btnProfilePrefs.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent n = new Intent(getApplicationContext(), ChallengeActivity.class);
+                            n.putExtra("mUID", StaticHolderClass.displayedUser.mUID);
+                            startActivity(n);
+                        }
+                    });
+                    btnProfilePrefs.setText("Send Challenge");
+
+
+
                     break;
 
                 default:
-                    if(!mCurrentUser){
-                        btnProfilePrefs.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent n = new Intent(getApplicationContext(), ChallengeActivity.class);
-                                n.putExtra("mUID", StaticHolderClass.displayedUser.mUID);
-                                startActivity(n);
-                            }
-                        });
-                        btnProfilePrefs.setText("Send Challenge");
-                    }
+
                     break;
             }
         }
@@ -98,8 +100,8 @@ public class ProfileActivity extends AppCompatActivity {
     public void InitUser(){
 
 
-        InitProfile(StaticHolderClass.currentUser);
-        DetailManager.DrawPlayer(this, StaticHolderClass.currentUser);
+        InitProfile(StaticHolderClass.displayedUser);
+        DetailManager.DrawPlayer(this, StaticHolderClass.displayedUser);
 
     }
 
