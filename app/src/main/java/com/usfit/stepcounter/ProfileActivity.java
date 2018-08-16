@@ -70,6 +70,14 @@ public class ProfileActivity extends AppCompatActivity {
                     break;
                 case "FriendView":
                     break;
+                case"MyProfile":
+                    btnProfilePrefs.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ToUserPrefs(v);
+                        }
+                    });
+                    break;
 
                 default:
                     if(!mCurrentUser){

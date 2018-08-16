@@ -206,4 +206,29 @@ public class DetailManager {
 
         return drawable;
     }
+
+    public static int GetPartFromTag(String _tag){
+        int part = R.id.ivAvatarTop;
+        switch (_tag){
+            case "outfit_b00":
+                part = R.id.ivAvatarBottom;
+                break;
+            case "outfit_f00":
+                part = R.id.ivAvatarFeet;
+                break;
+            case "hair_00":
+                part = R.id.ivAvatarHead;
+                break;
+            case "A_HED":
+                part = R.id.ivAvatarHead;
+                break;
+            case"body_s0":
+                part = R.id.ivAvatarBody;
+                break;
+            case "expression_0":
+                part = R.id.ivAvatarFace;
+                break;
+        }
+        return part;
+    }
 }

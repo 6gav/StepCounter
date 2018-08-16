@@ -39,8 +39,7 @@ public class Inventory extends ShopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
         detailManager = new DetailManager(this);
-
-        lst = findViewById(R.id.lvInvItems);
+        lst = findViewById(R.id.lvItems);
         btnInvApply = findViewById(R.id.btnInvApply);
         ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         CreateItems();

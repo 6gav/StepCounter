@@ -120,7 +120,7 @@ ImageView ivAvatarFace,ivAvatarHead,ivAvatarBody,ivAvatarTop,ivAvatarBottom,ivAv
         ivAvatarFeet = ((ImageView)findViewById(R.id.ivAvatarFeet));
         btnAvatarCustApply = findViewById(R.id.btnAvatarCustApply);
 
-        lst = findViewById(R.id.lvAvatarItems);
+        lst = findViewById(R.id.lvItems);
         ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         CreateItems();
         LoadShopData("body_s0 expression_00 hair_00",A);
