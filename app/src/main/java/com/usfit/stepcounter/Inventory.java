@@ -43,7 +43,7 @@ public class Inventory extends ShopActivity {
         btnInvApply = findViewById(R.id.btnInvApply);
         ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         CreateItems();
-        LoadShopData("outfit_t00outfit_b00outfit_f00Purchased",A);
+        LoadShopData("outfit_t00outfit_b00outfit_f00PurchasedA_HED",A);
         DrawPlayer();
     }
 
@@ -62,6 +62,10 @@ public class Inventory extends ShopActivity {
         btnInvApply.setEnabled(_selectedItemObject != null);
         switch (_selectedItemObject.getTag()){
             case "hair_00":
+                currentImage = findViewById(R.id.ivAvatarHead);
+                img = 0;
+                break;
+                case "A_HED":
                 currentImage = findViewById(R.id.ivAvatarHead);
                 img = 0;
                 break;
@@ -102,6 +106,7 @@ public class Inventory extends ShopActivity {
         SharedPreferences.Editor editor = preferences.edit();
         detailManager.PlaySound(R.raw.sfx_equip);
         detailManager.PlayAnimation((Button)findViewById(R.id.btnInvApply),getResources().getDrawable(R.drawable.blip_blue));
+
         String[] tags = {
                 "hair_00",
                 "outfit_t00",

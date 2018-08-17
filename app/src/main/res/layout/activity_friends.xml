@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bck_lavender"
     tools:context=".FriendsActivity">
 
     <include
@@ -17,9 +18,10 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.779" />
 
     <Button
         android:id="@+id/newToFriendsListButton"
@@ -52,10 +54,9 @@
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/findFriendNameInput"
@@ -72,8 +73,10 @@
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/findFriendAvatarLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.803"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.055" />
 
     <TextView
         android:id="@+id/friendNameTextView"
@@ -102,9 +105,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/findFriendAvatarLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="@+id/findFriendNameInput"
-        app:layout_constraintTop_toBottomOf="@+id/findFriendNameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/findFriendNameInput"
+        app:layout_constraintVertical_bias="0.105" />
 
     <Button
         android:id="@+id/findFriendButton"
@@ -118,9 +122,10 @@
         android:text="Search"
         app:layout_constraintBottom_toTopOf="@+id/findFriendAvatarLayout"
         app:layout_constraintEnd_toEndOf="@+id/findFriendNameInput"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/findFriendNameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/findFriendNameInput"
+        app:layout_constraintVertical_bias="0.105" />
 
     <TextView
         android:id="@+id/friendRequestTempName"

@@ -48,6 +48,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     //region arrays
     int[] cost;
 
+    //Todo: replace with small outfit sprites
     int[] body = {
             R.drawable.body_s0,
             R.drawable.body_s1,
