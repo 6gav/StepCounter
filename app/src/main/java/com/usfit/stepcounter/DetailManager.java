@@ -147,24 +147,36 @@ public class DetailManager {
 
     public static void DrawPlayer(Activity activity, User user){
         if(user==null)return;
-        int ufac = R.drawable.expression_0,
-                uhar = R.drawable.hair_00,
+        int ufac = R.drawable.outfit_e00,
+                uhar = R.drawable.outfit_h00,
                 ubod = R.drawable.body_s0,
                 utop = R.drawable.outfit_t00,
                 ubot = R.drawable.outfit_b00,
                 ufot = R.drawable.outfit_f00;
 
+        BitmapFactory factory = new BitmapFactory();
 
 
-        ((ImageView)activity.findViewById(R.id.ivAvatarFace)).setImageDrawable(getDrawable(activity,user.mface + ufac));
-        ((ImageView)activity.findViewById(R.id.ivAvatarHead)).setImageDrawable(getDrawable(activity,user.mhair + uhar));
-        ((ImageView)activity.findViewById(R.id.ivAvatarBody)).setImageDrawable(getDrawable(activity,user.mbody + ubod));
+        ((ImageView)activity.findViewById(R.id.ivAvatarFace)).setImageDrawable(deFilterDrawable(activity,user.mface + ufac));
+        ((ImageView)activity.findViewById(R.id.ivAvatarHead)).setImageDrawable(deFilterDrawable(activity,user.mhair + uhar));
+        ((ImageView)activity.findViewById(R.id.ivAvatarBody)).setImageDrawable(deFilterDrawable(activity,user.mbody + ubod));
 
-        ((ImageView)activity.findViewById(R.id.ivAvatarTop)).setImageDrawable(getDrawable(activity,user.mTop +   utop));
-        ((ImageView)activity.findViewById(R.id.ivAvatarBottom)).setImageDrawable(getDrawable(activity,user.mBot+ ubot));
-        ((ImageView)activity.findViewById(R.id.ivAvatarFeet)).setImageDrawable(getDrawable(activity,user.mFoot + ufot));
+        ((ImageView)activity.findViewById(R.id.ivAvatarTop)).setImageDrawable(deFilterDrawable(activity,user.mTop +   utop));
+        ((ImageView)activity.findViewById(R.id.ivAvatarBottom)).setImageDrawable(deFilterDrawable(activity,user.mBot+ ubot));
+        ((ImageView)activity.findViewById(R.id.ivAvatarFeet)).setImageDrawable(deFilterDrawable(activity,user.mFoot + ufot));
     }
 
+    public static Drawable deFilterDrawable(Activity activity, int drawable_id){
+        BitmapDrawable drawable;
+
+
+
+        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), drawable_id);
+        drawable = new BitmapDrawable(activity.getResources(), bitmap);
+        drawable.setAntiAlias(false);
+
+        return drawable;
+    }
     public static void DrawPlayer(Activity activity, SharedPreferences preferences){
         if(preferences == null)
         {

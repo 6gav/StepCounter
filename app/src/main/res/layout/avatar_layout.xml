@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/expression_0" />
+        app:srcCompat="@drawable/outfit_e00" />
 
     <ImageView
         android:id="@+id/ivAvatarHead"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hair_00" />
+        app:srcCompat="@drawable/outfit_h00" />
 
     <ImageView
         android:id="@+id/ivAvatarFeet"
