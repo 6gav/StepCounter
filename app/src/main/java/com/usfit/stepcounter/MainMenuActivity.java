@@ -403,7 +403,7 @@ public class MainMenuActivity extends AppCompatActivity
         }
 
 
-        weight = sharedPreferences.getFloat("Weight", 0.0f);
+        weight = sharedPreferences.getFloat("Weight", 150.0f);
 
 
         super.onResume();
