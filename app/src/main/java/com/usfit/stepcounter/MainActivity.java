@@ -334,6 +334,7 @@ public  void ToProfile(View V){
     StaticHolderClass.displayedUser = StaticHolderClass.currentUser;
     Intent n = new Intent(this, ProfileActivity.class);
     n.putExtra("mCurrentUser", true);
+    n.putExtra("DisplayType","MyProfile");
     startActivity(n);
 }
     public void ToShop(View v) {

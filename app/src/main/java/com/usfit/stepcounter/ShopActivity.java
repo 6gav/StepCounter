@@ -26,7 +26,7 @@ import java.util.TimerTask;
 
 public  class ShopActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     //Components
-    ImageView currentImage,ivPurchaseAnimation;
+    ImageView currentImage;
     ListView lst;
     Button btnPurchase, btnEquip;
     TextView MoneyText;
@@ -157,8 +157,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
     //Variables
     boolean Validated = false;
-    private int MonValue, itemoffset, MaxItems = 75,selectedItem = 0, purchases = 0,cue = 0;
-    Item _selectedItemObject = null;
+    private int MonValue, itemoffset, MaxItems = 75,selectedItem = 0, purchases = 0,cue = 0,pp = -1;
+    Item _selectedItemObject = null,previousItem = null;
     Boolean IsShop = true;
 
 
@@ -174,6 +174,16 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         detailManager.PlaySound(R.raw.sfx_select);
         _selectedItemObject = shop[position];
+        DetailManager.DrawPlayer(this,preferences);
+        if(pp != -1){
+            previousItem = shop[pp];
+            if(previousItem.getTag() != _selectedItemObject.getTag()){
+
+            }
+        }
+        pp = position;
+
+        currentImage = findViewById(DetailManager.GetPartFromTag(_selectedItemObject.getTag()));
 
         btnPurchase.setEnabled(_selectedItemObject != null);
 
@@ -189,25 +199,24 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_shop);
-
+        lst = findViewById(R.id.lvItems);
         timer = new Timer();
         preferences = getApplicationContext().getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
         MonValue = preferences.getInt("MonValue", 0);
         purchases = preferences.getInt("Purchased Items", 0);
 
 
+        DetailManager.DrawPlayer(this,preferences);
         items = new Item[MaxItems];
         shop = new Item[MaxItems];
         cost = getResources().getIntArray(R.array.costs);
-        if(IsShop == true) {
 
+        if(IsShop == true) {
             detailManager = new DetailManager(this);
-            lst = findViewById(R.id.lvShopItems);
-            currentImage = findViewById(R.id.ivCurrentImage);
+
             btnEquip = findViewById(R.id.btnEquip);
             btnPurchase = findViewById(R.id.btnPurchase);
             MoneyText = findViewById(R.id.tvMonValueInfo);
-            ivPurchaseAnimation = findViewById(R.id.ivPurchaseAnimation);
 
 
             CreateItems();
@@ -466,7 +475,6 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             lst.setAdapter(AAdapter);
             lst.setOnItemClickListener(this);
         }
-
     }
 
 
@@ -498,7 +506,6 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             if (purchaseSuccessful) {
                 detailManager.PlaySound(R.raw.sfx_buy);
                 PlayAnimation(btnPurchase, getResources().getDrawable(R.drawable.blip_green));
-                detailManager.PlayAnimation(ivPurchaseAnimation, getResources().getDrawable(R.drawable.confetti));
             } else {
                 detailManager.PlaySound(R.raw.sfx_reject);
             }

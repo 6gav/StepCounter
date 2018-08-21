@@ -54,6 +54,9 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
                 viewHolder.friendTop.setImageDrawable(mContext.getDrawable(temp.mTop + R.drawable.outfit_t00));
                 viewHolder.friendBot.setImageDrawable(mContext.getDrawable(temp.mBot + R.drawable.outfit_b00));
                 viewHolder.friendFoot.setImageDrawable(mContext.getDrawable(temp.mFoot + R.drawable.outfit_f00));
+                viewHolder.friendBody.setImageDrawable(mContext.getDrawable(temp.mbody + R.drawable.body_s0));
+                viewHolder.friendHead.setImageDrawable(mContext.getDrawable(temp.mhair + R.drawable.hair_00));
+                viewHolder.friendFace.setImageDrawable(mContext.getDrawable(temp.mface + R.drawable.expression_0));
             }
 
             @Override
@@ -81,15 +84,18 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView friendBody, friendTop, friendBot, friendFoot;
+        ImageView friendBody, friendTop, friendBot, friendFoot,friendHead,friendFace;
         TextView friendName, friendSteps;
         ConstraintLayout parentLayout;
         public ViewHolder(View itemView) {
             super(itemView);
-            friendBody = itemView.findViewById(R.id.friendBodyImageView);
-            friendTop = itemView.findViewById(R.id.friendTopImageView);
-            friendBot = itemView.findViewById(R.id.friendBottomImageView);
-            friendFoot = itemView.findViewById(R.id.friendFootImageView);
+            friendBody = itemView.findViewById(R.id.ivAvatarBody);
+            friendTop = itemView.findViewById(R.id.ivAvatarTop);
+            friendBot = itemView.findViewById(R.id.ivAvatarBottom);
+            friendFoot = itemView.findViewById(R.id.ivAvatarFeet);
+            friendHead = itemView.findViewById(R.id.ivAvatarHead);
+            friendFace = itemView.findViewById(R.id.ivAvatarFace);
+
             parentLayout = itemView.findViewById(R.id.FriendListLayout);
             friendName = itemView.findViewById(R.id.friendUsernameTextView);
             friendSteps = itemView.findViewById(R.id.friendTotalStepsTextView);

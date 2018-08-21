@@ -6,26 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bck_tan"
-    tools:context="com.usfit.stepcounter.ShopActivity">
+    tools:context="com.usfit.stepcounter.ShopActivity"
+    tools:layout_editor_absoluteY="81dp">
 
-
-    <TextView
-        android:id="@+id/tvShopTitleTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Market"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/ivMonIcon"
@@ -33,217 +16,119 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.744"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMonValueInfo"
+        app:layout_constraintEnd_toStartOf="@+id/tvMonValueInfo"
+        app:layout_constraintTop_toTopOf="@+id/tvMonValueInfo"
         app:srcCompat="@drawable/mon_icon" />
 
     <TextView
         android:id="@+id/tvMonValueInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:onClick="MoneyUpdate"
         android:text="X 0"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.011"
-        app:layout_constraintStart_toEndOf="@+id/ivMonIcon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.00999999" />
-
-    <ListView
-        android:id="@+id/lvShopItems"
-        android:layout_width="163dp"
-        android:layout_height="270dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorDetail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.564" />
-
-    <ImageView
-        android:id="@+id/ivEmptyModel"
-        android:layout_width="156dp"
-        android:layout_height="265dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.638"
-        app:srcCompat="@drawable/emptymodel" />
-
-    <ImageView
-        android:id="@+id/ivCurrentImage"
-        android:layout_width="156dp"
-        android:layout_height="265dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.638"
-        app:srcCompat="@drawable/outfit_f1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnPurchase"
         android:layout_width="136dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/click_button"
         android:enabled="false"
         android:onClick="Purchase"
         android:text="Purchase"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnEquip"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.926"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvShopItems" />
+        app:layout_constraintStart_toEndOf="@+id/btnEquip"
+        app:layout_constraintTop_toTopOf="@+id/btnEquip" />
 
     <Button
         android:id="@+id/btnEquip"
         android:layout_width="136dp"
         android:layout_height="65dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="32dp"
         android:background="@drawable/click_button"
         android:enabled="false"
         android:onClick="Equip"
         android:text="Equip"
-        app:layout_constraintBottom_toBottomOf="@+id/btnPurchase"
-        app:layout_constraintEnd_toStartOf="@+id/lvShopItems"
-        app:layout_constraintHorizontal_bias="0.528"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnPurchase" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
         android:id="@+id/cbxHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:checked="true"
         android:onClick="OnCheckBoxClick"
         android:text="Head"
-        app:layout_constraintBottom_toTopOf="@+id/lvShopItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.689" />
+        app:layout_constraintBottom_toBottomOf="@+id/cbxFootwear"
+        app:layout_constraintStart_toEndOf="@+id/cbxFootwear"
+        app:layout_constraintTop_toTopOf="@+id/cbxFootwear" />
 
     <CheckBox
         android:id="@+id/cbxBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:checked="true"
         android:onClick="OnCheckBoxClick"
         android:text="Bottoms"
-        app:layout_constraintBottom_toTopOf="@+id/lvShopItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.581"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.689" />
+        app:layout_constraintBottom_toBottomOf="@+id/cbxTop"
+        app:layout_constraintStart_toEndOf="@+id/cbxTop"
+        app:layout_constraintTop_toTopOf="@+id/cbxTop" />
 
     <CheckBox
         android:id="@+id/cbxFootwear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:checked="true"
         android:onClick="OnCheckBoxClick"
         android:text="Footwear"
-        app:layout_constraintBottom_toTopOf="@+id/lvShopItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.689" />
+        app:layout_constraintBottom_toBottomOf="@+id/cbxBottom"
+        app:layout_constraintStart_toEndOf="@+id/cbxBottom"
+        app:layout_constraintTop_toTopOf="@+id/cbxBottom" />
 
     <CheckBox
         android:id="@+id/cbxTop"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
         android:checked="true"
         android:onClick="OnCheckBoxClick"
         android:text="Top"
-        app:layout_constraintBottom_toTopOf="@+id/lvShopItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.689" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/cbxPurchased"
         android:layout_width="111dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="OnCheckBoxClick"
         android:text="Purchased"
-        app:layout_constraintBottom_toTopOf="@+id/ivCurrentImage"
-        app:layout_constraintEnd_toStartOf="@+id/lvShopItems"
-        app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbxHead"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintStart_toStartOf="@+id/cbxTop"
+        app:layout_constraintTop_toBottomOf="@+id/cbxTop" />
 
-    <ImageView
-        android:id="@+id/ivPurchaseAnimation"
-        android:layout_width="260dp"
-        android:layout_height="256dp"
-        android:layout_marginBottom="8dp"
+    <include
+        layout="@layout/item_inventory_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnEquip"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/confetti" />
+        app:layout_constraintTop_toBottomOf="@+id/cbxPurchased" />
 
 
 </android.support.constraint.ConstraintLayout>
