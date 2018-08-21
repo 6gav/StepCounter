@@ -11,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Challenge {
     public String cKey, mType, mAmount, mReward, mTime;
 
-    public float DistanceAtChallengeAccept;
+    public float AmountAtChallengeAccept;
 
     public UserInfoPackage mSender;
 
@@ -39,7 +39,7 @@ public class Challenge {
 
                 Float currDistance = chPref.getFloat("Distance", 0.0f);
 
-                Float difference = challenge.DistanceAtChallengeAccept - currDistance;
+                Float difference = challenge.AmountAtChallengeAccept - currDistance;
 
                 if(difference >= (float)Integer.valueOf(challenge.mAmount)){
                     CompleteChallenge(mContext, challenge);

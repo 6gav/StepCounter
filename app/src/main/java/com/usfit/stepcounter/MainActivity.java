@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
                         db.child("challenge-accepts").child(currentChallengeRequest.mSender.userID).updateChildren(childMap);
 
-                        StaticHolderClass.currentUser.AddChallenge(currentChallengeRequest);
+                        StaticHolderClass.currentUser.AddChallenge(getApplicationContext(), currentChallengeRequest);
 
                         db.child("challenge-invites").child(fUser.getUid()).child(currentChallengeRequest.cKey).setValue(null);
                         break;
@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 Challenge temp = dataSnapshot.getValue(Challenge.class);
                 currentChallengeRequest = temp;
 
-                StaticHolderClass.currentUser.AddChallenge(temp);
+                StaticHolderClass.currentUser.AddChallenge(getApplicationContext(), temp);
 
                 String toastText = temp.mSender.userName + " accepted your challenge.";
                 Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();

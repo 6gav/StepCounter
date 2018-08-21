@@ -123,9 +123,19 @@ public class User {
 
     }
 
-    public void AddChallenge(Challenge challenge){
+    public void AddChallenge(Context mContext, Challenge challenge){
         if(challenges == null)
             challenges = new ArrayList<>();
+
+        switch(challenge.mType){
+            case "Distance":
+                challenge.AmountAtChallengeAccept = mContext.getSharedPreferences("com.usfit.stepcounter.stepdata", Context.MODE_PRIVATE).getFloat("DistanceTrack", 0.0f);
+                break;
+            case "Calories":
+                break;
+        }
+
+
         challenges.add(challenge);
     }
 }
