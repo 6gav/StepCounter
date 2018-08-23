@@ -96,7 +96,7 @@ public class Inventory extends ShopActivity {
 
         tempImage = currentImage.getDrawable();
 
-        currentImage.setImageDrawable(_selectedItemObject.getImage());
+        detailManager.DrawCrisp(currentImage,_selectedItemObject.getImage_Id());
         if(img!= -1)
         images[img] = _selectedItemObject.getImage_Id();
 

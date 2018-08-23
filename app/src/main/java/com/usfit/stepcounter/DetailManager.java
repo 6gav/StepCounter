@@ -96,15 +96,14 @@ public class DetailManager {
 
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), did);
 
-            RoundedBitmapDrawable mDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), bitmap);
+            //RoundedBitmapDrawable mDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), bitmap);
             //mDrawable.setCircular(true);
+            BitmapDrawable mDrawable = new BitmapDrawable(context.getResources(), bitmap);
+            mDrawable.setAntiAlias(false);
+            mDrawable.setDither(false);
             mDrawable.setFilterBitmap(false);
+
             i.setImageDrawable(mDrawable);
-
-/*
-            AliasingDrawableWrapper wrapper = new AliasingDrawableWrapper(i.getDrawable());
-
-            wrapper.draw(canvas);*/
         }
     }
     public RoundedBitmapDrawable DrawCrisp(int did){
@@ -165,18 +164,6 @@ public class DetailManager {
         ((ImageView)activity.findViewById(R.id.ivAvatarBottom)).setImageDrawable(deFilterDrawable(activity,user.mBot+ ubot));
         ((ImageView)activity.findViewById(R.id.ivAvatarFeet)).setImageDrawable(deFilterDrawable(activity,user.mFoot + ufot));
     }
-
-    public static Drawable deFilterDrawable(Activity activity, int drawable_id){
-        BitmapDrawable drawable;
-
-
-
-        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), drawable_id);
-        drawable = new BitmapDrawable(activity.getResources(), bitmap);
-        drawable.setAntiAlias(false);
-
-        return drawable;
-    }
     public static void DrawPlayer(Activity activity, SharedPreferences preferences){
         if(preferences == null)
         {
@@ -190,8 +177,23 @@ public class DetailManager {
         ((ImageView)activity.findViewById(R.id.ivAvatarBottom)).setImageDrawable(getDrawable(activity,preferences.getInt("outfit_b00",R.drawable.outfit_b00),preferences.getInt("outfit_b00T",0)));
         ((ImageView)activity.findViewById(R.id.ivAvatarFeet)).setImageDrawable(getDrawable(activity,preferences.getInt("outfit_f00",R.drawable.outfit_f00),preferences.getInt("outfit_f00T",0)));
     }
+
+    public static Drawable deFilterDrawable(Activity activity, int drawable_id){
+        BitmapDrawable drawable;
+
+
+
+        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), drawable_id);
+        drawable = new BitmapDrawable(activity.getResources(), bitmap);
+        drawable.setAntiAlias(false);
+        drawable.setDither(false);
+        drawable.setFilterBitmap(false);
+        ;
+        return drawable;
+    }
+
     private static Drawable getDrawable(Activity activity, int drawable_id,int tint){
-        Drawable drawable = activity.getDrawable(drawable_id);
+        Drawable drawable = deFilterDrawable(activity,drawable_id);
         Color color = new Color();
         color.alpha(255);
         color.red(0);

@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/body_s0" />
+        app:srcCompat="@drawable/body_s4" />
 
     <ImageView
         android:id="@+id/ivAvatarBottom"

@@ -85,7 +85,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     };
 
     int[] expressions = {
-            R.drawable.expression_0,
+            R.drawable.outfit_e00,
             R.drawable.expression_1,
             R.drawable.expression_2,
 
@@ -192,7 +192,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             btnPurchase.setEnabled(!_selectedItemObject.isPurchased());
         }
         btnEquip.setEnabled(_selectedItemObject.isPurchased());
-        currentImage.setImageDrawable(_selectedItemObject.getImage());
+        detailManager.DrawCrisp(currentImage,_selectedItemObject.getImage_Id());
     }
 
     @Override
