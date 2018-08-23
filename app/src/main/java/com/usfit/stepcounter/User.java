@@ -67,9 +67,9 @@ public class User {
         mBot  = outfitPrefs.getInt("outfit_b00", R.drawable.outfit_b00) - R.drawable.outfit_b00;
         mFoot = outfitPrefs.getInt("outfit_f00", R.drawable.outfit_f00) - R.drawable.outfit_f00;
 
-        mface = outfitPrefs.getInt("expression_0",R.drawable.expression_0) - R.drawable.expression_0;
+        mface = outfitPrefs.getInt("expression_0",R.drawable.outfit_e00) - R.drawable.outfit_e00;
         mbody = outfitPrefs.getInt("body_s0",R.drawable.body_s0) - R.drawable.body_s0;
-        mhair = outfitPrefs.getInt("hair_00",R.drawable.hair_00) - R.drawable.hair_00;
+        mhair = outfitPrefs.getInt("hair_00",R.drawable.outfit_h00) - R.drawable.outfit_h00;
     }
 
     public void PublishUser(){

@@ -416,8 +416,11 @@ public  void ToProfile(View V){
                     User tempUser = dataSnapshot.getValue(User.class);
                     if(tempUser == null)
                         CreateNewUser();
-                    else
+                    else {
                         StaticHolderClass.currentUser = tempUser;
+                        LoadOutfitPrefs();
+
+                    }
                 }
 
                 @Override
@@ -430,6 +433,21 @@ public  void ToProfile(View V){
     else
         Toast.makeText(this, "Many features will be disabled if you do not log in.", Toast.LENGTH_LONG).show();
 
+
+    }
+
+    private void LoadOutfitPrefs() {
+        User tempUser = StaticHolderClass.currentUser;
+        SharedPreferences outfitPrefs = getSharedPreferences("com.usfit.stepcounter.marketplace", MODE_PRIVATE);
+        SharedPreferences.Editor outfitEditor = outfitPrefs.edit();
+        outfitEditor.putInt("outfit_t00", tempUser.mTop + R.drawable.outfit_t00);
+        outfitEditor.putInt("outfit_b00", tempUser.mBot + R.drawable.outfit_b00);
+        outfitEditor.putInt("outfit_f00", tempUser.mFoot + R.drawable.outfit_f00);
+        outfitEditor.putInt("expression_0", tempUser.mface + R.drawable.outfit_e00);
+        outfitEditor.putInt("body_s0", tempUser.mbody + R.drawable.body_s0);
+        outfitEditor.putInt("hair_00", tempUser.mhair + R.drawable.outfit_h00);
+        outfitEditor.apply();
+        DetailManager.DrawPlayer(this,outfitPrefs);
 
     }
 

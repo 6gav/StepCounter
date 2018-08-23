@@ -169,8 +169,8 @@ public class DetailManager {
         {
             preferences = activity.getSharedPreferences("com.usfit.stepcounter.marketplace", Context.MODE_PRIVATE);
         }
-        ((ImageView)activity.findViewById(R.id.ivAvatarFace)).setImageDrawable(getDrawable(activity,preferences.getInt("expression_0",R.drawable.expression_0),preferences.getInt("expression_0T",0)));
-        ((ImageView)activity.findViewById(R.id.ivAvatarHead)).setImageDrawable(getDrawable(activity,preferences.getInt("hair_00",R.drawable.hair_00),preferences.getInt("hair_00T",0)));
+        ((ImageView)activity.findViewById(R.id.ivAvatarFace)).setImageDrawable(getDrawable(activity,preferences.getInt("expression_0",R.drawable.outfit_e00),preferences.getInt("expression_0T",0)));
+        ((ImageView)activity.findViewById(R.id.ivAvatarHead)).setImageDrawable(getDrawable(activity,preferences.getInt("hair_00",R.drawable.outfit_h00),preferences.getInt("hair_00T",0)));
         ((ImageView)activity.findViewById(R.id.ivAvatarBody)).setImageDrawable(getDrawable(activity,preferences.getInt("body_s0",R.drawable.body_s0),preferences.getInt("body_s0T",0)));
 
         ((ImageView)activity.findViewById(R.id.ivAvatarTop)).setImageDrawable(getDrawable(activity,preferences.getInt("outfit_t00",R.drawable.outfit_t00),preferences.getInt("outfit_t00T",9)));
