@@ -51,12 +51,14 @@ public class FriendListRecycleAdapter extends RecyclerView.Adapter<FriendListRec
              User temp = dataSnapshot.getValue(User.class);
                 mUsers.add(temp);
 
+                String tempString = "Total Steps: " + temp.mTotalSteps;
+                viewHolder.friendSteps.setText(tempString);
                 viewHolder.friendTop.setImageDrawable(mContext.getDrawable(temp.mTop + R.drawable.outfit_t00));
                 viewHolder.friendBot.setImageDrawable(mContext.getDrawable(temp.mBot + R.drawable.outfit_b00));
                 viewHolder.friendFoot.setImageDrawable(mContext.getDrawable(temp.mFoot + R.drawable.outfit_f00));
                 viewHolder.friendBody.setImageDrawable(mContext.getDrawable(temp.mbody + R.drawable.body_s0));
-                viewHolder.friendHead.setImageDrawable(mContext.getDrawable(temp.mhair + R.drawable.hair_00));
-                viewHolder.friendFace.setImageDrawable(mContext.getDrawable(temp.mface + R.drawable.expression_0));
+                viewHolder.friendHead.setImageDrawable(mContext.getDrawable(temp.mhair + R.drawable.outfit_h00));
+                viewHolder.friendFace.setImageDrawable(mContext.getDrawable(temp.mface + R.drawable.outfit_e00));
             }
 
             @Override

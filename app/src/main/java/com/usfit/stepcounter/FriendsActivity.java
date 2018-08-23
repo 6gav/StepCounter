@@ -23,7 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.usfit.stepcounter.StaticHolderClass.currentUser;
@@ -90,8 +92,20 @@ public class FriendsActivity extends AppCompatActivity {
     public void Search(View v){
         String searchName = usernameInput.getText().toString();
 
-        if(!searchName.equals("")){
+        if(!searchName.equals("") && !searchName.equals(StaticHolderClass.currentUser.mUsername)){
+            List<Friend> friends = StaticHolderClass.currentUser.friendsList;
+            if(friends != null){
+                for(int i = 0; i < friends.size(); i++){
+                    if(searchName.equals(friends.get(i).userName)){
+                        Toast.makeText(this, "This user is already on your friends list.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            }
             AddSearchListener(searchName);
+        }
+        else if(searchName.equals(StaticHolderClass.currentUser.mUsername)){
+            Toast.makeText(this, "You can't add yourself as a friend, silly!", Toast.LENGTH_SHORT).show();
         }
     }
 
