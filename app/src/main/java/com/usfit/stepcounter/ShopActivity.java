@@ -264,7 +264,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         detailManager.DrawCrisp(currentImage,_selectedItemObject.getImage_Id());
     }
     private int GetCostMultiplier(int i){
-        return itemCostMultipler*(int)(Math.random()%25+i+1);
+        return itemCostMultipler*(int)(i+4)+1000;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -388,7 +388,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         boolean isPurchased;
         for(i = 0; i < (top.length);i++){
             Item item = new Item();
-            item.setCost(itemCostMultipler*(int)(Math.random()%20*i));
+            item.setCost(GetCostMultiplier(i));
             item.setName("Shirt "+i);
             item.setImage(top[i]);
             item.setTag("outfit_t00");
@@ -408,7 +408,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         j = top.length;
         for(i = 0; i < bottom.length;i++){
             Item item = new Item();
-            item.setCost(itemCostMultipler*(int)(Math.random()%20*i));
+            item.setCost(GetCostMultiplier(i));
             item.setName("Bottoms "+i);
             item.setImage(bottom[i]);
             item.setTag("outfit_b00");
@@ -428,7 +428,7 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         j = top.length+ bottom.length-1;
         for(i = 0; i < footwear.length;i++){
             Item item = new Item();
-            item.setCost(itemCostMultipler*(int)(Math.random()%20*i));
+            item.setCost(GetCostMultiplier(i));
             item.setName("Footwear "+i);
             item.setImage(footwear[i]);
             item.setTag("outfit_f00");
