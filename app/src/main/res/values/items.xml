@@ -30,6 +30,28 @@
         <item>5500</item>
         <item>6500</item>//Shirts
 
+        <item>2000</item>
+        R.drawable.outfit_t19,
+        R.drawable.outfit_t20,
+
+        R.drawable.outfit_t21,
+        R.drawable.outfit_t22,
+        R.drawable.outfit_t23,
+
+        R.drawable.outfit_t24,
+        R.drawable.outfit_t25,
+        R.drawable.outfit_t26,
+
+        R.drawable.outfit_t27,
+        R.drawable.outfit_t28,
+        R.drawable.outfit_t29,
+
+        R.drawable.outfit_t30,
+        R.drawable.outfit_t31,
+        R.drawable.outfit_t32,
+
+        R.drawable.outfit_t33,
+
         <item>000</item>
         <item>1000</item>
         <item>1000</item>

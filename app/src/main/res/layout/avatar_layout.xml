@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/outfit_t00" />
+        app:srcCompat="@drawable/outfit_t08" />
 
     <ImageView
         android:id="@+id/ivAvatarFace"

@@ -48,52 +48,72 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
     //region arrays
     int[] cost;
 
-    //Todo: replace with small outfit sprites
     int[] body = {
             R.drawable.body_s0,
             R.drawable.body_s1,
             R.drawable.body_s2,
             R.drawable.body_s3,
             R.drawable.body_s4,
+            R.drawable.body_s5
     };
 
     int[] headwear = {
-            R.drawable.hair_00,
-            R.drawable.hair_01,
-            R.drawable.hair_02,
+            R.drawable.outfit_h00,
 
-            R.drawable.hair_03,
-            R.drawable.hair_04,
-            R.drawable.hair_05,
+            R.drawable.outfit_h01,
+            R.drawable.outfit_h02,
+            R.drawable.outfit_h03,
 
-            R.drawable.hair_06,
-            R.drawable.hair_07,
-            R.drawable.hair_08,
+            R.drawable.outfit_h04,
+            R.drawable.outfit_h05,
+            R.drawable.outfit_h06,
 
-            R.drawable.hair_09,
-            R.drawable.hair_010,
-            R.drawable.hair_011,
+            R.drawable.outfit_h07,
+            R.drawable.outfit_h08,
+            R.drawable.outfit_h09,
 
-            R.drawable.hair_012,
-            R.drawable.hair_013,
-            R.drawable.hair_014,
+            R.drawable.outfit_h10,
+            R.drawable.outfit_h11,
+            R.drawable.outfit_h12,
 
-            R.drawable.hair_015,
-            R.drawable.hair_016//17
+            R.drawable.outfit_h13,
+            R.drawable.outfit_h14,//17
+            R.drawable.outfit_h15,
+
+            R.drawable.outfit_h16,
+            R.drawable.outfit_h17,
+            R.drawable.outfit_h18,
+
+            R.drawable.outfit_h19,
+            R.drawable.outfit_h20,
+            R.drawable.outfit_h21,
+
+            R.drawable.outfit_h22,
+            R.drawable.outfit_h23,
+            R.drawable.outfit_h24,
+
+            R.drawable.outfit_h25,
+            R.drawable.outfit_h26,
+
+
 
 
     };
 
     int[] expressions = {
             R.drawable.outfit_e00,
-            R.drawable.expression_1,
-            R.drawable.expression_2,
+            R.drawable.outfit_e01,
+            R.drawable.outfit_e02,
 
-            R.drawable.expression_3,
-            R.drawable.expression_4,
-            R.drawable.expression_5,
+            R.drawable.outfit_e03,
+            R.drawable.outfit_e04,
+            R.drawable.outfit_e05,
 
-            R.drawable.expression_6,//7
+            R.drawable.outfit_e06,
+            R.drawable.outfit_e07,
+            R.drawable.outfit_e08,
+
+            R.drawable.outfit_e09,//7
     };
 
     int[] top = {
@@ -119,7 +139,30 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
 
             R.drawable.outfit_t15,
             R.drawable.outfit_t16,
-            R.drawable.outfit_t17//18
+            R.drawable.outfit_t17,//18
+
+            R.drawable.outfit_t18,
+            R.drawable.outfit_t19,
+            R.drawable.outfit_t20,
+
+            R.drawable.outfit_t21,
+            R.drawable.outfit_t22,
+            R.drawable.outfit_t23,
+
+            R.drawable.outfit_t24,
+            R.drawable.outfit_t25,
+            R.drawable.outfit_t26,
+
+            R.drawable.outfit_t27,
+            R.drawable.outfit_t28,
+            R.drawable.outfit_t29,
+
+            R.drawable.outfit_t30,
+            R.drawable.outfit_t31,
+            R.drawable.outfit_t32,
+
+            R.drawable.outfit_t33,//34
+
     };
 
     int[] bottom = {
@@ -136,7 +179,22 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             R.drawable.outfit_b08,
 
             R.drawable.outfit_b09,
-            R.drawable.outfit_b10//11
+            R.drawable.outfit_b10,//11
+
+            R.drawable.outfit_b11,
+            R.drawable.outfit_b12,
+            R.drawable.outfit_b13,
+
+            R.drawable.outfit_b14,
+            R.drawable.outfit_b15,
+            R.drawable.outfit_b16,
+
+            R.drawable.outfit_b17,
+            R.drawable.outfit_b18,
+            R.drawable.outfit_b19,
+
+            R.drawable.outfit_b20,
+            R.drawable.outfit_b21,
     };
 
     int[] footwear = {
@@ -152,13 +210,24 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             R.drawable.outfit_f07,
             R.drawable.outfit_f08,
 
-            R.drawable.outfit_f09//10
+            R.drawable.outfit_f09,//10
+            R.drawable.outfit_f10,
+            R.drawable.outfit_f11,
+            R.drawable.outfit_f12,
+
+            R.drawable.outfit_f13,
+            R.drawable.outfit_f14,
+            R.drawable.outfit_f15,
+
+            R.drawable.outfit_f16,
+            R.drawable.outfit_f17,
+            R.drawable.outfit_f18
     };
 //endregion
 
     //Variables
     boolean Validated = false;
-    private int MonValue, itemoffset, MaxItems = 75,selectedItem = 0, purchases = 0,cue = 0,pp = -1;
+    private int MonValue, itemoffset, MaxItems = 150,selectedItem = 0, purchases = 0,cue = 0,pp = -1,itemCostMultipler = 1450;
     Item _selectedItemObject = null,previousItem = null;
     Boolean IsShop = true;
 
@@ -194,7 +263,9 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         btnEquip.setEnabled(_selectedItemObject.isPurchased());
         detailManager.DrawCrisp(currentImage,_selectedItemObject.getImage_Id());
     }
-
+    private int GetCostMultiplier(int i){
+        return itemCostMultipler*(int)(Math.random()%25+i+1);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -317,9 +388,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         boolean isPurchased;
         for(i = 0; i < (top.length);i++){
             Item item = new Item();
-            item.setCost(cost[j]);
+            item.setCost(itemCostMultipler*(int)(Math.random()%20*i));
             item.setName("Shirt "+i);
-            item.setName(topNames[j]);
             item.setImage(top[i]);
             item.setTag("outfit_t00");
             isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);
@@ -338,9 +408,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         j = top.length;
         for(i = 0; i < bottom.length;i++){
             Item item = new Item();
-            item.setCost(cost[j]);
+            item.setCost(itemCostMultipler*(int)(Math.random()%20*i));
             item.setName("Bottoms "+i);
-            item.setName(botNames[i]);
             item.setImage(bottom[i]);
             item.setTag("outfit_b00");
             isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
@@ -359,9 +428,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         j = top.length+ bottom.length-1;
         for(i = 0; i < footwear.length;i++){
             Item item = new Item();
-            item.setCost(cost[j]);
+            item.setCost(itemCostMultipler*(int)(Math.random()%20*i));
             item.setName("Footwear "+i);
-            item.setName(fotNames[i]);
             item.setImage(footwear[i]);
             item.setTag("outfit_f00");
             isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);description = "";
@@ -377,12 +445,12 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             items[j] = item;
             ++j;
         }
-        for(i = 0; i < (headwear.length-4);i++){
+        for(i = 0; i < (headwear.length-12);i++){
             Item item = new Item();
-            item.setCost(cost[j]);
-            item.setName(hedNames[i]);
+            item.setCost(0);
+            item.setName("Hair " + i);
             item.setImage(headwear[i]);
-            item.setTag("hair_00");
+            item.setTag("outfit_h00");
             isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
@@ -390,24 +458,25 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
             item.setDescription(description);
             items[j] = item;
             ++j;
-        }for(i = headwear.length-4; i < (headwear.length);i++){
+        }
+        for(i = headwear.length-12; i < (headwear.length);i++){
             Item item = new Item();
-            item.setCost(cost[j]);
-            item.setName(hedNames[i]);
+            item.setCost(GetCostMultiplier(i));
+            item.setName("Headwear " + (i-15));
             item.setImage(headwear[i]);
             item.setTag("A_HED");
             isPurchased = preferences.getBoolean(item.getImage_Id()+"purchased?",false);
             item.setPurchased(isPurchased);
             description = "";
-            description += "Get " + item.getName()+ " (Free!).";
+            description += "Purchase " + item.getName()+ " for " + item.getCost() + "$.";
             item.setDescription(description);
             items[j] = item;
             ++j;
         }
         for(i = 0; i < (body.length);i++){
             Item item = new Item();
-            item.setCost(cost[i]);
-            item.setName(bodNames[i]);
+            item.setCost(0);
+            item.setName("Body " + i);
             item.setImage(body[i]);
             item.setTag("body_s0");
             isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);
@@ -420,8 +489,8 @@ public  class ShopActivity extends AppCompatActivity implements AdapterView.OnIt
         }
         for(i = 0; i < (facNames.length);i++){
             Item item = new Item();
-            item.setCost(cost[i]);
-            item.setName(facNames[i]);
+            item.setCost(0);
+            item.setName("Face " + i);
             item.setImage(expressions[i]);
             item.setTag("expression_00");
             isPurchased = true;//preferences.getBoolean(item.getImage_Id()+"purchased?",false);

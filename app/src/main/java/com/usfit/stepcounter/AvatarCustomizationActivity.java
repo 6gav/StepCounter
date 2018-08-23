@@ -123,7 +123,7 @@ ImageView ivAvatarFace,ivAvatarHead,ivAvatarBody,ivAvatarTop,ivAvatarBottom,ivAv
         lst = findViewById(R.id.lvItems);
         ArrayAdapter<String> A = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         CreateItems();
-        LoadShopData("body_s0 expression_00 hair_00",A);
+        LoadShopData("body_s0 expression_00 outfit_h00",A);
         DrawPlayer();
     }
     void DrawPlayer(){
