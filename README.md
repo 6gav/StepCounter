@@ -1,14 +1,14 @@
 # Preview
 ### Main Screen
-<img src = "https://i.imgur.com/0cjAfF7.png" width=250/>
+[Main Screenshot](https://i.imgur.com/0cjAfF7.png)
 ### Shop Screen
-<img src = "https://i.imgur.com/r181Bp0.png" width=250/>
+[Shop Screenshot](https://i.imgur.com/r181Bp0.png)
 ### Friends
-<img src = "https://i.imgur.com/GfLK7PB.png" width=250/>
+[Inventory Screenshot](https://i.imgur.com/GfLK7PB.png)
 ### Achievements
-<img src = "https://i.imgur.com/gBuJACO.png" width=250/>
+[Achievements Screenshot](https://i.imgur.com/gBuJACO.png)
 ### Goals
-<img src = "https://i.imgur.com/VwdcSZb.png" width=250/>
+[Goals Screenshot](https://i.imgur.com/VwdcSZb.png)
 # Purpose 
 The purpose of this project is to create an app that encourages exercise by rewarding the user with in-game currency and allowing 
 that currency to be spent on in-game cosmetics such as clothing, hats, and shoes. Achievements and Goals will also help encourage
